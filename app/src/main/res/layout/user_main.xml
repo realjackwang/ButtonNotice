@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginTop="10dip"
+    android:layout_marginLeft="15dip"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/User_name"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="姓名" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+    android:id="@+id/User_sex"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="性别：" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+        android:id="@+id/User_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出生日期" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+    android:id="@+id/User_political_status"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="政治面貌" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+    android:id="@+id/User_No."
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="学号：" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+    android:id="@+id/User_year"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="入学年份：" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+    android:id="@+id/User_campus"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="校区：" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+        android:id="@+id/User_college"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="学院：" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+    android:id="@+id/User_major"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="专业：" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"/>
+    <TextView
+        android:id="@+id/User_class"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="班级：" />
+    <View  android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="#686a6c"
+        />
+    <TextView
+        android:id="@+id/User_circle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="圈子" />
+
+    <Button
+        android:id="@+id/all_circle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全部圈子" />
+
+
+</LinearLayout>
