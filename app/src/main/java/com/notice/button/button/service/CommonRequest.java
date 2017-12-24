@@ -1,5 +1,8 @@
 package com.notice.button.button.service;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +13,9 @@ import java.util.HashMap;
  */
 
 public class CommonRequest {
+
+    private String userName;
+    private String passWord;
 
     /**
      * 请求码，类似于接口号（在本文中用Servlet做服务器时暂时用不到）
@@ -51,7 +57,8 @@ public class CommonRequest {
         JSONObject object = new JSONObject();
         JSONObject param = new JSONObject(requestParam);
         try {
-            // 下边2个"requestCode"、"requestParam"是和服务器约定好的请求体字段名称，在本文接下来的服务端代码会说到
+            // 下边2个"requestCod'e"、"requestParam"是和服务器约定好的请求体字段名称，在本文接下来的服务端代码会说到
+//            object.put("","{");
             object.put("requestCode", requestCode);
             object.put("requestParam", param);
         } catch (JSONException e) {
@@ -60,6 +67,76 @@ public class CommonRequest {
         // 打印原始请求报文
      //   LogUtil.logRequest(object.toString());
         return object.toString();
+    }
+
+    public void Login(ResponseHandler rHandler){       //登录
+
+        final CommonRequest request =new CommonRequest();
+            request.addRequestParam("userAccount",this.getUserName());
+            request.addRequestParam("userPassword",this.getPassWord());
+
+        new HttpPostTask(Constant.URL_Login,request,rHandler).execute();
+
+    }
+
+    public void Signup(ResponseHandler rHandler){   //注册
+
+        final CommonRequest request =new CommonRequest();
+        request.addRequestParam("userAccount",this.getUserName());
+        request.addRequestParam("userPassword",this.getPassWord());
+        new HttpPostTask(Constant.URL_Register,request,rHandler).execute();
+
+    }
+
+    public void Updata(CommonRequest request,ResponseHandler rHandler){   //更新用户信息
+        new HttpPostTask(Constant.URL_Updata,request,rHandler).execute();
+    }
+
+    public void Create(ResponseHandler rHandler){  //创建
+
+        final CommonRequest request =new CommonRequest();
+//        request.addRequestParam("userAccount",this.getUserName());
+//        request.addRequestParam("userPassword",this.getPassWord());
+        new HttpPostTask(Constant.URL_Register,request,rHandler).execute();
+
+    }
+
+    public void Delete(ResponseHandler rHandler){  //删除
+
+        final CommonRequest request =new CommonRequest();
+//        request.addRequestParam("userAccount",this.getUserName());
+//        request.addRequestParam("userPassword",this.getPassWord());
+        new HttpPostTask(Constant.URL_Register,request,rHandler).execute();
+
+    }
+
+
+/**
+ * 用于获取当前用户的Id
+ * @param c 当前的Activity名称
+ * @return 当前用户的Id
+ **/
+    public String getCurrentId(Context c) {
+        final SharedPreferences sp = c.getSharedPreferences("DODODO", Context.MODE_PRIVATE);
+        String Id=sp.getString("Id","");
+        return Id;
+
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
 }

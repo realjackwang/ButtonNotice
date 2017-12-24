@@ -13,13 +13,12 @@ import com.notice.button.button.service.CommonResponse;
 import com.notice.button.button.service.Constant;
 import com.notice.button.button.service.HttpPostTask;
 import com.notice.button.button.service.ResponseHandler;
-import com.notice.button.button.service.ServiceUtil;
 import com.notice.button.button.util.MD5;
 import com.notice.button.button.util.StringUtil;
 
 import java.security.NoSuchAlgorithmException;
 
-public class Notice_Login extends AppCompatActivity implements ServiceUtil {
+public class Notice_Login extends AppCompatActivity  {
 
     private EditText etAccount;
     private EditText etPassword;
@@ -94,30 +93,31 @@ public class Notice_Login extends AppCompatActivity implements ServiceUtil {
                                 && !StringUtil.isEmpty(etPassword.getText().toString())) {
 
                             final CommonRequest request = new CommonRequest();
-                            request.addRequestParam("name", etAccount.getText().toString());
-
+                            request.setUserName(etAccount.getText().toString());
+                            
                             try {
                                 String passmd=MD5.md5(etPassword.getText().toString());
-                                request.addRequestParam("password", passmd );
+                                request.setPassWord(passmd);
+
                             } catch (NoSuchAlgorithmException e) {
                                 e.printStackTrace();
                             }
 
-                            sendHttpPostRequest(Constant.URL_Login, request, new ResponseHandler() {
+                            request.Login(new ResponseHandler() {
                                 @Override
-                                public String success(CommonResponse response) {
+                                public void success(CommonResponse response) {
                                     Toast.makeText(Notice_Login.this, "登录成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
                                     Intent intent =new Intent(Notice_Login.this,Notice_List.class);
                                     startActivity(intent);
-                                    return null;
+
                                 }
 
                                 @Override
-                                public String fail(String failCode, String failMsg) {
+                                public void fail(String failCode, String failMsg) {
                                     Toast.makeText(Notice_Login.this, "登录失败", Toast.LENGTH_SHORT).show();
-                                    return failCode;
+
                                 }
-                            }, true);
+                            });
 
                         } else {
 
@@ -133,8 +133,5 @@ public class Notice_Login extends AppCompatActivity implements ServiceUtil {
 
     }
 
-    @Override
-    public void sendHttpPostRequest(String url, CommonRequest request, ResponseHandler responseHandler, boolean showLoadingDialog) {
-        new HttpPostTask(request, mHandler, responseHandler).execute(url);
-    }
+
 }
