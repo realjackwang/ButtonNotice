@@ -80,6 +80,7 @@ public class CommonRequest {
 
     /**
      * 用于登录
+     * 用setUserName和setPassWord设置账户密码
      * @param rHandler 返回成功或失败的值
      */
     public void Login(ResponseHandler rHandler){       //登录
@@ -94,6 +95,7 @@ public class CommonRequest {
 
     /**
      * 用于注册
+     * 用setUserName和setPassWord设置账户密码
      * @param rHandler 返回成功或失败的值
      */
     public void Signup(ResponseHandler rHandler){   //注册
@@ -107,6 +109,7 @@ public class CommonRequest {
 
     /**
      * 用于上传信息（用户，通知，等等）
+     * 上传前首先用setTable方法设置要上传到那个表，然后用addRequestParam添加要上传的列的名字和列的值
      * @param request 需要上传的信息
      * @param rHandler 返回成功或失败的值
      */
@@ -117,14 +120,13 @@ public class CommonRequest {
 
     /**
      * 用于创建表（发通知，发公告）
+     * 创建前首先用setTable方法设置要上传到那个表，然后用addRequestParam添加要上传的列的名字和列的值
      * @param rHandler 返回成功或失败的值
      */
-    public void Create(ResponseHandler rHandler){  //创建
+    public void Create( CommonRequest request,ResponseHandler rHandler){  //创建
 
-        final CommonRequest request =new CommonRequest();
-//        request.addRequestParam("userAccount",this.getUserName());
-//        request.addRequestParam("userPassword",this.getPassWord());
-        new HttpPostTask(Constant.URL_Register,request,rHandler).execute();
+       request.addRequestParam("Table",this.getTable());
+        new HttpPostTask(Constant.URL_Create,request,rHandler).execute();
 
     }
 
@@ -144,6 +146,7 @@ public class CommonRequest {
 
     /**
      * 用于查询
+     * 查询前首先用setTable方法设置查询哪个表，然后用setId方法设置要查询哪一行
      * @param rHandler 返回成功或失败的值
      */
     public void Query(ResponseHandler rHandler){
