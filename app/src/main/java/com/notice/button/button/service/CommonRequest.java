@@ -69,6 +69,10 @@ public class CommonRequest {
         return object.toString();
     }
 
+    /**
+     * 用于登录
+     * @param rHandler 返回成功或失败的值
+     */
     public void Login(ResponseHandler rHandler){       //登录
 
         final CommonRequest request =new CommonRequest();
@@ -79,6 +83,10 @@ public class CommonRequest {
 
     }
 
+    /**
+     * 用于注册
+     * @param rHandler 返回成功或失败的值
+     */
     public void Signup(ResponseHandler rHandler){   //注册
 
         final CommonRequest request =new CommonRequest();
@@ -88,10 +96,19 @@ public class CommonRequest {
 
     }
 
+    /**
+     * 用于上传信息（用户，通知，等等）
+     * @param request 需要上传的信息
+     * @param rHandler 返回成功或失败的值
+     */
     public void Updata(CommonRequest request,ResponseHandler rHandler){   //更新用户信息
         new HttpPostTask(Constant.URL_Updata,request,rHandler).execute();
     }
 
+    /**
+     * 用于创建表（发通知，发公告）
+     * @param rHandler 返回成功或失败的值
+     */
     public void Create(ResponseHandler rHandler){  //创建
 
         final CommonRequest request =new CommonRequest();
@@ -101,6 +118,10 @@ public class CommonRequest {
 
     }
 
+    /**
+     * 用于删除表（删除公告，撤回）
+     * @param rHandler 返回成功或失败的值
+     */
     public void Delete(ResponseHandler rHandler){  //删除
 
         final CommonRequest request =new CommonRequest();

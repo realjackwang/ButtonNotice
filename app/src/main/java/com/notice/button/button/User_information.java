@@ -29,8 +29,7 @@ public class User_information extends AppCompatActivity  {
                 request1.addRequestParam("userSchool","sdu");
                 request1.addRequestParam("userCollege","信院");
 
-                new HttpPostTask(Constant.URL_Updata, request1, new ResponseHandler() {  //固定写法，用来请求的。   第一个Constant.URL_Login是我的服务器的地址，你要用登录服务器就用代理服务器的地址，要用上传就用上传的服务器地址。
-
+                request1.Updata(request1,new ResponseHandler() {
                     @Override
                     public void success(CommonResponse response) {     //如果成功了就在这里面写跳转啊，taost什么的。
                         Toast.makeText(User_information.this,"更改成功",Toast.LENGTH_SHORT).show();

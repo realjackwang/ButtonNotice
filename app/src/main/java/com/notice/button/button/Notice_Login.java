@@ -94,7 +94,7 @@ public class Notice_Login extends AppCompatActivity  {
 
                             final CommonRequest request = new CommonRequest();
                             request.setUserName(etAccount.getText().toString());
-                            
+
                             try {
                                 String passmd=MD5.md5(etPassword.getText().toString());
                                 request.setPassWord(passmd);
