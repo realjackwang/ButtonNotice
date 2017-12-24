@@ -132,14 +132,14 @@ public class CommonRequest {
 
     /**
      * 用于删除表（删除公告，撤回）
+     * 删除前首先用setTable方法选择删除的表，然后用setId方法设置要删除哪一行。
      * @param rHandler 返回成功或失败的值
      */
-    public void Delete(ResponseHandler rHandler){  //删除
-
-        final CommonRequest request =new CommonRequest();
-//        request.addRequestParam("userAccount",this.getUserName());
-//        request.addRequestParam("userPassword",this.getPassWord());
-        new HttpPostTask(Constant.URL_Register,request,rHandler).execute();
+    public void Delete(ResponseHandler rHandler){            //删除
+     CommonRequest request =new CommonRequest();
+     request.addRequestParam("Table",this.getTable());
+     request.addRequestParam("Id",this.getId());
+     new HttpPostTask(Constant.URL_Delete,request,rHandler).execute();
 
     }
 
