@@ -103,6 +103,17 @@ public class Notice_Login extends AppCompatActivity  {
                                 e.printStackTrace();
                             }
 
+                       request.Updata(request, new ResponseHandler() {
+                           @Override
+                           public void success(CommonResponse response) {
+
+                           }
+
+                           @Override
+                           public void fail(String failCode, String failMsg) {
+
+                           }
+                       });
                             request.Login(new ResponseHandler() {
                                 @Override
                                 public void success(CommonResponse response) {

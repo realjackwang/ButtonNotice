@@ -17,6 +17,15 @@ public class CommonRequest {
     private String userName;
     private String passWord;
 
+
+    /** 查找对应的表**/
+    private String Table;
+    /** 查找对应的行 **/
+    private String Id;
+    /** 查找对应的列 **/
+    private String List;
+
+
     /**
      * 请求码，类似于接口号（在本文中用Servlet做服务器时暂时用不到）
      */
@@ -102,6 +111,7 @@ public class CommonRequest {
      * @param rHandler 返回成功或失败的值
      */
     public void Updata(CommonRequest request,ResponseHandler rHandler){   //更新用户信息
+        request.addRequestParam("Table",this.getTable());
         new HttpPostTask(Constant.URL_Updata,request,rHandler).execute();
     }
 
@@ -132,11 +142,29 @@ public class CommonRequest {
     }
 
 
+    /**
+     * 用于查询
+     * @param rHandler 返回成功或失败的值
+     */
+    public void Query(ResponseHandler rHandler){
+
+        final CommonRequest request =new CommonRequest();
+        request.addRequestParam("Table",this.getTable());
+        request.addRequestParam("Id",this.getId());
+        request.addRequestParam("List",this.getList());
+        new HttpPostTask(Constant.URL_Query,request,rHandler).execute();
+
+    }
+
+
+
+
 /**
  * 用于获取当前用户的Id
  * @param c 当前的Activity名称
  * @return 当前用户的Id
  **/
+
     public String getCurrentId(Context c) {
         final SharedPreferences sp = c.getSharedPreferences("DODODO", Context.MODE_PRIVATE);
         String Id=sp.getString("Id","");
@@ -159,5 +187,30 @@ public class CommonRequest {
     public void setPassWord(String passWord) {
         this.passWord = passWord;
     }
+
+    public String getTable() {
+        return Table;
+    }
+
+    public void setTable(String table) {
+        Table = table;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public String getList() {
+        return List;
+    }
+
+    public void setList(String list) {
+        List = list;
+    }
+
 
 }
