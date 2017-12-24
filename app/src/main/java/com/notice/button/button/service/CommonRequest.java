@@ -115,6 +115,7 @@ public class CommonRequest {
      */
     public void Updata(CommonRequest request,ResponseHandler rHandler){   //更新用户信息
         request.addRequestParam("Table",this.getTable());
+        request.addRequestParam("Id",this.getId());
         new HttpPostTask(Constant.URL_Updata,request,rHandler).execute();
     }
 
