@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.notice.button.button.Button.buttonLogin;
 import com.notice.button.button.R;
 import com.notice.button.button.User.userInfo;
 
@@ -15,13 +16,13 @@ import java.util.List;
 
 public class noticeMain extends Activity {
 
-    private List<noticeDetail> notice_list = new ArrayList<noticeDetail>();
+
+    private List<noticeDetail> notice_list = new ArrayList<>();//声明列表
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notice_list);
-
+        setContentView(R.layout.activity_notice_main);
 
         initNotice();//初始化通知数据
 
@@ -30,20 +31,24 @@ public class noticeMain extends Activity {
         listView.setAdapter(adapter);
 
 
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(noticeMain.this, userInfo.class);
-                startActivity(intent);
-            }
-        });
+        Button toNewNotice = (Button) findViewById(R.id.toNewNotice);//新通知跳转
+        toNewNotice.setOnClickListener((new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(noticeMain.this,noticeNew.class );
+                        startActivity(intent);
+                    }
+                })
+        );
+
     }
+
 
 
     private void initNotice() {
         noticeDetail no1 = new noticeDetail("Apple", "11.2", "fsef", "2e", "gvsdvg");
         notice_list.add(no1);
-
     }
+
+
 }

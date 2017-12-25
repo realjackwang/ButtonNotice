@@ -1,4 +1,4 @@
-package com.notice.button.button;
+package com.notice.button.button.Button;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.notice.button.button.Notice.noticeMain;
+import com.notice.button.button.R;
 import com.notice.button.button.service.CommonRequest;
 import com.notice.button.button.service.CommonResponse;
 import com.notice.button.button.service.ResponseHandler;
@@ -30,63 +31,17 @@ public class buttonLogin extends AppCompatActivity  {
         etAccount = (EditText) findViewById(R.id.UserId);
         etPassword = (EditText) findViewById(R.id.UserKey);
 
-//        Button btnRegister = (Button) findViewById(R.id.login);
-//        btnRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                        if (!StringUtil.isEmpty(etAccount.getText().toString())
-//                                && !StringUtil.isEmpty(etPassword.getText().toString())) {
-//
-//
-//                            final CommonRequest request = new CommonRequest();
-//                            request.addRequestParam("name", etAccount.getText().toString());
-//
-//                            try {
-//                                String passmd= MD5.md5(etPassword.getText().toString());
-//
-//                                request.addRequestParam("password", passmd );
-//
-//                            } catch (NoSuchAlgorithmException e) {
-//
-//                                e.printStackTrace();
-//                            }
-//
-//
-//
-//                           sendHttpPostRequest(Constant.URL_Register, request, new ResponseHandler() {
-//
-//                                @Override
-//                                public String success(CommonResponse response) {
-//                                    Toast.makeText(buttonLogin.this, "注册成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
-//                                    return null;
-//                                }
-//
-//                                @Override
-//                                public String fail(String failCode, String failMsg) {
-//                                    Toast.makeText(buttonLogin.this, failMsg, Toast.LENGTH_SHORT).show();
-//                                    return failCode;
-//                                }
-//                            }, true);
-//
-//
-//                        } else {
-//                            Toast.makeText(buttonLogin.this, "账号、密码都不能为空！", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//
-//                    }
-//
-//
-//
-//
-//        });
+        final Button btnLogin = (Button) findViewById(R.id.login);
 
 
-        Button btnLogin = (Button) findViewById(R.id.login);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
+
 
                         if (!StringUtil.isEmpty(etAccount.getText().toString())
                                 && !StringUtil.isEmpty(etPassword.getText().toString())) {
@@ -140,6 +95,18 @@ public class buttonLogin extends AppCompatActivity  {
 
 
         });
+
+
+        Button bttest = (Button) findViewById(R.id.test); //测试用跳转
+
+        bttest.setOnClickListener((new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(buttonLogin.this,noticeMain.class );
+                        startActivity(intent);
+                    }
+                })
+        );
 
     }
 

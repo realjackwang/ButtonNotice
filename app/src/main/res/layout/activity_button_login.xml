@@ -38,5 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="登陆"/>
-
+    <Button
+        android:id="@+id/test"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="测试专用"/>
 </LinearLayout>

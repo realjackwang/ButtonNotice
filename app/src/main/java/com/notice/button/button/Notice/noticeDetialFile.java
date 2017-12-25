@@ -10,6 +10,6 @@ public class noticeDetialFile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice_detial_file);
+        setContentView(R.layout.activity_notice_detail_file);
     }
 }
