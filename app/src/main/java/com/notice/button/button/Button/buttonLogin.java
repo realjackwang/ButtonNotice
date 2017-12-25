@@ -1,6 +1,8 @@
 package com.notice.button.button.Button;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,10 +25,12 @@ public class buttonLogin extends AppCompatActivity  {
     private EditText etAccount;
     private EditText etPassword;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_button_login);
+        final SharedPreferences sp=this.getSharedPreferences("DODODO",Context.MODE_PRIVATE);
 
         etAccount = (EditText) findViewById(R.id.UserId);
         etPassword = (EditText) findViewById(R.id.UserKey);
@@ -38,15 +42,12 @@ public class buttonLogin extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
 
-
-
-
-
+                CommonRequest request = new CommonRequest();
 
                         if (!StringUtil.isEmpty(etAccount.getText().toString())
                                 && !StringUtil.isEmpty(etPassword.getText().toString())) {
 
-                            final CommonRequest request = new CommonRequest();
+
                             request.setUserName(etAccount.getText().toString());
 
                             try {
@@ -57,20 +58,14 @@ public class buttonLogin extends AppCompatActivity  {
                                 e.printStackTrace();
                             }
 
-                       request.Updata(request, new ResponseHandler() {
-                           @Override
-                           public void success(CommonResponse response) {
-
-                           }
-
-                           @Override
-                           public void fail(String failCode, String failMsg) {
-
-                           }
-                       });
                             request.Login(new ResponseHandler() {
                                 @Override
                                 public void success(CommonResponse response) {
+
+                                    SharedPreferences.Editor editor=sp.edit();
+                                    editor.putString("Id",  response.getResMsg());
+                                    editor.commit();
+
                                     Toast.makeText(buttonLogin.this, "登录成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
                                     Intent intent =new Intent(buttonLogin.this,noticeMain.class);
                                     startActivity(intent);
