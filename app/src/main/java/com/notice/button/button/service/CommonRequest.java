@@ -25,6 +25,7 @@ public class CommonRequest {
     /** 查找对应的列 **/
     private String List;
 
+
     private String WhereEqualTo;
     private String WhereEqualTovalue;
     private String WhereNotEqualTo;
@@ -153,18 +154,17 @@ public class CommonRequest {
 
     /**
      * 用于查询
-     * 查询前首先用setTable方法设置查询哪个表，然后用setId方法设置要查询哪一行
+     * 查询前首先用setTable方法设置查询哪个表
      * 条件查询 用setWhereEqualTo设置，哪一列满足什么条件。用setWhereNotEqualTo设置那一列不满足什么条件。
      * @param rHandler 返回成功或失败的值
      */
     public void Query(ResponseHandler rHandler){
         final CommonRequest request =new CommonRequest();
         request.addRequestParam("Table",this.getTable());
-        request.addRequestParam("Id",this.getId());
         if(!this.getWhereEqualTo().equals("")&&this.getWhereEqualTo()!=null)
-        request.addRequestParam(this.getWhereEqualTo(),this.getWhereEqualTovalue());
+        request.addRequestParam(this.getWhereEqualTo()+" ",this.getWhereEqualTovalue());
         if(!this.getWhereNotEqualTo().equals("")&&this.getWhereNotEqualTo()!=null)
-        request.addRequestParam("WhereNotEqualTo",this.getWhereNotEqualTovalue());
+        request.addRequestParam(this.getWhereNotEqualTo()+" !",this.getWhereNotEqualTovalue());
         request.addRequestParam("List",this.getList());
         new HttpPostTask(Constant.URL_Query,request,rHandler).execute();
     }
