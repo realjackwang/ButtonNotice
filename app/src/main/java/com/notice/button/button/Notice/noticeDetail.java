@@ -1,4 +1,6 @@
-package com.notice.button.button;
+package com.notice.button.button.Notice;
+
+import com.notice.button.button.service.CommonRequest;
 
 /**
  * Created by Jill on 2017/12/14.
@@ -6,7 +8,7 @@ package com.notice.button.button;
  * 定义一个实体类Notice_detial
  */
 
-public class Notice_detial {
+public class noticeDetail {
     //变量们
     private String title;
     private String release_date;
@@ -15,7 +17,9 @@ public class Notice_detial {
     private  String deadline_date;
 
     //一个通知
-    public Notice_detial(String title,String release_date,String label,String publisher,String deadline_date){
+    public noticeDetail(String title, String release_date,
+                        String label, String publisher, String deadline_date)
+    {
         this.title = title;
         this.release_date = release_date;
         this.label = label;
