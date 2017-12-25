@@ -5,7 +5,7 @@ package com.notice.button.button.service;
  */
 
 public class Constant {
-    public static String URL = "http://172.25.146.152/ServletTest/"; // IP地址请改为你自己的IP
+    public static String URL = "http://191737tw35.51mypc.cn/ServletTest/"; // IP地址请改为你自己的IP
     public static String URL_Register = URL + "RegisterServlet" ;
     public static String URL_Login = URL + "LoginServlet" ;
     public static String URL_Create = URL + "CreateServlet" ;
