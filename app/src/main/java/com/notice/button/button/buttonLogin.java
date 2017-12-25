@@ -8,17 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.notice.button.button.Notice.noticeMain;
 import com.notice.button.button.service.CommonRequest;
 import com.notice.button.button.service.CommonResponse;
-import com.notice.button.button.service.Constant;
-import com.notice.button.button.service.HttpPostTask;
 import com.notice.button.button.service.ResponseHandler;
 import com.notice.button.button.util.MD5;
 import com.notice.button.button.util.StringUtil;
 
 import java.security.NoSuchAlgorithmException;
 
-public class Notice_Login extends AppCompatActivity  {
+public class buttonLogin extends AppCompatActivity  {
 
     private EditText etAccount;
     private EditText etPassword;
@@ -26,7 +25,7 @@ public class Notice_Login extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notice_login);
+        setContentView(R.layout.activity_button_login);
 
         etAccount = (EditText) findViewById(R.id.UserId);
         etPassword = (EditText) findViewById(R.id.UserKey);
@@ -59,20 +58,20 @@ public class Notice_Login extends AppCompatActivity  {
 //
 //                                @Override
 //                                public String success(CommonResponse response) {
-//                                    Toast.makeText(Notice_Login.this, "注册成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(buttonLogin.this, "注册成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
 //                                    return null;
 //                                }
 //
 //                                @Override
 //                                public String fail(String failCode, String failMsg) {
-//                                    Toast.makeText(Notice_Login.this, failMsg, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(buttonLogin.this, failMsg, Toast.LENGTH_SHORT).show();
 //                                    return failCode;
 //                                }
 //                            }, true);
 //
 //
 //                        } else {
-//                            Toast.makeText(Notice_Login.this, "账号、密码都不能为空！", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(buttonLogin.this, "账号、密码都不能为空！", Toast.LENGTH_SHORT).show();
 //                        }
 //
 //
@@ -117,22 +116,22 @@ public class Notice_Login extends AppCompatActivity  {
                             request.Login(new ResponseHandler() {
                                 @Override
                                 public void success(CommonResponse response) {
-                                    Toast.makeText(Notice_Login.this, "登录成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
-                                    Intent intent =new Intent(Notice_Login.this,Notice_List.class);
+                                    Toast.makeText(buttonLogin.this, "登录成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
+                                    Intent intent =new Intent(buttonLogin.this,noticeMain.class);
                                     startActivity(intent);
 
                                 }
 
                                 @Override
                                 public void fail(String failCode, String failMsg) {
-                                    Toast.makeText(Notice_Login.this, "登录失败", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(buttonLogin.this, "登录失败", Toast.LENGTH_SHORT).show();
 
                                 }
                             });
 
                         } else {
 
-                            Toast.makeText(Notice_Login.this, "账号、密码都不能为空！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(buttonLogin.this, "账号、密码都不能为空！", Toast.LENGTH_SHORT).show();
 
                         }
 
