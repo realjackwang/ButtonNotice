@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.notice.button.button.Fragment.MainActivity;
 import com.notice.button.button.Notice.noticeMain;
 import com.notice.button.button.R;
 import com.notice.button.button.service.CommonRequest;
@@ -67,8 +68,9 @@ public class buttonLogin extends AppCompatActivity  {
                                     editor.commit();
 
                                     Toast.makeText(buttonLogin.this, "登录成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
-                                    Intent intent =new Intent(buttonLogin.this,noticeMain.class);
+                                    Intent intent =new Intent(buttonLogin.this,MainActivity.class);
                                     startActivity(intent);
+                                    finish();
 
                                 }
 

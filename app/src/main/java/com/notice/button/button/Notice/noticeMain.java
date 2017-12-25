@@ -12,8 +12,6 @@ import android.widget.Toast;
 import com.notice.button.button.Button.buttonLogin;
 import com.notice.button.button.R;
 import com.notice.button.button.User.userInfo;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.ArrayList;
 import java.util.List;
