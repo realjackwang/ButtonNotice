@@ -95,15 +95,15 @@ protected void onCreate(Bundle savedInstanceState) {
 private void setDefaultFragment() {     //设定默认的主页
     FragmentManager fm = getSupportFragmentManager();
     FragmentTransaction transaction = fm.beginTransaction();
-    transaction.replace(R.id.layFrame, lifeFragment.newInstance("通知"));
+    transaction.replace(R.id.layFrame, noticeFragment.newInstance("通知"));
     transaction.commit();
 }
 
 private ArrayList<Fragment> getFragments() {
     ArrayList<Fragment> fragments = new ArrayList<>();
-    fragments.add(lifeFragment.newInstance("通知"));
+    fragments.add(noticeFragment.newInstance("通知"));
     fragments.add(discoverFragment.newInstance("发现"));
-    fragments.add(meFragment.newInstance("个人"));
+    fragments.add(userFragment.newInstance("个人"));
     return fragments;
 }
 

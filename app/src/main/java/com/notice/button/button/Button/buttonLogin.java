@@ -3,6 +3,8 @@ package com.notice.button.button.Button;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -45,6 +47,16 @@ public class buttonLogin extends AppCompatActivity  {
 
                 CommonRequest request = new CommonRequest();
 
+                if (checkNetwork()==false)
+                {
+                    Toast.makeText(buttonLogin.this, "无法连接到网络", Toast.LENGTH_SHORT).show();
+                }
+                else if (checkNetwork()==true){
+                    Toast.makeText(buttonLogin.this, "连接到网络", Toast.LENGTH_SHORT).show();
+
+
+
+
                         if (!StringUtil.isEmpty(etAccount.getText().toString())
                                 && !StringUtil.isEmpty(etPassword.getText().toString())) {
 
@@ -83,6 +95,9 @@ public class buttonLogin extends AppCompatActivity  {
 
                         } else {
 
+
+
+
                             Toast.makeText(buttonLogin.this, "账号、密码都不能为空！", Toast.LENGTH_SHORT).show();
 
                         }
@@ -90,8 +105,9 @@ public class buttonLogin extends AppCompatActivity  {
                     }
 
 
-
+                }
         });
+
 
 
         Button bttest = (Button) findViewById(R.id.test); //测试用跳转
@@ -99,13 +115,26 @@ public class buttonLogin extends AppCompatActivity  {
         bttest.setOnClickListener((new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(buttonLogin.this,noticeMain.class );
+                        Intent intent = new Intent(buttonLogin.this,MainActivity.class );
                         startActivity(intent);
                     }
                 })
         );
 
     }
+
+    boolean checkNetwork() {
+        // 实例化ConnectivityManager
+        ConnectivityManager manager = (ConnectivityManager) buttonLogin.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        // 获得当前网络信息
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        // 判断是否连接
+        if (info == null || !info.isConnected()) {
+            return false;
+        }
+        return true;
+    }   //检查网络
+
 
 
 }

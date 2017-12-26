@@ -32,11 +32,11 @@ public class noticeMain extends Activity {
         initNotice();//初始化通知数据
 
         noticeListAdapter adapter = new noticeListAdapter(noticeMain.this, R.layout.activity_notice_ditail, notice_list);
-        ListView listView = (ListView) findViewById(R.id.Notice_list);
+        ListView listView =  findViewById(R.id.Notice_list);
         listView.setAdapter(adapter);
 
 
-        Button toNewNotice = (Button) findViewById(R.id.toNewNotice);//新通知跳转
+        Button toNewNotice =  findViewById(R.id.toNewNotice);//新通知跳转
         toNewNotice.setOnClickListener((new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

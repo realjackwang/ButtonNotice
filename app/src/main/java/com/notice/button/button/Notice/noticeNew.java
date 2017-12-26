@@ -44,7 +44,6 @@ public class noticeNew extends AppCompatActivity {
         /////
 
         //提交按钮的监听事件
-
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
