@@ -49,8 +49,8 @@ public class noticeNew extends AppCompatActivity {
             public void onClick(View v) {
                 CommonRequest request = new CommonRequest();
                 userId = request.getCurrentId(noticeNew.this);
-                EditText NewNoticeTitle = (EditText)findViewById(R.id.NewNoticeTitle);
-                EditText NewNoticeText = (EditText)findViewById(R.id.NewNoticeText);
+                EditText NewNoticeTitle = findViewById(R.id.NewNoticeTitle);
+                EditText NewNoticeText = findViewById(R.id.NewNoticeText);
 
                 newnoticetitle= NewNoticeTitle.getText().toString();
                 newnoticetext= NewNoticeText.getText().toString();
@@ -74,7 +74,7 @@ public class noticeNew extends AppCompatActivity {
                 });
             }
         });
-        //////
+       
 
 
 

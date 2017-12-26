@@ -49,16 +49,17 @@
         <EditText
         android:id="@+id/NewNoticeTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackground"
+        android:layout_height="40dp"
+            android:background="@color/touming"
+
             android:hint="通知标题"
         />
         <EditText
             android:hint="通知内容"
             android:id="@+id/NewNoticeText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorBackground"
+            android:layout_height="40dp"
+            android:background="@color/touming"
             />
     </LinearLayout>
 
