@@ -23,22 +23,11 @@ import com.notice.button.button.R;
  */
 
 public class userFragment extends Fragment {
-    private FragmentActivity mContext;
-    private static final int REQUESTCODE = 101;
-    private FrameLayout layout;
-    private TextView ea, eb;
-    private ImageView ec;
-    private LinearLayout ed, ee,ef,eg,eh;
-    private SharedPreferences sp, sb;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private ListView listview;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-
         return view;
     }
 
@@ -50,6 +39,12 @@ public class userFragment extends Fragment {
         return fragment;
     }
 
+    public  void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-}
+
+
+
+    }
+    }
 

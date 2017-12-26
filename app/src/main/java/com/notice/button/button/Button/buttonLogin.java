@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.notice.button.button.Fragment.MainActivity;
-import com.notice.button.button.Notice.noticeMain;
 import com.notice.button.button.R;
 import com.notice.button.button.service.CommonRequest;
 import com.notice.button.button.service.CommonResponse;

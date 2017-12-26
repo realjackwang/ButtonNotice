@@ -26,10 +26,10 @@ public class CommonRequest {
     private String List;
 
 
-    private String WhereEqualTo;
-    private String WhereEqualTovalue;
-    private String WhereNotEqualTo;
-    private String WhereNotEqualTovalue;
+    private String WhereEqualTo=null;
+    private String WhereEqualTovalue=null;
+    private String WhereNotEqualTo=null;
+    private String WhereNotEqualTovalue=null;
 
 
 
@@ -161,9 +161,9 @@ public class CommonRequest {
     public void Query(ResponseHandler rHandler){
         final CommonRequest request =new CommonRequest();
         request.addRequestParam("Table",this.getTable());
-        if(!this.getWhereEqualTo().equals("")&&this.getWhereEqualTo()!=null)
+        if(this.getWhereEqualTo()!=null)
         request.addRequestParam(this.getWhereEqualTo()+" ",this.getWhereEqualTovalue());
-        if(!this.getWhereNotEqualTo().equals("")&&this.getWhereNotEqualTo()!=null)
+        if(this.getWhereNotEqualTo()!=null)
         request.addRequestParam(this.getWhereNotEqualTo()+" !",this.getWhereNotEqualTovalue());
         request.addRequestParam("List",this.getList());
         new HttpPostTask(Constant.URL_Query,request,rHandler).execute();

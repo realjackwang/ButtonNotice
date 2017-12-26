@@ -21,9 +21,12 @@ public class discoverFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
         return view;
+
     }
+
     public static discoverFragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);

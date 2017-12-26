@@ -1,10 +1,9 @@
 package com.notice.button.button.util;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.MessageDigest;
+
 /**
  * Created by Jack on 2017/12/9.
  */
