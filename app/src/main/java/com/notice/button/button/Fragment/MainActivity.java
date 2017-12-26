@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity  {
     private int clickTime=0;
     private int times=-1;
     private Timer timer=null;
-
-
+    int i =0;
     @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,6 +60,11 @@ protected void onCreate(Bundle savedInstanceState) {
                         Fragment from = fm.findFragmentById(R.id.layFrame);   //获取当前的fragment
                         Fragment fragment = fragments.get(position);
 
+                        if(i==0){
+                            ft.replace(R.id.layFrame, noticeFragment.newInstance("通知"));
+                            i++;
+                        }
+
                         if (fragment.isAdded()) {
                             ft.replace(R.id.layFrame, fragment);
                         } else {
@@ -73,15 +77,15 @@ protected void onCreate(Bundle savedInstanceState) {
 
             @Override
             public void onTabUnselected(int position) {
-                if (fragments != null) {
-                    if (position < fragments.size()) {
-                        FragmentManager fm = getSupportFragmentManager();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        Fragment fragment = fragments.get(position);
-                        ft.remove(fragment);
-                        ft.commitAllowingStateLoss();
-                    }
-                }
+//                if (fragments != null) {
+//                    if (position < fragments.size()) {
+//                        FragmentManager fm = getSupportFragmentManager();
+//                        FragmentTransaction ft = fm.beginTransaction();
+//                        Fragment fragment = fragments.get(position);
+//                        ft.remove(fragment);
+//                        ft.commitAllowingStateLoss();
+//                    }
+//                }
             }
 
             @Override
@@ -89,6 +93,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
             }
         });
+
 }
 
 

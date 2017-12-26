@@ -23,18 +23,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="新的通知"
-            android:background="@color/colorTopbarBackground"
+            android:text="发布"
+            android:background="@color/touming"
             android:textColor="@color/colorTitleText"/>
 
         <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:textColor="@color/white"
-            android:text="通知" />
+            android:id="@+id/editText"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_write"
+            android:ems="10"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:hint="" />
 
     </FrameLayout>
 

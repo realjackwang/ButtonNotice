@@ -15,12 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.notice.button.button.Jellyrefresh.JellyRefreshLayout;
 import com.notice.button.button.Jellyrefresh.PullToRefreshLayout;
 import com.notice.button.button.Notice.noticeMain;
 import com.notice.button.button.Notice.noticeNew;
 import com.notice.button.button.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Jack on 2017/8/22.
@@ -32,7 +36,8 @@ import com.notice.button.button.R;
 public class noticeFragment extends ListFragment {
     private ListView listView;
     private JellyRefreshLayout mJellyLayout;
-
+    int i=1;
+    ArrayList<HashMap<String, Object>> arrayList = new ArrayList<>();
 @Nullable
     @Override
 
@@ -51,12 +56,23 @@ public class noticeFragment extends ListFragment {
                 public void run() {
 
 
-                    //在这个里面写查询功能，然后通过适配器给Listview 加油
+                        HashMap<String, Object> tempHashMap = new HashMap<>();
+                        tempHashMap.put("title", "第"+i+"个啦啦啦");
+                        tempHashMap.put("info","第"+i+"个略略略");
+                        arrayList.add(tempHashMap);
 
+                    i++;
+
+                    SimpleAdapter adapter =new SimpleAdapter(getContext(),arrayList,R.layout.listview_item,new String[]{"title","info",},new int[]{R.id.title,R.id.info});
+                    setListAdapter(adapter);
+
+                    //在这个里面写查询功能，然后通过适配器给Listview             加油哦
                     mJellyLayout.setRefreshing(false);  //如果 成功就调用这个来使刷新中断 我猜的
                 }
-            }, 3000);  //超时时长，多少毫秒就不刷新，还是我猜的。
+            }, 1000);  //超过多少毫秒就停止刷新，还是我猜的。
         }
+
+
     });
 
     View loadingView = LayoutInflater.from(getContext()).inflate(R.layout.view_loading, null);
