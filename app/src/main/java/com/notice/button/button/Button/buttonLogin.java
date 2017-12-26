@@ -52,9 +52,6 @@ public class buttonLogin extends AppCompatActivity  {
                     Toast.makeText(buttonLogin.this, "无法连接到网络", Toast.LENGTH_SHORT).show();
                 }
                 else if (checkNetwork()==true){
-                    Toast.makeText(buttonLogin.this, "连接到网络", Toast.LENGTH_SHORT).show();
-
-
 
 
                         if (!StringUtil.isEmpty(etAccount.getText().toString())
@@ -79,7 +76,7 @@ public class buttonLogin extends AppCompatActivity  {
                                     editor.putString("Id",  response.getResMsg());
                                     editor.commit();
 
-                                    Toast.makeText(buttonLogin.this, "登录成功"+response.getResCode(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                                     Intent intent =new Intent(buttonLogin.this,MainActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -88,7 +85,7 @@ public class buttonLogin extends AppCompatActivity  {
 
                                 @Override
                                 public void fail(String failCode, String failMsg) {
-                                    Toast.makeText(buttonLogin.this, "登录失败", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(buttonLogin.this, "学号或密码错误", Toast.LENGTH_SHORT).show();
 
                                 }
                             });
