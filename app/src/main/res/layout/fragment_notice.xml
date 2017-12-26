@@ -5,6 +5,8 @@
     android:background="@color/touming"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="45dp">
@@ -35,6 +37,29 @@
             android:text="通知" />
 
     </FrameLayout>
+
+    <com.notice.button.button.Jellyrefresh.JellyRefreshLayout
+        android:id="@+id/jelly_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        android:text="@string/loading"
+        app:headerHeight="48dp"
+        app:jellyColor="@color/colorPrimary"
+        app:pullHeight="160dp"
+        app:triggerHeight="108dp">
+
+        <ListView
+            android:id="@+id/android:list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+    </com.notice.button.button.Jellyrefresh.JellyRefreshLayout>
+
+
+
 
 
 

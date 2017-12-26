@@ -16,7 +16,7 @@ import com.notice.button.button.R;
  */
 
 public class discoverFragment extends Fragment {
-    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Nullable
     @Override
