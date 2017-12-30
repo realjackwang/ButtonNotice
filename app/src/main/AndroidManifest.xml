@@ -17,9 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Fragment.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".Button.buttonLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +29,7 @@
         <activity android:name=".User.userInfo" />
         <activity android:name=".Notice.noticeDetialFile" />
         <activity android:name=".Notice.noticeNew" />
+        <activity android:name=".Notice.noticeDetailActivity"></activity>
     </application>
 
 </manifest>
