@@ -31,7 +31,7 @@ public class noticeMain extends Activity {
 
         initNotice();//初始化通知数据
 
-        noticeListAdapter adapter = new noticeListAdapter(noticeMain.this, R.layout.activity_notice_ditail, notice_list);
+        noticeListAdapter adapter = new noticeListAdapter(noticeMain.this, R.layout.activity_notice_detail, notice_list);
         ListView listView =  findViewById(R.id.Notice_list);
         listView.setAdapter(adapter);
 

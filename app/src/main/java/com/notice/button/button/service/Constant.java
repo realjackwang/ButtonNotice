@@ -13,6 +13,7 @@ public class Constant {
     public static String URL_Updata = URL + "UpdataServlet";
     public static String URL_Query = URL + "QueryServlet";
     public static String URL_Connect = URL + "ConnectServlet";
+    public static String URL_Upload =URL +"UploadServlet";
 
     public static int HANDLER_HTTP_RECEIVE_FAIL =0;
     public static int HANDLER_HTTP_SEND_FAIL =0;

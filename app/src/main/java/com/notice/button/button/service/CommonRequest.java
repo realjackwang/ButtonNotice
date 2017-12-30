@@ -32,7 +32,7 @@ public class CommonRequest {
     /**
      * 查找对应的行
      **/
-    private String Id;
+    private String Id = null;
     /**
      * 查找对应的列
      **/
@@ -209,6 +209,12 @@ public class CommonRequest {
     }
 
 
+    /**
+     * 用于添加用户
+     * 添加前 先设置表，列，行 具体到一个格。
+     * @param c 当前的活动名称
+     */
+
     public void Connect(Context c) {
         CommonRequest request = new CommonRequest();
         request.addRequestParam("Table", this.getTable());
@@ -218,7 +224,12 @@ public class CommonRequest {
         new HttpPostTask(Constant.URL_Connect, request).execute();
     }
 
-
+    /**
+     * 下载前，设置文件在云服务器中的URL，然后写下面的句子，逗号前面是你要下载的地方，逗号后面不用管，那个Envionment什么的是获取SD卡目录。后面我随便设置的文件夹。
+     *   File file=new File(Environment.getExternalStorageDirectory()+"/ServiceTest",path.substring(path.lastIndexOf("/")+1));
+      * @param x
+     * @param rHandler
+     */
 
     public void Download(String x,FileAsyncHttpResponseHandler rHandler){
 
@@ -226,21 +237,14 @@ public class CommonRequest {
         AsyncHttpClient client=new AsyncHttpClient();
         client.get(x, rHandler);
 
-// {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] hander, File file) {
-//                if(statusCode==200){
-//                    Toast.makeText(getApplicationContext(), "文件下载成功"+file.getPath(),Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] hander, Throwable throwable, File file) {
-//                Toast.makeText(getApplicationContext(), "文件下载失败",Toast.LENGTH_LONG).show();
-//                throwable.printStackTrace();
-//            }
-//        });
     }
+
+    /**
+     * 单文件上传
+     * 传入URL 然后设置用户的ID（必不可少的环节，最好加判断Id是否为空，有可能会出现长时间登录失效的问题。）
+     * @param x
+     * @param rHandler
+     */
 
     public void Upload(String x,AsyncHttpResponseHandler rHandler) {
         // new Thread(new Runnable() {////不能使用线程
@@ -249,22 +253,48 @@ public class CommonRequest {
         // public void run() {
         // TODO 自动生成的方法存根
         // 服务器端地址
-        String url = Constant.URL+"UploadServlet";
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.setTimeout(60 * 60 * 1000);
         RequestParams param = new RequestParams();
         try {
-            param.put("file", new File(x));
-            httpClient.post(url, param,rHandler);
+            param.put("file0", new File(x));
+            param.put("Id", this.getId());
+            httpClient.post(Constant.URL_Upload, param,rHandler);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         // }
         // }).start();
     }
 
+    /**
+     * 多文件夹上传
+     * 传入URL数组 String[] URL= xxxxxxxx;  然后设置用户的ID（必不可少的环节，最好加判断Id是否为空，有可能会出现长时间登录失效的问题。）
+     * @param x
+     * @param rHandler
+     */
+    public void Upload(String[] x,AsyncHttpResponseHandler rHandler){
+        //创建异步请求对象
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        for(int len=0;len<x.length;len++){
+            File file =new File(x[len]);
+            if(file.exists() && file.length()>0){
+                System.out.println("文件找到！");
+                //将要上传的文件放入RequestParams对象中
+                try {
+                    params.put("file"+len, file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                params.put("Id", this.getId());
+        }
+        }
 
+        client.post(Constant.URL_Upload, params,rHandler);
 
+    }
 
 
 

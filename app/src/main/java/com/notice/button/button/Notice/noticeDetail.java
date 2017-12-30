@@ -30,6 +30,7 @@ public class noticeDetail {
     public String getTitle(){
         return title;
     }
+
     public String getRelease_date(){
         return release_date;
     }
