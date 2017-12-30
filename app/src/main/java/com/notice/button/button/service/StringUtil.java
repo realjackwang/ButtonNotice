@@ -14,4 +14,11 @@ public class StringUtil {
         }
       return y;
     }
+
+//   1,2,3,50,56,1000,656456,
+
+    public static String[] ChangetoString(String x){
+        String[] y = x.split(",");
+        return  y;
+    }
 }

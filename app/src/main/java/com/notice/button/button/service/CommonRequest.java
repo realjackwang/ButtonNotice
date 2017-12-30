@@ -3,9 +3,16 @@ package com.notice.button.button.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 /**
@@ -18,19 +25,31 @@ public class CommonRequest {
     private String passWord;
 
 
-    /** 查找对应的表**/
+    /**
+     * 查找对应的表
+     **/
     private String Table;
-    /** 查找对应的行 **/
+    /**
+     * 查找对应的行
+     **/
     private String Id;
-    /** 查找对应的列 **/
+    /**
+     * 查找对应的列
+     **/
     private String List;
 
+    private String Community;
 
-    private String WhereEqualTo=null;
-    private String WhereEqualTovalue=null;
-    private String WhereNotEqualTo=null;
-    private String WhereNotEqualTovalue=null;
 
+    /**
+     * 条件查询参数
+     **/
+    private String WhereEqualTo = null;
+    private String WhereEqualMoreTo = null;
+    private String[] WhereEqualMoreTovalue = null;
+    private String WhereEqualTovalue = null;
+    private String WhereNotEqualTo = null;
+    private String WhereNotEqualTovalue = null;
 
 
     /**
@@ -57,7 +76,8 @@ public class CommonRequest {
 
     /**
      * 为请求报文设置参数
-     * @param paramKey 参数名
+     *
+     * @param paramKey   参数名
      * @param paramValue 参数值
      */
     public void addRequestParam(String paramKey, String paramValue) {
@@ -66,10 +86,11 @@ public class CommonRequest {
 
     /**
      * 将请求报文体组装成json形式的字符串，以便进行网络发送
+     *
      * @return 请求报文的json字符串
      */
     public String getJsonStr() {
-        // 由于Android源码自带的JSon功能不够强大（没有直接从Bean转到JSonObject的API），为了不引入第三方资源这里我们只能手动拼装一下啦
+
         JSONObject object = new JSONObject();
         JSONObject param = new JSONObject(requestParam);
         try {
@@ -78,111 +99,186 @@ public class CommonRequest {
             object.put("requestCode", requestCode);
             object.put("requestParam", param);
         } catch (JSONException e) {
-        //    LogUtil.logErr("请求报文组装异常：" + e.getMessage());
+
         }
-        // 打印原始请求报文
-     //   LogUtil.logRequest(object.toString());
         return object.toString();
     }
 
     /**
      * 用于登录
      * 用setUserName和setPassWord设置账户密码
+     *
      * @param rHandler 返回成功或失败的值
      */
-    public void Login(ResponseHandler rHandler){       //登录
+    public void Login(ResponseHandler rHandler) {       //登录
 
-        final CommonRequest request =new CommonRequest();
-            request.addRequestParam("userAccount",this.getUserName());
-            request.addRequestParam("userPassword",this.getPassWord());
+        final CommonRequest request = new CommonRequest();
+        request.addRequestParam("userAccount", this.getUserName());
+        request.addRequestParam("userPassword", this.getPassWord());
 
-        new HttpPostTask(Constant.URL_Login,request,rHandler).execute();
+        new HttpPostTask(Constant.URL_Login, request, rHandler).execute();
 
     }
 
     /**
      * 用于注册
      * 用setUserName和setPassWord设置账户密码
+     *
      * @param rHandler 返回成功或失败的值
      */
-    public void Signup(ResponseHandler rHandler){   //注册
+    public void Signup(ResponseHandler rHandler) {   //注册
 
-        final CommonRequest request =new CommonRequest();
-        request.addRequestParam("userAccount",this.getUserName());
-        request.addRequestParam("userPassword",this.getPassWord());
-        new HttpPostTask(Constant.URL_Register,request,rHandler).execute();
+        final CommonRequest request = new CommonRequest();
+        request.addRequestParam("userAccount", this.getUserName());
+        request.addRequestParam("userPassword", this.getPassWord());
+        new HttpPostTask(Constant.URL_Register, request, rHandler).execute();
 
     }
 
     /**
      * 用于上传信息（用户，通知，等等）
      * 上传前首先用setTable方法设置要上传到那个表，然后用addRequestParam添加要上传的列的名字和列的值
-     * @param request 需要上传的信息
+     *
+     * @param request  需要上传的信息
      * @param rHandler 返回成功或失败的值
      */
-    public void Updata(CommonRequest request,ResponseHandler rHandler){   //更新用户信息
-        request.addRequestParam("Table",this.getTable());
-        request.addRequestParam("Id",this.getId());
-        new HttpPostTask(Constant.URL_Updata,request,rHandler).execute();
+    public void Updata(CommonRequest request, ResponseHandler rHandler) {   //更新用户信息
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("Id", this.getId());
+        new HttpPostTask(Constant.URL_Updata, request, rHandler).execute();
     }
 
     /**
      * 用于创建表（发通知，发公告）
      * 创建前首先用setTable方法设置要上传到那个表，然后用addRequestParam添加要上传的列的名字和列的值
+     *
      * @param rHandler 返回成功或失败的值
      */
-    public void Create( CommonRequest request,ResponseHandler rHandler){  //创建
+    public void Create(CommonRequest request, ResponseHandler rHandler) {  //创建
 
-       request.addRequestParam("Table",this.getTable());
-        new HttpPostTask(Constant.URL_Create,request,rHandler).execute();
+        request.addRequestParam("Table", this.getTable());
+        new HttpPostTask(Constant.URL_Create, request, rHandler).execute();
 
     }
 
     /**
      * 用于删除表（删除公告，撤回）
      * 删除前首先用setTable方法选择删除的表，然后用setId方法设置要删除哪一行。
+     *
      * @param rHandler 返回成功或失败的值
      */
-    public void Delete(ResponseHandler rHandler){            //删除
-     CommonRequest request =new CommonRequest();
-     request.addRequestParam("Table",this.getTable());
-     request.addRequestParam("Id",this.getId());
-     new HttpPostTask(Constant.URL_Delete,request,rHandler).execute();
+    public void Delete(ResponseHandler rHandler) {            //删除
+        CommonRequest request = new CommonRequest();
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("Id", this.getId());
+        new HttpPostTask(Constant.URL_Delete, request, rHandler).execute();
 
     }
-
 
     /**
      * 用于查询
      * 查询前首先用setTable方法设置查询哪个表
-     * 条件查询 用setWhereEqualTo设置，哪一列满足什么条件。用setWhereNotEqualTo设置那一列不满足什么条件。
+     * 条件查询 用setWhereEqualTo设置，哪一列满足什么条件。用setWhereNotEqualTo设置那一列不满足什么条件。用setWhereEqualMoreTo设置多条件查询 先创建一个String[]数组，然后传进来。
      * @param rHandler 返回成功或失败的值
      */
-    public void Query(ResponseHandler rHandler){
-        final CommonRequest request =new CommonRequest();
-        request.addRequestParam("Table",this.getTable());
-        if(this.getWhereEqualTo()!=null)
-        request.addRequestParam(this.getWhereEqualTo()+" ",this.getWhereEqualTovalue());
-        if(this.getWhereNotEqualTo()!=null)
-        request.addRequestParam(this.getWhereNotEqualTo()+" !",this.getWhereNotEqualTovalue());
-        request.addRequestParam("List",this.getList());
-        new HttpPostTask(Constant.URL_Query,request,rHandler).execute();
+
+    public void Query(ResponseHandler rHandler) {
+        final CommonRequest request = new CommonRequest();
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("ISMORE","2");  //用于判断是否是多条件查询
+
+        if (this.getWhereEqualTo() != null) {
+            request.addRequestParam(this.getWhereEqualTo() + " ", this.getWhereEqualTovalue());
+            request.addRequestParam("ISMORE","0");  //用于判断是否是多条件查询
+        }
+
+        if (this.getWhereEqualMoreTo() != null){
+            request.addRequestParam("ISMORE","1");  //用于判断是否是多条件查询
+            String[] va = this.getWhereEqualMoreTovalue();
+            for(int len=0;len<this.getWhereEqualMoreTovalue().length;len++) {
+                request.addRequestParam(this.getWhereEqualMoreTo() + len,va[len]);
+            }
+
+        }
+        if (this.getWhereNotEqualTo() != null){
+            request.addRequestParam(this.getWhereNotEqualTo() + " !", this.getWhereNotEqualTovalue());}
+
+        request.addRequestParam("List", this.getList());
+
+        new HttpPostTask(Constant.URL_Query, request, rHandler).execute();
+    }
+
+
+    public void Connect(Context c) {
+        CommonRequest request = new CommonRequest();
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("List", this.getList());
+        request.addRequestParam("Id", getCurrentId(c));
+        request.addRequestParam("Community", this.getCommunity());
+        new HttpPostTask(Constant.URL_Connect, request).execute();
+    }
+
+
+
+    public void Download(String x,FileAsyncHttpResponseHandler rHandler){
+
+        //下载之后存放的路径 获取SD卡的路径
+        AsyncHttpClient client=new AsyncHttpClient();
+        client.get(x, rHandler);
+
+// {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] hander, File file) {
+//                if(statusCode==200){
+//                    Toast.makeText(getApplicationContext(), "文件下载成功"+file.getPath(),Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] hander, Throwable throwable, File file) {
+//                Toast.makeText(getApplicationContext(), "文件下载失败",Toast.LENGTH_LONG).show();
+//                throwable.printStackTrace();
+//            }
+//        });
+    }
+
+    public void Upload(String x,AsyncHttpResponseHandler rHandler) {
+        // new Thread(new Runnable() {////不能使用线程
+        //
+        // @Override
+        // public void run() {
+        // TODO 自动生成的方法存根
+        // 服务器端地址
+        String url = Constant.URL+"UploadServlet";
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+        httpClient.setTimeout(60 * 60 * 1000);
+        RequestParams param = new RequestParams();
+        try {
+            param.put("file", new File(x));
+            httpClient.post(url, param,rHandler);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // }
+        // }).start();
     }
 
 
 
 
-/**
- * 用于获取当前用户的Id
- * @param c 当前的Activity名称
- * @return 当前用户的Id
- **/
+
+
+
+    /**
+     * 用于获取当前用户的Id
+     * @param c 当前的Activity名称
+     * @return 当前用户的Id
+     **/
 
     public String getCurrentId(Context c) {
         final SharedPreferences sp = c.getSharedPreferences("DODODO", Context.MODE_PRIVATE);
-        String Id=sp.getString("Id","");
+        String Id = sp.getString("Id", "");
         return Id;
-
     }
 
     public String getUserName() {
@@ -230,7 +326,7 @@ public class CommonRequest {
         return WhereEqualTo;
     }
 
-    public void setWhereEqualTo(String key,String value) {
+    public void setWhereEqualTo(String key, String value) {
         WhereEqualTo = key;
         WhereEqualTovalue = value;
     }
@@ -239,9 +335,9 @@ public class CommonRequest {
         return WhereNotEqualTo;
     }
 
-    public void setWhereNotEqualTo(String key,String value) {
+    public void setWhereNotEqualTo(String key, String value) {
         WhereNotEqualTo = key;
-        WhereNotEqualTovalue =value;
+        WhereNotEqualTovalue = value;
     }
 
     public String getWhereEqualTovalue() {
@@ -250,5 +346,26 @@ public class CommonRequest {
 
     public String getWhereNotEqualTovalue() {
         return WhereNotEqualTovalue;
+    }
+
+    public String getCommunity() {
+        return Community;
+    }
+
+    public void setCommunity(String community) {
+        Community = community;
+    }
+
+    public String getWhereEqualMoreTo() {
+        return WhereEqualMoreTo;
+    }
+
+    public void setWhereEqualMoreTo(String key, String[] value) {
+        WhereEqualMoreTo = key;
+        WhereEqualMoreTovalue =value;
+    }
+
+    public String[] getWhereEqualMoreTovalue() {
+        return WhereEqualMoreTovalue;
     }
 }

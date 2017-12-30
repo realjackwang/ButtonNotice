@@ -19,7 +19,8 @@ public class HttpPostTask extends AsyncTask<String, String, String> {
 
     /**  传递URL，达到指定的功能，查询，添加等**/
     private String URL;
-
+    private String a;
+    private String b;
     /** 返回信息处理回调接口 */
     private ResponseHandler rHandler;
 
@@ -37,10 +38,11 @@ public class HttpPostTask extends AsyncTask<String, String, String> {
         this.URL = URL;
         this.rHandler = rHandler;
     }
-    public HttpPostTask(String URL){
+    public HttpPostTask(String URL, CommonRequest request){
         this.URL = URL;
-    }
+        this.request =request;
 
+    }
     @Override
     protected String doInBackground(String... params) {
         StringBuilder resultBuf = new StringBuilder();
@@ -61,7 +63,6 @@ public class HttpPostTask extends AsyncTask<String, String, String> {
             // 如果是POST方法，需要在第3步获取输入流之前向连接写入POST参数
             DataOutputStream out = new DataOutputStream(connection.getOutputStream());
             out.write(request.getJsonStr().getBytes());
-
 
             out.flush();
 
