@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.notice.button.button">
+    package="com.button.notice">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,20 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Fragment.MainActivity"
+            android:name="com.button.notice.Fragment.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Button.buttonLogin">
+
+        <activity android:name="com.button.notice.Button.buttonLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Notice.noticeMain" />
-        <activity android:name=".User.userInfo" />
-        <activity android:name=".Notice.noticeDetialFile" />
-        <activity android:name=".Notice.noticeNew" />
-        <activity android:name=".Notice.noticeDetailActivity"></activity>
+
+        <activity android:name="com.button.notice.Notice.noticeMain" />
+        <activity android:name="com.button.notice.User.userInfo" />
+        <activity android:name="com.button.notice.Notice.noticeDetialFile" />
+        <activity android:name="com.button.notice.Notice.noticeNew" />
+        <activity android:name="com.button.notice.Notice.noticeDetailActivity"></activity>
     </application>
 
 </manifest>
