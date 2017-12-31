@@ -1,13 +1,16 @@
 package com.button.notice.Notice;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 
 import com.button.notice.Fragment.MainActivity;
 import com.button.notice.R;
@@ -15,28 +18,11 @@ import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
 
+import java.util.Calendar;
+
 /**
  * Created by Jill on 2017/12/25.,,
  */
-
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
-import android.widget.Toast;
-
-
-
-import java.util.Calendar;
 
 /**
  * Created by Jill on 2017/12/25.,,
@@ -59,12 +45,12 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_new);
-        timepicker = (Button) findViewById(R.id.timepicker);
-        datepicker = (Button) findViewById(R.id.datepicker);
+        timepicker = findViewById(R.id.timepicker);
+        datepicker = findViewById(R.id.datepicker);
 
 
-        Button Back = (Button) findViewById(R.id.back);
-        Button Submit = (Button) findViewById(R.id.submit);
+        Button Back = findViewById(R.id.back);
+        Button Submit = findViewById(R.id.submit);
 
         timepicker.setOnClickListener(this);
         datepicker.setOnClickListener(this);
@@ -132,28 +118,33 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
 
     private void DatePicker() {
         datePickerDialog = new DatePickerDialog(
-                this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                //monthOfYear 得到的月份会减1所以我们要加1
-                String time = String.valueOf(year) + "　" + String.valueOf(monthOfYear + 1) + "  " + Integer.toString(dayOfMonth);
-                Log.d("测试", time);
-            }
-        },
+                this, (view, year, monthOfYear, dayOfMonth) -> {
+//            @Override
+//            public void onDateSet(DatePicker view, int year,
+//            int monthOfYear, int dayOfMonth) {
+//                // 此处得到选择的时间，可以进行你想要的操作
+//                tv.setText("您选择了：" + year + "年" + monthOfYear
+//                        + "月" + dayOfMonth + "日");
+//            }
+
+
+                    //monthOfYear 得到的月份会减1所以我们要加1
+                     String time = String.valueOf(year) + "　" + String.valueOf(monthOfYear + 1) + "  " + Integer.toString(dayOfMonth);
+                    Log.d("测试", time);
+
+                },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
         //自动弹出键盘问题解决
         datePickerDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
     }
     private void TimePicker() {
-        timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                Log.d("测试", Integer.toString(hourOfDay));
-                Log.d("测试", Integer.toString(minute));
-            }
+        timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+            Log.d("测试", Integer.toString(hourOfDay));
+            Log.d("测试", Integer.toString(minute));
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
         timePickerDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
