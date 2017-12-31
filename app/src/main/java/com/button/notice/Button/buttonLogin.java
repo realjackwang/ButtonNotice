@@ -1,7 +1,9 @@
 package com.button.notice.Button;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 
 import com.button.notice.Fragment.MainActivity;
 
+import com.button.notice.JPush.JpushUtil;
+import com.button.notice.JPush.MyApplication;
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
@@ -23,6 +27,9 @@ import com.button.notice.util.MD5;
 import com.button.notice.util.StringUtil;
 
 import java.security.NoSuchAlgorithmException;
+
+import cn.jpush.android.api.CustomPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
 
 public class buttonLogin extends AppCompatActivity  {
 
@@ -34,6 +41,10 @@ public class buttonLogin extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_button_login);
+
+//        JPushInterface.setDebugMode(true);
+//        JPushInterface.init(getApplicationContext());   //初始化推送服务
+
         final SharedPreferences sp=this.getSharedPreferences("DODODO",Context.MODE_PRIVATE);
 
         etAccount = (EditText) findViewById(R.id.UserId);
@@ -132,7 +143,6 @@ public class buttonLogin extends AppCompatActivity  {
         }
         return true;
     }   //检查网络
-
 
 
 }

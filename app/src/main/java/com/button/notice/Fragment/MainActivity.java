@@ -1,6 +1,13 @@
 package com.button.notice.Fragment;
 
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,12 +16,20 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.button.notice.JPush.JpushUtil;
+import com.button.notice.JPush.MyApplication;
+import com.button.notice.JPush.MyReceiver;
+import com.button.notice.JPush.RegisterService;
 import com.button.notice.R;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import cn.jpush.android.api.CustomPushNotificationBuilder;
+import cn.jpush.android.api.JPushInterface;
 
 
 //导致页面一直无法切换的原因是build.gradle里的ashokvarma版本太低
@@ -33,8 +48,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
         test_a =this;
-
-
+        startService(new Intent(MainActivity.this, RegisterService.class));
     BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
     bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
     bottomNavigationBar
@@ -146,8 +160,57 @@ private ArrayList<Fragment> getFragments() {
         }
     }
 
+    private void initm() {
+        JPushInterface.init(getApplicationContext());
+    }
 
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.zerom.clothesnews.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        registerReceiver(mMessageReceiver, filter);
+    }
+
+
+
+
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                String messge = intent.getStringExtra(KEY_MESSAGE);
+                String extras = intent.getStringExtra(KEY_EXTRAS);
+                StringBuilder showMsg = new StringBuilder();
+                showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                if (!JpushUtil.isEmpty(extras)) {
+                    showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                }
+            }
         }
+    }
+
+    public static void setNotification() {
+        CustomPushNotificationBuilder builder = new CustomPushNotificationBuilder(
+                MyApplication.getAppContext(),
+                R.layout.customer_notitfication_layout, R.id.icon, R.id.title,
+                R.id.text);
+        builder.layoutIconDrawable = R.mipmap.ic_launcher;
+        builder.developerArg0 = "developerArg2";
+        JPushInterface.setPushNotificationBuilder(2, builder);
+        }
+
+    }
 
 
 
