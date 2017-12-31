@@ -40,20 +40,19 @@
 
 
     </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@drawable/gap"
         android:orientation="vertical">
         <EditText
-        android:id="@+id/NewNoticeTitle"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+            android:id="@+id/NewNoticeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:background="@color/touming"
 
             android:hint="通知标题"
-        />
+            />
         <EditText
             android:hint="通知内容"
             android:id="@+id/NewNoticeText"
@@ -61,6 +60,61 @@
             android:layout_height="40dp"
             android:background="@color/touming"
             />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/datepicker"
+                android:text="日期选择"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:onClick="onClick1"/>
+
+            <Button
+                android:id="@+id/timepicker"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:text="时间选择" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期："
+                android:id="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/tvProcessName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/textView2" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="时间："
+            android:id="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/timeset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/textView3" />
+        </RelativeLayout>
+
+
     </LinearLayout>
 
 

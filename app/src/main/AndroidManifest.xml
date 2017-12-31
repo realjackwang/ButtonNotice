@@ -24,7 +24,7 @@
     <application
         android:name=".JPush.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_tubiao"
         android:label="纽扣通知"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
