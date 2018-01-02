@@ -33,15 +33,6 @@ public class RegisterService extends Service {
         isForeground = true;
         initm();
         registerMessageReceiver();
-        JPushInterface.setAlias(getApplicationContext(), "", new TagAliasCallback() {
-            @Override
-            public void gotResult(int i, String s, Set set) {
-                if (i==0) {
-                    System.out.println("jpush alias@@@@@别名设置成功");
-                }
-
-            }
-        });
         MainActivity.setNotification();
     }
 
@@ -58,14 +49,14 @@ public class RegisterService extends Service {
         JPushInterface.init(getApplicationContext());
     }
 
-    private MessageReceiver mMessageReceiver;
+    private MyJPushMessageReceiver mMessageReceiver;
     public static final String MESSAGE_RECEIVED_ACTION = "com.taorouw.MESSAGE_RECEIVED_ACTION";
     public static final String KEY_TITLE = "title";
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_EXTRAS = "extras";
 
     public void registerMessageReceiver() {
-        mMessageReceiver = new MessageReceiver();
+        mMessageReceiver = new MyJPushMessageReceiver();
         IntentFilter filter = new IntentFilter();
         filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         filter.addAction(MESSAGE_RECEIVED_ACTION);

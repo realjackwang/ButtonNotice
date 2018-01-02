@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Set;
@@ -33,7 +34,7 @@ public class JpushUtil {
         TagAliasCallback tagAliasCallback = new TagAliasCallback() {
             @Override
             public void gotResult(int i, String s, Set set) {
-
+                System.out.println("别名设置成功"+i+set);
             }
         };
         JPushInterface.setAliasAndTags(context, null, tag, tagAliasCallback);

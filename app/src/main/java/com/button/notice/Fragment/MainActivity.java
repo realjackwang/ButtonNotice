@@ -48,7 +48,9 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
         test_a =this;
-        startService(new Intent(MainActivity.this, RegisterService.class));
+        startService(new Intent(MainActivity.this, RegisterService.class));//开启推送服务
+
+
     BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
     bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
     bottomNavigationBar

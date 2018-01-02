@@ -27,6 +27,8 @@ import com.button.notice.util.MD5;
 import com.button.notice.util.StringUtil;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
 
 import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
@@ -87,6 +89,14 @@ public class buttonLogin extends AppCompatActivity  {
                                     SharedPreferences.Editor editor=sp.edit();
                                     editor.putString("Id",  response.getResMsg());
                                     editor.commit();
+
+
+//                                    Set<String> set = new HashSet<>();
+//                                    String Tag = response.getResMsg();
+//                                    set.add(Tag);
+//                                    JpushUtil.setAliasAndTag(buttonLogin.this, set);
+                                        System.out.println("这个是代码"+response.getResMsg());
+                                    JPushInterface.setAlias(buttonLogin.this,1,response.getResMsg());
 
                                     Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                                     Intent intent =new Intent(buttonLogin.this,MainActivity.class);
