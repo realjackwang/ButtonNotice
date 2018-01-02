@@ -21,6 +21,8 @@ import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -33,9 +35,12 @@ import java.util.Calendar;
  */
 
 public class noticeNew extends AppCompatActivity implements View.OnClickListener{
+
     private String newnoticetitle;
     private String newnoticetext;
     private String userId;
+    private String newnoticedate;
+    private String newnoticetime;
     private Button datepicker;//点击选择日期钮
     private Button timepicker;//点击选择时间钮
     private TextView tvProcessName;//用来展示选中日期的tv
@@ -78,14 +83,21 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
                 userId = request.getCurrentId(noticeNew.this);
                 EditText NewNoticeTitle = findViewById(R.id.NewNoticeTitle);
                 EditText NewNoticeText = findViewById(R.id.NewNoticeText);
+                TextView NewNoticeDate = findViewById(R.id.tvProcessName);
+                TextView NewNoticeTime = findViewById(R.id.timeset);
 
                 newnoticetitle= NewNoticeTitle.getText().toString();
                 newnoticetext= NewNoticeText.getText().toString();
+                newnoticedate=NewNoticeDate.getText().toString();
+                newnoticetime=NewNoticeTime.getText().toString();
+
                 request.setTable("table_notice_info");
 
                 request.addRequestParam("noticeTitle",newnoticetitle);
                 request.addRequestParam("noticeText",newnoticetext);
                 request.addRequestParam("noticeUser",userId);
+                request.addRequestParam("noticeDate",newnoticedate);
+                request.addRequestParam("noticeTime",newnoticetime);
                 request.Create(request, new ResponseHandler() {
                     @Override
                     public void success(CommonResponse response) {
