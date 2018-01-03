@@ -25,7 +25,6 @@ public class noticeListAdapter extends ArrayAdapter {
         public View getView(int position, View convertView, ViewGroup parent) {
             noticeDetail noticeDetail = (noticeDetail) getItem(position); // 获取当前项的实例
             View view = LayoutInflater.from(getContext()).inflate(resourceId, null);//实例化一个对象
-
 //            TextView notice_title = (TextView) view.findViewById(R.id.noticeTitle);
 //            TextView notice_lable = (TextView) view.findViewById(R.id.notice_label);
 //            TextView notice_deadline_date = (TextView) view.findViewById(R.id.notice_deadline_date);
@@ -33,7 +32,6 @@ public class noticeListAdapter extends ArrayAdapter {
 //            TextView notice_publisher = (TextView) view.findViewById(R.id.notice_publisher);//获取该布局内的文本视图
 
 //            notice_title.setText(noticeDetail.getTitle());//为文本视图设置文本内容
-
             return view;
         }
     }
