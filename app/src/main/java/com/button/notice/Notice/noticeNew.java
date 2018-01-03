@@ -127,7 +127,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
 
     private void DatePicker() {
         Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(noticeNew.this, AlertDialog.THEME_HOLO_LIGHT, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(noticeNew.this, 3, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 // TODO Auto-generated method stub
@@ -160,7 +160,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
 
     private void showTimePickerDialog() {
         mCalendar = Calendar.getInstance();
-        TimePickerDialog dialog = new TimePickerDialog(noticeNew.this, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog dialog = new TimePickerDialog(noticeNew.this, 3, new TimePickerDialog.OnTimeSetListener() {
 
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
