@@ -19,15 +19,21 @@ import com.button.notice.Fragment.MainActivity;
 
 import com.button.notice.JPush.JpushUtil;
 import com.button.notice.JPush.MyApplication;
+import com.button.notice.Notice.noticeNew;
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
+import com.button.notice.util.ACache;
 import com.button.notice.util.MD5;
 import com.button.notice.util.StringUtil;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import cn.jpush.android.api.CustomPushNotificationBuilder;
@@ -98,11 +104,76 @@ public class buttonLogin extends AppCompatActivity  {
                                         System.out.println("这个是代码"+response.getResMsg());
                                     JPushInterface.setAlias(buttonLogin.this,1,response.getResMsg());
 
-                                    Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                    Intent intent =new Intent(buttonLogin.this,MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
 
+
+                                    CommonRequest request = new CommonRequest();
+                                    request.setTable("table_user_info");
+                                    request.setList("");
+                                    request.setId(response.getResMsg());
+                                    request.Query(new ResponseHandler() {
+                                        @Override
+                                        public void success(CommonResponse response) {
+                                            ACache aCache =ACache.get(buttonLogin.this);
+                                            ArrayList<HashMap<String, String>> list = response.getDataList();
+                                            if(list.size()>0){
+                                                HashMap<String, String> map = list.get(0);
+
+
+                                              String[] quanziid =  StringUtil.ChangetoString(map.get("userCommunity"));
+
+                                                List array = new ArrayList();
+
+                                                for(int i=0;i<quanziid.length;i++)
+                                                array.add(quanziid[i]);
+
+                                                Set tags = new HashSet(Arrays.asList(array));
+                                                JPushInterface.setTags(buttonLogin.this,1,tags);
+
+
+
+                                              aCache.put("quanziidacache",quanziid);
+                                                CommonRequest request = new CommonRequest();
+                                                request.setTable("table_community_info");
+                                                request.setWhereEqualMoreTo("Id",quanziid);
+                                                request.Query(new ResponseHandler() {
+                                                    @Override
+                                                    public void success(CommonResponse response) {
+                                                        ACache aCache =ACache.get(buttonLogin.this);
+
+                                                        ArrayList<HashMap<String, String>> list = response.getDataList();
+                                                        if(list.size()>0){
+                                                            String[] quanzi = new String[list.size()];
+                                                            for(int i=0;i<list.size();i++) {
+
+                                                                HashMap<String, String> map = list.get(i);
+                                                               quanzi[i]=map.get("communityName");
+
+                                                            }
+
+                                                            aCache.put("quanziacache",quanzi);
+                                                            Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                                            Intent intent =new Intent(buttonLogin.this,MainActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void fail(String failCode, String failMsg) {
+
+                                                    }
+                                                });
+
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void fail(String failCode, String failMsg) {
+
+                                        }
+                                    });
                                 }
 
                                 @Override

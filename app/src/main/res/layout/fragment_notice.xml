@@ -29,7 +29,7 @@
             android:textColor="@color/colorTitleText"/>
 
         <TextView
-            android:id="@+id/editText"
+            android:id="@+id/search"
             android:layout_width="280dp"
             android:layout_height="30dp"
             android:background="@drawable/shape_write"

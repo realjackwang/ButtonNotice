@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.button.notice.Jellyrefresh.JellyRefreshLayout;
@@ -21,6 +22,7 @@ import com.button.notice.Jellyrefresh.PullToRefreshLayout;
 import com.button.notice.Notice.noticeDetail;
 import com.button.notice.Notice.noticeNew;
 
+import com.button.notice.Notice.noticeSearch;
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
@@ -45,6 +47,7 @@ public class noticeFragment extends ListFragment {
     private SimpleAdapter simpleAdapter;
     int i=1;
     Button toNewNotice;
+    TextView Search;
 
 @Nullable
     @Override
@@ -65,6 +68,7 @@ public class noticeFragment extends ListFragment {
     }
    // listView.setOnItemClickListener(new MyListener());
     listView= view.findViewById(android.R.id.list);
+    Search=view.findViewById(R.id.search);
     mJellyLayout = view.findViewById(R.id.jelly_refresh);
     mJellyLayout.setPullToRefreshListener(pullToRefreshLayout -> {
 
@@ -110,6 +114,15 @@ public class noticeFragment extends ListFragment {
         })
         );
     }
+
+
+    Search.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(getActivity(),noticeSearch.class );
+            startActivity(intent);
+        }
+    });
 
     return view;
 }

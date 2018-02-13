@@ -40,7 +40,7 @@ public class CommonRequest {
 
     private String Community;
 
-
+    private boolean ispush;
     /**
      * 条件查询参数
      **/
@@ -51,6 +51,10 @@ public class CommonRequest {
     private String WhereNotEqualTo = null;
     private String WhereNotEqualTovalue = null;
 
+    /**
+     * 模糊查询
+     */
+    private String LikeEqualTo = null;
 
     /**
      * 请求码，类似于接口号（在本文中用Servlet做服务器时暂时用不到）
@@ -157,6 +161,7 @@ public class CommonRequest {
     public void Create(CommonRequest request, ResponseHandler rHandler) {  //创建
 
         request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("ispush",this.isIspush()+"");
         new HttpPostTask(Constant.URL_Create, request, rHandler).execute();
 
     }
@@ -178,20 +183,23 @@ public class CommonRequest {
     /**
      * 用于查询
      * 查询前首先用setTable方法设置查询哪个表
-     * 条件查询 用setWhereEqualTo设置，哪一列满足什么条件。用setWhereNotEqualTo设置那一列不满足什么条件。用setWhereEqualMoreTo设置多条件查询 先创建一个String[]数组，然后传进来。
+     * 1、条件查询 用setWhereEqualTo设置，哪一列满足什么条件。用setWhereNotEqualTo设置那一列不满足什么条件。用setWhereEqualMoreTo设置多条件查询 先创建一个String[]数组，然后传进来。
+     * 2、模糊查询 用setLikeEqualTo设置，模糊查询的关键字。然后调用此方法。
      * @param rHandler 返回成功或失败的值
      */
+
 
     public void Query(ResponseHandler rHandler) {
         final CommonRequest request = new CommonRequest();
         request.addRequestParam("Table", this.getTable());
         request.addRequestParam("ISMORE","2");  //用于判断是否是多条件查询
+        request.addRequestParam("ISLIKE","2");  //用于判断是否是模糊查询
+
 
         if (this.getWhereEqualTo() != null) {
             request.addRequestParam(this.getWhereEqualTo() + " ", this.getWhereEqualTovalue());
             request.addRequestParam("ISMORE","0");  //用于判断是否是多条件查询
         }
-
         if (this.getWhereEqualMoreTo() != null){
             request.addRequestParam("ISMORE","1");  //用于判断是否是多条件查询
             String[] va = this.getWhereEqualMoreTovalue();
@@ -200,8 +208,15 @@ public class CommonRequest {
             }
 
         }
+
         if (this.getWhereNotEqualTo() != null){
-            request.addRequestParam(this.getWhereNotEqualTo() + " !", this.getWhereNotEqualTovalue());}
+            request.addRequestParam(this.getWhereNotEqualTo() + " !", this.getWhereNotEqualTovalue());
+        }
+
+        if(this.getLikeEqualTo() !=null){
+            request.addRequestParam("ISLIKE","1");  //用于判断是否是模糊查询
+            request.addRequestParam("LikeKey",this.getLikeEqualTo());
+        }
 
         request.addRequestParam("List", this.getList());
 
@@ -311,6 +326,17 @@ public class CommonRequest {
         return Id;
     }
 
+
+
+
+
+
+
+
+
+
+
+
     public String getUserName() {
         return userName;
     }
@@ -397,5 +423,21 @@ public class CommonRequest {
 
     public String[] getWhereEqualMoreTovalue() {
         return WhereEqualMoreTovalue;
+    }
+
+    public boolean isIspush() {
+        return ispush;
+    }
+
+    public void setIspush(boolean ispush) {
+        this.ispush = ispush;
+    }
+
+    public String getLikeEqualTo() {
+        return LikeEqualTo;
+    }
+
+    public void setLikeEqualTo(String likeEqualTo) {
+        LikeEqualTo = likeEqualTo;
     }
 }

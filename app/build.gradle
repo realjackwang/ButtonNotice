@@ -12,14 +12,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
 
-        ndk{
+        ndk {
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
         }
 
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId ,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "276b0901e46a1d95ee937f9f", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
 
     }
@@ -46,6 +46,7 @@ dependencies {
     implementation 'cn.jiguang.sdk:jpush:3.1.0'
     implementation 'cn.jiguang.sdk:jcore:1.1.8'
     implementation 'ru.bartwell:exfilepicker:2.1'
+    implementation 'com.contrarywind:Android-PickerView:3.2.4'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
     testImplementation 'junit:junit:4.12'

@@ -3,9 +3,16 @@ package com.button.notice.Notice;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import java.io.File;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -15,16 +22,28 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.button.notice.Fragment.MainActivity;
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
+import com.button.notice.util.ACache;
+import com.button.notice.util.StringUtil;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
+import ru.bartwell.exfilepicker.ExFilePicker;
+import ru.bartwell.exfilepicker.data.ExFilePickerResult;
 
 /**
  * Created by Jill on 2017/12/25.,,
@@ -43,11 +62,19 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
     private String newnoticetime;
     private Button datepicker;//点击选择日期钮
     private Button timepicker;//点击选择时间钮
+    private Button quanzipicker,filepicker;
     private TextView tvProcessName;//用来展示选中日期的tv
     private TextView mText;//显示选择的时间
 
+
+    private AppCompatActivity mActivity;
+    private final int EX_FILE_PICKER_RESULT = 0xfa01;
+    private String startDirectory = null;// 记忆上一次访问的文件目录路径
+
     private Calendar mCalendar;//这到底是个啥啊
     private Calendar calendar;
+
+    private String quanziids;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +84,14 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         Button Submit = findViewById(R.id.submit);
         datepicker = findViewById(R.id.datepicker);
         timepicker=findViewById(R.id.timepicker);
-
+        quanzipicker=findViewById(R.id.circleChoose);
+        filepicker=findViewById(R.id.fileChoose);
         Back.setOnClickListener(this);//集成一下很多按钮的点击事件
         Submit.setOnClickListener(this);
         timepicker.setOnClickListener(this);
         datepicker.setOnClickListener(this);
-
+        filepicker.setOnClickListener(this);
+        quanzipicker.setOnClickListener(this);
         calendar = Calendar.getInstance();//我也不知道是用来干嘛的
     }
 
@@ -92,13 +121,15 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
                 newnoticetime=NewNoticeTime.getText().toString();
 
                 request.setTable("table_notice_info");
-
+                request.setIspush(true);
                 request.addRequestParam("noticeTitle",newnoticetitle);
                 request.addRequestParam("noticeText",newnoticetext);
                 request.addRequestParam("noticeUser",userId);
                 request.addRequestParam("noticeDate",newnoticedate);
                 request.addRequestParam("noticeTime",newnoticetime);
+                request.addRequestParam("noticeCommunity",quanziids);
                 request.Create(request, new ResponseHandler() {
+
                     @Override
                     public void success(CommonResponse response) {
 
@@ -114,14 +145,27 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
                 break;}
             case R.id.datepicker://选择日期钮
                 {
-                DatePicker();
+                    Dataset();
+//                DatePicker();
                 break;
                 }
             case R.id.timepicker://选择时间钮
                 {
-                showTimePickerDialog();
+                    Timeset();
+//                showTimePickerDialog();
                 break;
+
                 }
+
+            case R.id.fileChoose:{
+                fileChoose();
+            break;
+            }
+            case R.id.circleChoose:{
+                circleChoose();
+                break;
+            }
+
         }
     }
 
@@ -177,5 +221,284 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         dialog.show();
 
     }
+
+    private  void Dataset()  {
+
+
+        String month =Integer.toHexString(calendar.get(Calendar.MONTH)+1); //
+
+        String str=calendar.get(Calendar.YEAR)+"-"+month+"-"+calendar.get(Calendar.DATE);
+        Log.d("初试时间：",str);
+        String str2=calendar.get(Calendar.YEAR)+5+"-"+month+"-"+calendar.get(Calendar.DATE);
+
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = null;
+        try {
+            date = sdf.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date date2 = null;
+        try {
+            date2 = sdf.parse(str2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar2.setTime(date2);
+
+        TimePickerView pvTime = new TimePickerView.Builder(noticeNew.this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date2, View v) {//选中事件回调
+
+                TextView btn = findViewById(R.id.tvProcessName);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                btn.setText(sdf.format(date2));
+            }
+        })
+
+                .setType(TimePickerView.Type.YEAR_MONTH_DAY)//默认全部显示
+                .setCancelText("取消")//取消按钮文字
+                .setSubmitText("确定")//确认按钮文字
+                .setContentSize(20)//滚轮文字大小
+                .setTitleSize(20)//标题文字大小
+//                        .setTitleText("请选择时间")//标题文字
+                .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
+                .isCyclic(false)//是否循环滚动
+                .setTextColorCenter(Color.BLACK)//设置选中项的颜色
+                .setTitleColor(Color.BLACK)//标题文字颜色
+                .setSubmitColor(Color.BLACK)//确定按钮文字颜色
+                .setCancelColor(Color.BLACK)//取消按钮文字颜色
+                .setRangDate(calendar,calendar2)//起始终止年月日设定
+
+//                        .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
+//                        .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
+//                        .setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
+//                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+//                        .setRangDate(startDate,endDate)//起始终止年月日设定
+//                        .setLabel("年","月","日","时","分","秒")
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+//                        .isDialog(true)//是否显示为对话框样式
+                .build();
+        pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+        pvTime.show();
+    }
+
+    private void Timeset(){
+        TimePickerView pvTime = new TimePickerView.Builder(noticeNew.this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date2, View v) {//选中事件回调
+
+                TextView btn = findViewById(R.id.timeset);
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                btn.setText(sdf.format(date2));
+
+            }
+
+        })
+                .setType(TimePickerView.Type.HOURS_MINS)//默认全部显示
+                .setCancelText("取消")//取消按钮文字
+                .setSubmitText("确定")//确认按钮文字
+                .setContentSize(20)//滚轮文字大小
+                .setTitleSize(20)//标题文字大小
+//                        .setTitleText("请选择时间")//标题文字
+                .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
+                .isCyclic(true)//是否循环滚动
+                .setTextColorCenter(Color.BLACK)//设置选中项的颜色
+                .setTitleColor(Color.BLACK)//标题文字颜色
+                .setSubmitColor(Color.BLACK)//确定按钮文字颜色
+                .setCancelColor(Color.BLACK)//取消按钮文字颜色
+                .setRange(calendar.get(Calendar.YEAR), calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
+
+//                        .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
+//                        .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
+//                        .setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
+//                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+//                        .setRangDate(startDate,endDate)//起始终止年月日设定
+//                        .setLabel("年","月","日","时","分","秒")
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+//                        .isDialog(true)//是否显示为对话框样式
+                .build();
+        pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+        pvTime.show();
+
+    }
+
+    private void circleChoose(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(noticeNew.this);
+        //builder.setIcon(R.drawable.ic_launcher);
+        builder.setTitle("选择圈子");
+        //    指定下拉列表的显示数据
+
+        ACache aCache =ACache.get(noticeNew.this);
+        final String[] quanzi = (String[]) aCache.getAsObject("quanziacache");
+        final String[] quanziid = (String[]) aCache.getAsObject("quanziidacache");
+        //    设置一个下拉的列表选择项
+        if(quanzi!=null){
+        builder.setItems(quanzi, (dialog, which) -> {
+
+            quanziids=quanziid[which];
+            Toast.makeText(getApplicationContext(), quanziid[which],Toast.LENGTH_LONG).show();
+
+        });
+
+        builder.show();
+
+    }
+    else {
+            Toast.makeText(getApplicationContext(), "你还没有加入任何圈子，请进行反馈",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private void fileChoose(){
+
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(noticeNew.this);
+            //builder.setIcon(R.drawable.ic_launcher);
+            builder.setTitle("选择查找方式");
+            //    指定下拉列表的显示数据
+            final String[] cities = {"QQ文件", "微信文件", "TIM文件", "自行查找"};
+            //    设置一个下拉的列表选择项
+            builder.setItems(cities, (dialog, which) -> {
+
+                switch (which){
+                    case 0:{
+                        if(StringUtil.isExist(Environment.getExternalStorageDirectory().getPath()+"/tencent/QQfile_recv")){
+                        ExFilePicker exFilePicker = new ExFilePicker();
+                        exFilePicker.setNewFolderButtonDisabled(true);
+                        exFilePicker.setQuitButtonEnabled(true);
+                        exFilePicker.setStartDirectory(Environment.getExternalStorageDirectory().getPath()+"/tencent/QQfile_recv");
+//                        if (TextUtils.isEmpty(startDirectory)) {
+//                            exFilePicker.setStartDirectory(Environment.getExternalStorageDirectory().getPath());
+//                        } else {
+//                            exFilePicker.setStartDirectory(startDirectory);
+//                        }
+
+                        exFilePicker.setChoiceType(ExFilePicker.ChoiceType.FILES);
+                        exFilePicker.start(noticeNew.this, EX_FILE_PICKER_RESULT);}
+                        else {
+                            Toast.makeText(getApplicationContext(), "未找到有关文件夹",Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    }
+                    case 1:{
+                        if(StringUtil.isExist(Environment.getExternalStorageDirectory().getPath()+"/tencent/MicroMsg/Download")){
+                        ExFilePicker exFilePicker = new ExFilePicker();
+                        exFilePicker.setNewFolderButtonDisabled(true);
+                        exFilePicker.setQuitButtonEnabled(true);
+                        exFilePicker.setStartDirectory(Environment.getExternalStorageDirectory().getPath()+"/tencent/MicroMsg/Download");
+//                        if (TextUtils.isEmpty(startDirectory)) {
+//                            exFilePicker.setStartDirectory(Environment.getExternalStorageDirectory().getPath());
+//                        } else {
+//                            exFilePicker.setStartDirectory(startDirectory);
+//                        }
+                        exFilePicker.setChoiceType(ExFilePicker.ChoiceType.FILES);
+                        exFilePicker.start(noticeNew.this, EX_FILE_PICKER_RESULT);}
+                        else {
+                            Toast.makeText(getApplicationContext(), "未找到有关文件夹",Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    }
+                    case 2:{
+                        if(StringUtil.isExist(Environment.getExternalStorageDirectory().getPath()+"/tencent/TIMfile_recv")){
+                        ExFilePicker exFilePicker = new ExFilePicker();
+                        exFilePicker.setNewFolderButtonDisabled(true);
+                        exFilePicker.setQuitButtonEnabled(true);
+                        exFilePicker.setStartDirectory(Environment.getExternalStorageDirectory().getPath()+"/tencent/TIMfile_recv");
+//                        if (TextUtils.isEmpty(startDirectory)) {
+//                            exFilePicker.setStartDirectory(Environment.getExternalStorageDirectory().getPath());
+//                        } else {
+//                            exFilePicker.setStartDirectory(startDirectory);
+//                        }
+
+                        exFilePicker.setChoiceType(ExFilePicker.ChoiceType.FILES);
+                        exFilePicker.start(noticeNew.this, EX_FILE_PICKER_RESULT);}
+                        else {
+                            Toast.makeText(getApplicationContext(), "未找到有关文件夹",Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    }
+                    case 3:{
+                        ExFilePicker exFilePicker = new ExFilePicker();
+                        exFilePicker.setNewFolderButtonDisabled(true);
+                        exFilePicker.setQuitButtonEnabled(true);
+                        exFilePicker.setStartDirectory(Environment.getExternalStorageDirectory().getPath());
+                        exFilePicker.setChoiceType(ExFilePicker.ChoiceType.FILES);
+                        exFilePicker.start(noticeNew.this, EX_FILE_PICKER_RESULT);
+                        break;
+                    }
+
+                }
+
+
+            });
+
+            builder.show();
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == EX_FILE_PICKER_RESULT) {
+            ExFilePickerResult result = ExFilePickerResult.getFromIntent(data);
+            if (result != null && result.getCount() > 0) {
+                String path = result.getPath();
+
+                List<String> names = result.getNames();
+                for (int i = 0; i < names.size(); i++) {
+                    File f = new File(path, names.get(i));
+                    try {
+                        Uri uri = Uri.fromFile(f); //这里获取了真实可用的文件资源
+
+                        CommonRequest request = new CommonRequest();
+                        request.setId(request.getCurrentId(noticeNew.this));
+                        if(request.getCurrentId(noticeNew.this).isEmpty()){
+                            Toast.makeText(getApplicationContext(), "登录失效，请重新登录",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                                request.Upload(uri.getPath(), new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                        if(statusCode==255)
+                                            Toast.makeText(getApplicationContext(), "登录失效，请重新登录",Toast.LENGTH_LONG).show();
+
+                                        if(statusCode==200)
+                                            Toast.makeText(getApplicationContext(), "附件上传成功",Toast.LENGTH_LONG).show();
+                                    }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                    Toast.makeText(getApplicationContext(), "附件上传失败"+statusCode,Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onProgress(long bytesWritten, long totalSize) {
+                                    // TODO Auto-generated method stub
+                                    super.onProgress(bytesWritten, totalSize);
+                                    int count = (int) ((bytesWritten * 1.0 / totalSize) * 100);
+                                    // 下载进度显示
+                                }
+
+                            });
+                        }
+                        Toast.makeText(mActivity, "选择文件:" + uri.getPath(), Toast.LENGTH_SHORT)
+                                .show();
+
+                        startDirectory = path;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
 
 }
