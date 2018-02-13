@@ -45,7 +45,6 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
     private Button timepicker;//点击选择时间钮
     private TextView tvProcessName;//用来展示选中日期的tv
     private TextView mText;//显示选择的时间
-
     private Calendar mCalendar;//这到底是个啥啊
     private Calendar calendar;
     @Override

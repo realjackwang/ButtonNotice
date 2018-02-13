@@ -1,69 +1,60 @@
 package com.button.notice.Fragment;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
 import com.button.notice.Jellyrefresh.JellyRefreshLayout;
-import com.button.notice.Jellyrefresh.PullToRefreshLayout;
-import com.button.notice.Notice.noticeDetail;
+import com.button.notice.Notice.noticeDetailActivity;
 import com.button.notice.Notice.noticeNew;
-
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
 import com.button.notice.util.ACache;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Jack on 2017/8/22.
  */
 
-//, AbsListView.OnScrollListener
 
-
-public class noticeFragment extends ListFragment {
+public class noticeFragment extends ListFragment  {
     private ListView listView;
     private JellyRefreshLayout mJellyLayout;
     private SimpleAdapter simpleAdapter;
-    int i=1;
     Button toNewNotice;
 
-@Nullable
+    @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable
         ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_notice, null);//以上 常规操作 常规操作
 
-        View view = inflater.inflate(R.layout.fragment_notice, null);
+    ACache aCache =ACache.get(getActivity());//键键说这个是用来存储任意类型数据的本地数据库 棒棒吧！
 
-    ACache aCache =ACache.get(getActivity());
     ArrayList<HashMap<String,String>> arrayList =(ArrayList<HashMap<String,String>>) aCache.getAsObject("listacache1");
 
     if(arrayList!=null) {
-        SimpleAdapter adapter = new SimpleAdapter(getContext(), arrayList, R.layout.listview_item, new String[]{"noticeTitle", "noticeText",}, new int[]{R.id.title, R.id.info});
+        SimpleAdapter adapter = new SimpleAdapter(getContext(),
+                arrayList, R.layout.listview_item,
+                new String[]{"noticeTitle", "noticeText","noticeDate","noticeTime"},
+                new int[]{R.id.title, R.id.info,R.id.date,R.id.time});
         setListAdapter(adapter);
 
     }
-   // listView.setOnItemClickListener(new MyListener());
+
+
     listView= view.findViewById(android.R.id.list);
     mJellyLayout = view.findViewById(R.id.jelly_refresh);
     mJellyLayout.setPullToRefreshListener(pullToRefreshLayout -> {
@@ -80,7 +71,6 @@ public class noticeFragment extends ListFragment {
                         aCache1.put("listacache1", arrayList1);
                         SimpleAdapter adapter =new SimpleAdapter(getContext(), arrayList1,R.layout.listview_item,new String[]{"noticeTitle","noticeText",},new int[]{R.id.title,R.id.info});
                         setListAdapter(adapter);
-
                     }
 
                     @Override
@@ -94,16 +84,11 @@ public class noticeFragment extends ListFragment {
             });  //超过多少毫秒就停止刷新，还是我猜的。
 
 
-
-
-
-
-
     View loadingView = LayoutInflater.from(getContext()).inflate(R.layout.view_loading, null);
     mJellyLayout.setLoadingView(loadingView);
 
-    {
-        toNewNotice = view.findViewById (R.id.toNewNotice);//发送新通知跳转
+    {   //发送新通知跳转
+        toNewNotice = view.findViewById (R.id.toNewNotice);
         toNewNotice.setOnClickListener((v -> {
         Intent intent = new Intent(getActivity(),noticeNew.class );
         startActivity(intent);
@@ -113,20 +98,6 @@ public class noticeFragment extends ListFragment {
 
     return view;
 }
-//    private List<Map<String, Object>> getData() {
-//        List<Map<String, Object>> mList = new ArrayList<Map<String,Object>>();
-//        Map<String, Object> mMap = new HashMap<String, Object>();
-//        mMap.put("image", R.drawable.discover);
-//        mMap.put("data", "one");
-//        mList.add(mMap);
-//
-//        mMap = new HashMap<String, Object>();
-//        mMap.put("image", R.drawable.discover);
-//        mMap.put("data", "two");
-//        mList.add(mMap);
-//        return mList;
-//    }
-
 
     public static noticeFragment newInstance(String content) {
         Bundle args = new Bundle();
@@ -136,17 +107,17 @@ public class noticeFragment extends ListFragment {
         return fragment;
     }
 
-
-
-//    class MyListener  implements AdapterView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position,
-//                                long id) {
-//            Map<String, Object> mMap = (Map<String, Object>) simpleAdapter.getItem(position);
-//            Toast.makeText(getActivity(), mMap.get("data").toString(), Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        HashMap<String,String> map=(HashMap<String,String>) l.getItemAtPosition(position);
+        String Text=map.get("Id");
+        Intent intent = new Intent();
+        intent.putExtra("id", Text);
+        intent.setClass(getActivity(), noticeDetailActivity.class);
+        getActivity().startActivity(intent);
+        // TODO Auto-generated method stub
+        super.onListItemClick(l, v, position, id);
+    }
 
 
 }

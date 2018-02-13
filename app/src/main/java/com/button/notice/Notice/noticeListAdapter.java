@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.button.notice.Notice.what_is_not_activity.noticeDetail;
+
 import java.util.List;
 
 /**

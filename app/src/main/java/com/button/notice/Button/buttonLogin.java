@@ -131,13 +131,10 @@ public class buttonLogin extends AppCompatActivity  {
 
         Button bttest = (Button) findViewById(R.id.test); //测试用跳转
 
-        bttest.setOnClickListener((new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(buttonLogin.this,MainActivity.class );
-                        startActivity(intent);
-                    }
-                })
+        bttest.setOnClickListener((v -> {
+            Intent intent = new Intent(buttonLogin.this,MainActivity.class );
+            startActivity(intent);
+        })
         );
 
     }
