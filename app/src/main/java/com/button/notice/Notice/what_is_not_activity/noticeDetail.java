@@ -1,4 +1,4 @@
-package com.button.notice.Notice;
+package com.button.notice.Notice.what_is_not_activity;
 
 /**
  * Created by Jill on 2017/12/14.

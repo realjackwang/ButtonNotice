@@ -65,12 +65,15 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
     private Button quanzipicker,filepicker;
     private TextView tvProcessName;//用来展示选中日期的tv
     private TextView mText;//显示选择的时间
+<<<<<<< HEAD
 
 
     private AppCompatActivity mActivity;
     private final int EX_FILE_PICKER_RESULT = 0xfa01;
     private String startDirectory = null;// 记忆上一次访问的文件目录路径
 
+=======
+>>>>>>> 383cb035f27881a60e55844beee6f006b99ff999
     private Calendar mCalendar;//这到底是个啥啊
     private Calendar calendar;
 
@@ -171,7 +174,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
 
     private void DatePicker() {
         Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(noticeNew.this, AlertDialog.THEME_HOLO_LIGHT, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(noticeNew.this, 3, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 // TODO Auto-generated method stub
@@ -204,7 +207,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
 
     private void showTimePickerDialog() {
         mCalendar = Calendar.getInstance();
-        TimePickerDialog dialog = new TimePickerDialog(noticeNew.this, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog dialog = new TimePickerDialog(noticeNew.this, 3, new TimePickerDialog.OnTimeSetListener() {
 
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
