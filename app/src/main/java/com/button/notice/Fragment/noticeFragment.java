@@ -11,20 +11,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-<<<<<<< HEAD
 import android.widget.TextView;
 import android.widget.Toast;
 
-=======
->>>>>>> 383cb035f27881a60e55844beee6f006b99ff999
+
 import com.button.notice.Jellyrefresh.JellyRefreshLayout;
 import com.button.notice.Notice.noticeDetailActivity;
 import com.button.notice.Notice.noticeNew;
-<<<<<<< HEAD
+
 
 import com.button.notice.Notice.noticeSearch;
-=======
->>>>>>> 383cb035f27881a60e55844beee6f006b99ff999
+
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;

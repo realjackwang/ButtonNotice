@@ -33,10 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".Notice.noticeMain" />
-=======
->>>>>>> 383cb035f27881a60e55844beee6f006b99ff999
         <activity android:name=".User.userInfo" />
         <activity android:name=".Notice.noticeDetialFile" />
         <activity android:name=".Notice.noticeNew" />
@@ -72,11 +68,11 @@
             </intent-filter>
         </service>
 
-<<<<<<< HEAD
+
         <activity android:name=".Notice.noticeSearch"></activity>
-=======
+
         <activity android:name=".Notice.noticeDetialQA"></activity>
->>>>>>> 383cb035f27881a60e55844beee6f006b99ff999
+
     </application>
 
 </manifest>

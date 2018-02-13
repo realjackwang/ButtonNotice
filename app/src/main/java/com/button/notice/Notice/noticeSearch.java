@@ -78,7 +78,7 @@ public class noticeSearch extends ListActivity implements TextView.OnEditorActio
         l=a;
         HashMap<String,String> map=(HashMap<String,String>)a.getItemAtPosition(position);
         String ID =map.get("id");
-        Intent intent =new Intent(noticeSearch.this, noticeDetail.class);
+        Intent intent =new Intent(noticeSearch.this, noticeDetailActivity.class);
         intent.putExtra("id",ID);
         startActivity(intent);
     }   //Listview 点击事件
