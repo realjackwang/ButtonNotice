@@ -68,11 +68,10 @@
             </intent-filter>
         </service>
 
-
-        <activity android:name=".Notice.noticeSearch"></activity>
-
-        <activity android:name=".Notice.noticeDetialQA"></activity>
-
+        <activity android:name=".Notice.noticeSearch" />
+        <activity android:name=".Notice.noticeDetialQA" />
+        <activity android:name=".User.settings" />
+        <activity android:name=".User.identification"></activity>
     </application>
 
 </manifest>

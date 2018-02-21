@@ -57,7 +57,7 @@ public class noticeFragment extends ListFragment  {
 
     if(arrayList!=null) {
         SimpleAdapter adapter = new SimpleAdapter(getContext(),
-                arrayList, R.layout.listview_item,
+                arrayList, R.layout.notice_listviewitem,
                 new String[]{"noticeTitle", "noticeText","noticeDate","noticeTime"},
                 new int[]{R.id.title, R.id.info,R.id.date,R.id.time});
         setListAdapter(adapter);
@@ -80,7 +80,7 @@ public class noticeFragment extends ListFragment  {
                         ArrayList<HashMap<String, String>> arrayList1 = response.getDataList();
                         ACache aCache1 = ACache.get(getActivity());
                         aCache1.put("listacache1", arrayList1);
-                        SimpleAdapter adapter =new SimpleAdapter(getContext(), arrayList1,R.layout.listview_item,new String[]{"noticeTitle","noticeText",},new int[]{R.id.title,R.id.info});
+                        SimpleAdapter adapter =new SimpleAdapter(getContext(), arrayList1,R.layout.notice_listviewitem,new String[]{"noticeTitle", "noticeText","noticeDate","noticeTime"},new int[]{R.id.title, R.id.info,R.id.date,R.id.time});
                         setListAdapter(adapter);
                     }
 

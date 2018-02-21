@@ -1,5 +1,6 @@
 package com.button.notice.Button;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +28,7 @@ import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
 import com.button.notice.util.ACache;
+import com.button.notice.util.LoadUtils;
 import com.button.notice.util.MD5;
 import com.button.notice.util.StringUtil;
 
@@ -43,6 +47,27 @@ public class buttonLogin extends AppCompatActivity  {
 
     private EditText etAccount;
     private EditText etPassword;
+
+    private Dialog mLoad;
+
+    private Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    closeDialog(mLoad);
+                    break;
+            }
+        }
+    };
+
+    public void closeDialog(Dialog mDialogUtils) {
+        if (mDialogUtils != null && mDialogUtils.isShowing()) {
+            mDialogUtils.dismiss();
+        }
+    }
 
 
     @Override
@@ -87,7 +112,8 @@ public class buttonLogin extends AppCompatActivity  {
                             } catch (NoSuchAlgorithmException e) {
                                 e.printStackTrace();
                             }
-
+                            mLoad = LoadUtils.createLoadingDialog(buttonLogin.this, "登录中...");
+                            mHandler.sendEmptyMessageDelayed(1, 10000);
                             request.Login(new ResponseHandler() {
                                 @Override
                                 public void success(CommonResponse response) {
@@ -151,6 +177,7 @@ public class buttonLogin extends AppCompatActivity  {
                                                             }
 
                                                             aCache.put("quanziacache",quanzi);
+                                                            mLoad.dismiss();
                                                             Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
                                                             Intent intent =new Intent(buttonLogin.this,MainActivity.class);
                                                             startActivity(intent);
@@ -161,7 +188,7 @@ public class buttonLogin extends AppCompatActivity  {
 
                                                     @Override
                                                     public void fail(String failCode, String failMsg) {
-
+                                                        mLoad.dismiss();
                                                     }
                                                 });
 
@@ -171,13 +198,14 @@ public class buttonLogin extends AppCompatActivity  {
 
                                         @Override
                                         public void fail(String failCode, String failMsg) {
-
+                                            mLoad.dismiss();
                                         }
                                     });
                                 }
 
                                 @Override
                                 public void fail(String failCode, String failMsg) {
+                                    mLoad.dismiss();
                                     Toast.makeText(buttonLogin.this, "学号或密码错误", Toast.LENGTH_SHORT).show();
 
                                 }
@@ -209,6 +237,11 @@ public class buttonLogin extends AppCompatActivity  {
         );
 
     }
+
+
+
+
+
 
     boolean checkNetwork() {
         // 实例化ConnectivityManager

@@ -47,6 +47,7 @@
             android:text="用户名" />
 
         <TextView
+            android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设置"
@@ -109,7 +110,7 @@
     <LinearLayout style="@style/wrap_layout">
 
         <LinearLayout
-            android:id="@+id/renzheng"
+            android:id="@+id/renzhen"
             style="@style/single_layout">
             <ImageView
                 android:layout_width="20dp"
@@ -184,7 +185,7 @@
             <LinearLayout style="@style/wrap_layout">
 
                 <LinearLayout
-                    android:id="@+id/settings"
+                    android:id="@+id/setting"
 
                     style="@style/single_layout">
                     <ImageView
