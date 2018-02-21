@@ -27,8 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTitleText"
-
-            android:text="新通知"
             android:layout_gravity="center"
             />
         <Button
