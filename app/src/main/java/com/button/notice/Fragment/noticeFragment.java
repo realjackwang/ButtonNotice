@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 import com.button.notice.Jellyrefresh.JellyRefreshLayout;
@@ -21,6 +21,7 @@ import com.button.notice.Notice.noticeNew;
 
 
 import com.button.notice.Notice.noticeSearch;
+
 
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
