@@ -38,7 +38,15 @@ public class CommonRequest {
      **/
     private String List;
 
+    /**
+     * 圈子
+     */
     private String Community;
+
+    /**
+     * 这个是当你用Connect方法的时候，鬼知道你要传什么的Id进来，所以就有了他。
+     */
+    private String Text;
 
     private boolean ispush;
     /**
@@ -230,14 +238,31 @@ public class CommonRequest {
      * @param c 当前的活动名称
      */
 
-    public void Connect(Context c) {
+    public void Adduser(Context c) {
         CommonRequest request = new CommonRequest();
+        request.addRequestParam("ifadd","1");
         request.addRequestParam("Table", this.getTable());
         request.addRequestParam("List", this.getList());
         request.addRequestParam("Id", getCurrentId(c));
         request.addRequestParam("Community", this.getCommunity());
         new HttpPostTask(Constant.URL_Connect, request).execute();
     }
+
+
+
+
+
+    public void Connect(Context c){
+        CommonRequest request = new CommonRequest();
+        request.addRequestParam("ifadd","0");
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("List", this.getList());
+        request.addRequestParam("Id", getCurrentId(c));
+        request.addRequestParam("Text", this.getText());
+        new HttpPostTask(Constant.URL_Connect, request).execute();
+    }
+
+
 
     /**
      * 下载前，设置文件在云服务器中的URL，然后写下面的句子，逗号前面是你要下载的地方，逗号后面不用管，那个Envionment什么的是获取SD卡目录。后面我随便设置的文件夹。
@@ -439,5 +464,13 @@ public class CommonRequest {
 
     public void setLikeEqualTo(String likeEqualTo) {
         LikeEqualTo = likeEqualTo;
+    }
+
+    public String getText() {
+        return Text;
+    }
+
+    public void setText(String text) {
+        Text = text;
     }
 }

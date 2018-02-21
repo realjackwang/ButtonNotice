@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.button.notice.R;
 
-public class identification extends AppCompatActivity {
+public class Identification extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

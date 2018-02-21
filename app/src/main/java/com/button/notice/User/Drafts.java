@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.button.notice.R;
 
-public class settings extends AppCompatActivity {
+public class Drafts extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_settings);
+        setContentView(R.layout.activity_user_drafts);
     }
 }

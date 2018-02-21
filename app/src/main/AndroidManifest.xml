@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".User.userInfo" />
+        <activity android:name=".User.UserInfo" />
         <activity android:name=".Notice.noticeDetialFile" />
         <activity android:name=".Notice.noticeNew" />
         <activity android:name=".Notice.noticeDetailActivity" />
@@ -70,8 +70,13 @@
 
         <activity android:name=".Notice.noticeSearch" />
         <activity android:name=".Notice.noticeDetialQA" />
-        <activity android:name=".User.settings" />
-        <activity android:name=".User.identification"></activity>
+        <activity android:name=".User.Settings" />
+        <activity android:name=".User.Identification" />
+        <activity android:name=".User.Circle" />
+        <activity android:name=".User.Collection" />
+        <activity android:name=".User.MyNotice" />
+        <activity android:name=".User.Drafts" />
+        <activity android:name=".User.History"></activity>
     </application>
 
 </manifest>

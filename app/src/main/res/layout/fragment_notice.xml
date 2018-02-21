@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/blue"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
         <Button
@@ -50,7 +50,7 @@
 
         app:headerHeight="48dp"
 
-        app:jellyColor="@color/colorPrimary"
+        app:jellyColor="@color/blue"
         app:pullHeight="160dp"
         app:triggerHeight="108dp">
 
