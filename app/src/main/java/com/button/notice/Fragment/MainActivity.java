@@ -71,16 +71,27 @@ protected void onCreate(Bundle savedInstanceState) {
             public void onTabSelected(int position) {
                 if (fragments != null) {
 
+
+
                     if (position < fragments.size()) {
                         FragmentManager fm = getSupportFragmentManager();
                         FragmentTransaction ft = fm.beginTransaction();
                         Fragment from = fm.findFragmentById(R.id.layFrame);   //获取当前的fragment
                         Fragment fragment = fragments.get(position);
 
-                        if(i==0){
-                            ft.replace(R.id.layFrame, noticeFragment.newInstance("通知"));
-                            i++;
+
+                        if (fm.getFragments() != null && fm.getFragments().size() > 0) {
+                            for (Fragment cf : fm.getFragments()) {
+                                ft.remove(cf);
+                            }
                         }
+
+
+//
+//                        if(i==0){
+//                            ft.replace(R.id.layFrame, noticeFragment.newInstance("通知"));
+//                            i++;
+//                        }
 
                         if (fragment.isAdded()) {
                             ft.replace(R.id.layFrame, fragment);
@@ -94,6 +105,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
             @Override
             public void onTabUnselected(int position) {
+
 //                if (fragments != null) {
 //                    if (position < fragments.size()) {
 //                        FragmentManager fm = getSupportFragmentManager();
@@ -166,7 +178,6 @@ private ArrayList<Fragment> getFragments() {
         JPushInterface.init(getApplicationContext());
     }
 
-
     //for receive customer msg from jpush server
     private MessageReceiver mMessageReceiver;
     public static final String MESSAGE_RECEIVED_ACTION = "com.zerom.clothesnews.MESSAGE_RECEIVED_ACTION";
@@ -181,10 +192,6 @@ private ArrayList<Fragment> getFragments() {
         filter.addAction(MESSAGE_RECEIVED_ACTION);
         registerReceiver(mMessageReceiver, filter);
     }
-
-
-
-
 
     public class MessageReceiver extends BroadcastReceiver {
 

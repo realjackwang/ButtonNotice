@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/userbackground"
+            android:background="@drawable/user_background"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
@@ -26,9 +26,9 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="left|top"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
-            app:civ_border_width="0.5dp"
+            app:civ_border_width="0dp"
             app:civ_border_color="#797979"
             android:src="@drawable/text"
             android:elevation="4dp"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|top"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="100dp"
             android:textSize="20dp"
             android:textColor="@color/white"
@@ -55,6 +55,45 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="签到"
+            android:textSize="13dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通知"
+            android:textSize="13dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="120dp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作业"
+            android:textSize="13dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="210dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="300dp"
+            android:text="纽扣"
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+
 
     </FrameLayout>
 
@@ -72,10 +111,14 @@
         <LinearLayout
             android:id="@+id/renzheng"
             style="@style/single_layout">
-
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/user_crown"
+                />
             <TextView
                 style="@style/usertext"
-                android:text="我的账号身份"
+                android:text="  我的账号身份"
                 android:layout_width="1dp" />
             <TextView
                 android:id="@+id/renzhengxx"
@@ -96,7 +139,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/comment"
+                android:src="@drawable/user_comment"
                 />
             <TextView
                 style="@style/usertext"
@@ -112,7 +155,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/collection"
+                android:src="@drawable/user_collection"
                 />
             <TextView
                 style="@style/usertext"
@@ -126,7 +169,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/circle"
+                android:src="@drawable/user_circle"
                 />
             <TextView style="@style/usertext"
                 android:text="  我的圈子" />
@@ -134,8 +177,45 @@
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
+
     </LinearLayout>
 
+
+            <LinearLayout style="@style/wrap_layout">
+
+                <LinearLayout
+                    android:id="@+id/settings"
+
+                    style="@style/single_layout">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/user_read"
+                        />
+                    <TextView
+                        style="@style/usertext"
+                        android:text="  浏览历史" />
+
+                    <ImageView style="@style/img_arrow" />
+                </LinearLayout>
+
+                <View style="@style/bg_line"/>
+                <!-- 下圆角-->
+                <LinearLayout style="@style/bottom_layout"
+
+                    >
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/user_circle"
+                        />
+                    <TextView style="@style/usertext"
+                        android:text="  xxxxxxxx" />
+
+                    <ImageView style="@style/img_arrow"/>
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

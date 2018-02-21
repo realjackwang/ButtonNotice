@@ -32,6 +32,139 @@
     </FrameLayout>
 
 
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        
+        <ImageView
+          
+            android:layout_height="35dp"
+            android:src="@drawable/discover_xunwu"
+            android:layout_width="35dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/text_clo"
+                android:layout_height="wrap_content"
+                android:text="寻物"/>
+        
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+          
+          android:src="@drawable/discover_wenjuan"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_clo"
+            android:text="问卷"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+
+                android:src="@drawable/discover_jingsai"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_clo"
+                android:text="竞赛"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+           
+           android:src="@drawable/discover_guanggao"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_clo"
+            android:text="广告"/>
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+          
+            android:src="@drawable/discover_xinsheng"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="心声"
+            android:textColor="@color/text_clo"/>
+    </LinearLayout>
 
 
-</LinearLayout>
+     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"/>
+
+    </LinearLayout>
+
+ 
+
+
+
+
+
+
