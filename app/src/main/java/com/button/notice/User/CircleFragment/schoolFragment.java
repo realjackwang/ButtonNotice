@@ -86,6 +86,10 @@ public class schoolFragment extends ListFragment {
 
                                     if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle")).size() != list.size()) {
 
+
+
+
+
                                         aCache.put("circle", list);
                                         SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
                                         listView.setAdapter(adapter);

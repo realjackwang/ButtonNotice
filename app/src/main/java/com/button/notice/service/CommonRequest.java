@@ -2,6 +2,7 @@ package com.button.notice.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -54,6 +55,8 @@ public class CommonRequest {
      **/
     private String WhereEqualTo = null;
     private String WhereEqualMoreTo = null;
+    private String WhereEqualAndTo = null;
+    private String WhereEqualAndTovalue = null;
     private String[] WhereEqualMoreTovalue = null;
     private String WhereEqualTovalue = null;
     private String WhereNotEqualTo = null;
@@ -198,9 +201,9 @@ public class CommonRequest {
 
 
     public void Query(ResponseHandler rHandler) {
+
         final CommonRequest request = new CommonRequest();
         request.addRequestParam("Table", this.getTable());
-
 
         request.addRequestParam("ISMORE","2");  //用于判断是否是多条件查询
         request.addRequestParam("ISLIKE","2");  //用于判断是否是模糊查询
@@ -218,6 +221,10 @@ public class CommonRequest {
             }
 
         }
+//        if(this.getWhereEqualAndTo()!=null){
+//            request.addRequestParam("ISAND","3");
+//            request.addRequestParam(this.getWhereEqualAndTo()+" ",this.getWhereEqualAndTovalue());
+//        }
 
         if (this.getWhereNotEqualTo() != null){
             request.addRequestParam(this.getWhereNotEqualTo() + " !", this.getWhereNotEqualTovalue());
@@ -260,7 +267,8 @@ public class CommonRequest {
         request.addRequestParam("Table", this.getTable());
         request.addRequestParam("List", this.getList());
         request.addRequestParam("Id", getCurrentId(c));
-        request.addRequestParam("Text", this.getText());
+        Log.d("asdasdsadasd",getCurrentId(c));
+        request.addRequestParam("Community", this.getText());
         new HttpPostTask(Constant.URL_Connect, request).execute();
     }
 
@@ -475,4 +483,19 @@ public class CommonRequest {
     public void setText(String text) {
         Text = text;
     }
+
+    public String getWhereEqualAndTo() {
+        return WhereEqualAndTo;
+    }
+
+    public void setWhereEqualAndTo(String key,String vlaue) {
+        WhereEqualAndTo = key;
+        WhereEqualAndTovalue =vlaue;
+    }
+
+    public String getWhereEqualAndTovalue() {
+        return WhereEqualAndTovalue;
+    }
+
+
 }
