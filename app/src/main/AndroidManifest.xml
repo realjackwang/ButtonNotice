@@ -33,7 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".User.UserInfo" />
+        <activity
+            android:name=".User.UserInfo"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".Notice.noticeDetialFile" />
         <activity android:name=".Notice.noticeNew" />
         <activity android:name=".Notice.noticeDetailActivity" />
@@ -76,7 +78,8 @@
         <activity android:name=".User.Collection" />
         <activity android:name=".User.MyNotice" />
         <activity android:name=".User.Drafts" />
-        <activity android:name=".User.History"></activity>
+        <activity android:name=".User.History" />
+        <activity android:name=".Button.FirstLogin"></activity>
     </application>
 
 </manifest>

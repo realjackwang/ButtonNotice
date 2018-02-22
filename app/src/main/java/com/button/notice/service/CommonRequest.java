@@ -200,6 +200,8 @@ public class CommonRequest {
     public void Query(ResponseHandler rHandler) {
         final CommonRequest request = new CommonRequest();
         request.addRequestParam("Table", this.getTable());
+
+
         request.addRequestParam("ISMORE","2");  //用于判断是否是多条件查询
         request.addRequestParam("ISLIKE","2");  //用于判断是否是模糊查询
 

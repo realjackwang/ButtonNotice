@@ -1,5 +1,6 @@
 package com.button.notice.Button;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -50,6 +51,7 @@ public class buttonLogin extends AppCompatActivity  {
 
     private Dialog mLoad;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
         @Override
@@ -62,6 +64,7 @@ public class buttonLogin extends AppCompatActivity  {
             }
         }
     };
+
 
     public void closeDialog(Dialog mDialogUtils) {
         if (mDialogUtils != null && mDialogUtils.isShowing()) {
@@ -77,6 +80,9 @@ public class buttonLogin extends AppCompatActivity  {
 
 //        JPushInterface.setDebugMode(true);
 //        JPushInterface.init(getApplicationContext());   //初始化推送服务
+
+
+
 
         final SharedPreferences sp=this.getSharedPreferences("DODODO",Context.MODE_PRIVATE);
 
@@ -122,14 +128,7 @@ public class buttonLogin extends AppCompatActivity  {
                                     editor.putString("Id",  response.getResMsg());
                                     editor.commit();
 
-
-//                                    Set<String> set = new HashSet<>();
-//                                    String Tag = response.getResMsg();
-//                                    set.add(Tag);
-//                                    JpushUtil.setAliasAndTag(buttonLogin.this, set);
-                                        System.out.println("这个是代码"+response.getResMsg());
                                     JPushInterface.setAlias(buttonLogin.this,1,response.getResMsg());
-
 
 
                                     CommonRequest request = new CommonRequest();
@@ -146,6 +145,8 @@ public class buttonLogin extends AppCompatActivity  {
 
 
                                               String[] quanziid =  StringUtil.ChangetoString(map.get("userCommunity"));
+                                              String name = map.get("userName");
+                                                aCache.put("name",name);
 
                                                 List array = new ArrayList();
 
@@ -178,11 +179,33 @@ public class buttonLogin extends AppCompatActivity  {
 
                                                             aCache.put("quanziacache",quanzi);
                                                             mLoad.dismiss();
-                                                            Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                                            Intent intent =new Intent(buttonLogin.this,MainActivity.class);
-                                                            startActivity(intent);
-                                                            finish();
 
+                                                            Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
+
+                                                            System.out.print("看这里看这里"+sp.getBoolean("Firstsignin",true));
+
+                                                         if( sp.getBoolean("Firstsignin",true)){      //判断是否为第一次登陆
+
+
+
+                                                             SharedPreferences.Editor editor=sp.edit();
+                                                             editor.putBoolean("Firstsignin", false);
+                                                             editor.commit();
+
+                                                             Intent intent = new Intent(buttonLogin.this, FirstLogin.class);
+                                                             startActivity(intent);
+                                                             finish();
+
+                                                            }
+
+                                                            else {
+
+
+                                                             Intent intent = new Intent(buttonLogin.this, MainActivity.class);
+                                                             startActivity(intent);
+                                                             finish();
+
+                                                         }
                                                         }
                                                     }
 

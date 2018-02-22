@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/click"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        android:background="@color/white">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="描述"
+            android:layout_marginLeft="90dp"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="圈子"
+            android:layout_marginTop="20dp"
+            android:textColor="#000"
+            android:layout_marginLeft="90dp"
+            android:textSize="15sp" />
+
+
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

@@ -1,10 +1,7 @@
 package com.button.notice.Notice;
 
-import android.app.DownloadManager;
 import android.app.ListActivity;
-import android.app.VoiceInteractor;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -22,7 +19,6 @@ import com.button.notice.service.ResponseHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class noticeSearch extends ListActivity implements TextView.OnEditorActionListener {
     private int width, height;

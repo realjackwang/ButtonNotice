@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.button.notice.Notice.noticeNew;
 import com.button.notice.R;
 import com.button.notice.User.Circle;
 import com.button.notice.User.Collection;
@@ -20,6 +21,7 @@ import com.button.notice.User.Identification;
 import com.button.notice.User.MyNotice;
 import com.button.notice.User.Settings;
 import com.button.notice.User.UserInfo;
+import com.button.notice.util.ACache;
 
 
 /**
@@ -28,7 +30,7 @@ import com.button.notice.User.UserInfo;
 
 public class userFragment extends Fragment {
 
-    TextView setting;
+    TextView setting,username;
     LinearLayout circle,collection,drafts,history,identification,mynotice;
     FrameLayout userinfo;
 
@@ -45,9 +47,11 @@ public class userFragment extends Fragment {
         identification =  view.findViewById (R.id.renzhen);
         mynotice =  view.findViewById (R.id.user_mynotice);
         userinfo =  view.findViewById (R.id.user_info);
+        username = view.findViewById(R.id.User_name);
 
 
-      setting.setOnClickListener(new View.OnClickListener() {
+
+        setting.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
               Intent intent = new Intent(getActivity(),Settings.class );
@@ -119,7 +123,8 @@ public class userFragment extends Fragment {
     public  void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
+        ACache aCache =ACache.get(getActivity());
+        username.setText(aCache.getAsString("name"));  //设置用户名
 
 
     }
