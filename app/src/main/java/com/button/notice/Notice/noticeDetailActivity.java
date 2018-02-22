@@ -19,11 +19,14 @@ import com.button.notice.service.ResponseHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.SplittableRandom;
 
 import static cn.jpush.android.api.JPushInterface$a.v;
 
 
 public class noticeDetailActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,8 @@ public class noticeDetailActivity extends AppCompatActivity {
         //**********************//
         // 返回按钮点击事件
         back.setOnClickListener((view -> {
-           finish();
-        })
+                    finish();
+                })
         );
         //**********************//
 
@@ -47,7 +50,7 @@ public class noticeDetailActivity extends AppCompatActivity {
         //**********************//
         //问询按钮点击跳转页面
         query.setOnClickListener((view -> {
-            Intent intent = new Intent(noticeDetailActivity.this,noticeDetialQA.class);
+            Intent intent = new Intent(noticeDetailActivity.this, noticeDetialQA.class);
             startActivity(intent);
         }));
         //**********************//
@@ -66,21 +69,21 @@ public class noticeDetailActivity extends AppCompatActivity {
         String id = intent.getStringExtra("id");
         CommonRequest request1 = new CommonRequest();
         request1.setTable("table_notice_info");
-        request1.setWhereEqualTo("Id",id);
+        request1.setWhereEqualTo("Id", id);
         request1.Query(new ResponseHandler() {
             @Override
             public void success(CommonResponse response) {
                 ArrayList<HashMap<String, String>> list = response.getDataList();
-                HashMap<String,String> map=list.get(0);
-                String Title =map.get("noticeTitle");
+                HashMap<String, String> map = list.get(0);
+                String Title = map.get("noticeTitle");
                 String CreateDate = map.get("noticeCreateTime");
                 String Author = map.get("noticeUser");
-                String Text=map.get("noticeText");
+                String Text = map.get("noticeText");
 
-                title.setText("标题："+Title);
-                createTime.setText("发布日期："+CreateDate);
-                author.setText("作者："+Author);
-                text.setText("内容："+Text);
+                title.setText("标题：" + Title);
+                createTime.setText("发布日期：" + CreateDate);
+                author.setText("作者：" + Author);
+                text.setText("内容：" + Text);
             }
 
             @Override
@@ -93,17 +96,24 @@ public class noticeDetailActivity extends AppCompatActivity {
 
         //**********************//
         //收藏
-        collect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CommonRequest request = new CommonRequest();
+
+        collect.setOnClickListener(view -> {
+
+            CommonRequest request = new CommonRequest();
+            request.setTable("table_user_info");
+            request.setList("userCollection");
+            request.setText(id);
+            Toast.makeText(noticeDetailActivity.this,id,Toast.LENGTH_SHORT).show();
+            request.Connect(noticeDetailActivity.this);
+            //**********************//
 
 
 
-            }
+
         });
 
 
-
     }
+
 }
+
