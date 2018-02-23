@@ -27,26 +27,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTitleText"
-            android:text="问答"
+            android:text="新提问"
             android:layout_gravity="center"
             />
         <Button
-            android:id="@+id/newQA"
+            android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提问"
+            android:text="发布"
             android:layout_gravity="right"/>
 
 
 
     </FrameLayout>
 
-    <ListView
-        android:id="@+id/listView1"
-        android:footerDividersEnabled="true"
-        android:headerDividersEnabled="true"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/title"
+            android:hint="  问题名称（选填）"
+            android:textColorHint="@color/white"
+            android:background="@color/lightGray"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-   </LinearLayout>
+        <EditText
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="75dp"
+            android:background="@color/lightGray"
+            android:hint="  在这里描述你的问题"
+            android:textColorHint="@color/white" />
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

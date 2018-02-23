@@ -22,6 +22,8 @@
     <color name="orange">#F57C00</color>
     <color name="touming">#00000000</color>
     <color name="background">#f9f9f9</color>
+    <color name="lightGray">#bdbdbd</color>
+
 
 
 </resources>

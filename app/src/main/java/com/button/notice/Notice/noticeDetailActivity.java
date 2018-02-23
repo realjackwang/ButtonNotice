@@ -22,9 +22,12 @@ import java.util.HashMap;
 import java.util.SplittableRandom;
 
 import static cn.jpush.android.api.JPushInterface$a.v;
+import static cn.jpush.android.api.JPushInterface$a.w;
 
 
 public class noticeDetailActivity extends AppCompatActivity {
+
+    private int whetherCollect=0;
 
 
 
@@ -99,12 +102,23 @@ public class noticeDetailActivity extends AppCompatActivity {
 
         collect.setOnClickListener(view -> {
 
-            CommonRequest request = new CommonRequest();
-            request.setTable("table_user_info");
-            request.setList("userCollection");
-            request.setText(id);
-            Toast.makeText(noticeDetailActivity.this,id,Toast.LENGTH_SHORT).show();
-            request.Connect(noticeDetailActivity.this);
+            if (whetherCollect==0) {
+                whetherCollect=1;
+
+                CommonRequest request = new CommonRequest();
+                request.setTable("table_user_info");
+                request.setList("userCollection");
+                request.setText(id);
+
+                request.Connect(noticeDetailActivity.this);
+                Toast.makeText(noticeDetailActivity.this, id + "，收藏成功", Toast.LENGTH_SHORT).show();
+            }
+            else if (whetherCollect==1){
+                whetherCollect=0;
+
+            }
+
+
             //**********************//
 
 
