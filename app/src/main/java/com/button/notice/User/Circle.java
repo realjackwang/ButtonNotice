@@ -11,6 +11,8 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.button.notice.Fragment.noticeFragment;
 import com.button.notice.R;
@@ -46,36 +48,45 @@ public class Circle extends AppCompatActivity {
 
     private void initTab(){
         mTabTl.setTabMode(TabLayout.MODE_FIXED);
-        mTabTl.setTabTextColors(ContextCompat.getColor(this, R.color.text_clo), ContextCompat.getColor(this, R.color.blue));
-
-        mTabTl.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.blue));
-        ViewCompat.setElevation(mTabTl, 10);
+        mTabTl.setTabTextColors(ContextCompat.getColor(this, R.color.text_clo), ContextCompat.getColor(this, R.color.blue));  //没选中和选中时字的颜色
+        mTabTl.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.blue));  //Tab底部横线的颜色
+        ViewCompat.setElevation(mTabTl, 10);  //高度
         mTabTl.setupWithViewPager(mContentVp);
     }
 
     private void initContent(){
         tabIndicators = new ArrayList<>();
 
-            tabIndicators.add("校园");
+            tabIndicators.add("校园");   //添加Tab
             tabIndicators.add("组织");
             tabIndicators.add("社团");
 
             tabFragments = new ArrayList<>();
 
-            tabFragments.add(schoolFragment.newInstance("校园"));
+            tabFragments.add(schoolFragment.newInstance("校园"));    //添加fragment
             tabFragments.add(organizationFragment.newInstance("组织"));
             tabFragments.add(associationFragment.newInstance("社团"));
 
         contentAdapter = new ContentPagerAdapter(getSupportFragmentManager());
+
+        mContentVp.setOffscreenPageLimit(3);//防止 fragment重新加载
+
         mContentVp.setAdapter(contentAdapter);
+
+
+
     }
 
+    public void back(View view){
+        finish();
+    }
 
     class ContentPagerAdapter extends FragmentPagerAdapter {
 
         public ContentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
+
 
         @Override
         public Fragment getItem(int position) {
@@ -88,10 +99,22 @@ public class Circle extends AppCompatActivity {
         }
 
         @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        @Override
         public CharSequence getPageTitle(int position) {
             return tabIndicators.get(position);
         }
     }
+
+
 
 }
 

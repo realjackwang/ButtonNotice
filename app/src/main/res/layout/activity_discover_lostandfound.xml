@@ -21,8 +21,8 @@
         <ImageView
             android:id="@+id/back"
             android:onClick="back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="left|center"
             android:layout_marginLeft="10dp"
             android:src="@drawable/returns"/>
@@ -35,9 +35,25 @@
             android:textSize="20dp"
 
             android:textColor="@color/white"
-            android:text="我的圈子" />
+            android:text="全部" />
+
+        <ImageView
+            android:id="@+id/search"
+            android:onClick="search"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="50dp"
+            android:src="@drawable/search"/>
 
 
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/more"/>
 
 
     </FrameLayout>

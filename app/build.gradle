@@ -49,12 +49,15 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'cn.jiguang.sdk:jpush:3.1.0'
     implementation 'cn.jiguang.sdk:jcore:1.1.8'
+    compile 'com.google.code.gson:gson:2.7'
     implementation 'ru.bartwell:exfilepicker:2.1'
     implementation 'com.contrarywind:Android-PickerView:3.2.4'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
     testImplementation 'junit:junit:4.12'
 }
+
+
 
 
 

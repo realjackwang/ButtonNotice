@@ -34,7 +34,7 @@ public class schoolFragment extends ListFragment {
         listView= view.findViewById(android.R.id.list);
 
 
-        circleget();
+//        circleget();
         circlegeto();
 
 
@@ -46,7 +46,7 @@ public class schoolFragment extends ListFragment {
     public void circleget(){
 
         ACache aCache = ACache.get(getActivity());
-        ArrayList<HashMap<String, String>> list =  (ArrayList<HashMap<String,String>>) aCache.getAsObject("circle");
+        ArrayList<HashMap<String, String>> list =  (ArrayList<HashMap<String,String>>) aCache.getAsObject("circle1");
         if(list!=null){
             SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
             listView.setAdapter(adapter);
@@ -55,7 +55,7 @@ public class schoolFragment extends ListFragment {
 
     }
     public void circlegeto(){
-
+        ACache aCache = ACache.get(getActivity());
         CommonRequest request = new CommonRequest();
         request.setTable("table_user_info");
         request.setWhereEqualTo("userId",request.getCurrentId(getActivity()));
@@ -79,28 +79,37 @@ public class schoolFragment extends ListFragment {
                         @Override
                         public void success(CommonResponse response) {
                             if (response.getDataList().size() > 0) {
-                                ACache aCache = ACache.get(getActivity());
+
                                 ArrayList<HashMap<String, String>> list = response.getDataList();
+                                ArrayList<HashMap<String, String>> list1 = new ArrayList<>();
+                                for(HashMap<String, String> map :list){
 
-                                if (aCache.getAsObject("circle") != null) {
-
-                                    if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle")).size() != list.size()) {
-
-
-
-
-
-                                        aCache.put("circle", list);
-                                        SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
-                                        listView.setAdapter(adapter);
+                                    if(map.get("communityType").equals("school")){
+                                      list1.add(map);
                                     }
 
-                                } else {
-
-                                    aCache.put("circle", list);
-                                    SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
-                                    listView.setAdapter(adapter);
                                 }
+
+//                                if (aCache.getAsObject("circle1") != null) {
+//
+//                                    if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle1")).size() != list1.size()) {
+//
+//
+//
+//
+//
+//                                        aCache.put("circle1", list1);
+//                                        SimpleAdapter adapter =new SimpleAdapter(getContext(), list1,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
+//                                        listView.setAdapter(adapter);
+//                                    }
+//
+//                                }
+//                                else {
+
+                                    aCache.put("circle1", list1);
+                                    SimpleAdapter adapter =new SimpleAdapter(getContext(), list1,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
+                                    listView.setAdapter(adapter);
+//                                }
 
                             }
                         }

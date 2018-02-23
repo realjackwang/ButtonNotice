@@ -35,7 +35,7 @@
         </activity>
         <activity
             android:name=".User.UserInfo"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Notice.noticeDetialFile" />
         <activity android:name=".Notice.noticeNew" />
         <activity android:name=".Notice.noticeDetailActivity" />
@@ -79,7 +79,9 @@
         <activity android:name=".User.MyNotice" />
         <activity android:name=".User.Drafts" />
         <activity android:name=".User.History" />
-        <activity android:name=".Button.FirstLogin"></activity>
+        <activity android:name=".Button.FirstLogin" />
+        <activity android:name=".Discover.LostandfoundActivity" />
+        <activity android:name=".Discover.Lostandfound.LostandfoundNew"></activity>
     </application>
 
 </manifest>

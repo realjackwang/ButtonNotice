@@ -48,7 +48,10 @@ public class CommonRequest {
      * 这个是当你用Connect方法的时候，鬼知道你要传什么的Id进来，所以就有了他。
      */
     private String Text;
-
+    /**
+     * 判断是否推送
+     *
+     */
     private boolean ispush;
     /**
      * 条件查询参数
