@@ -34,14 +34,21 @@ public class schoolFragment extends ListFragment {
         listView= view.findViewById(android.R.id.list);
 
 
-//        circleget();
-        circlegeto();
 
 
 
         return view;
     }
 
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {   //在Activity创建后再获取信息
+        super.onActivityCreated(savedInstanceState);
+
+        circleget();
+        circlegeto();
+
+    }
 
     public void circleget(){
 
@@ -90,26 +97,26 @@ public class schoolFragment extends ListFragment {
 
                                 }
 
-//                                if (aCache.getAsObject("circle1") != null) {
-//
-//                                    if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle1")).size() != list1.size()) {
-//
-//
-//
-//
-//
-//                                        aCache.put("circle1", list1);
-//                                        SimpleAdapter adapter =new SimpleAdapter(getContext(), list1,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
-//                                        listView.setAdapter(adapter);
-//                                    }
-//
-//                                }
-//                                else {
+                                if (aCache.getAsObject("circle1") != null) {
+
+                                    if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle1")).size() != list1.size()) {
+
+
+
+
+
+                                        aCache.put("circle1", list1);
+                                        SimpleAdapter adapter =new SimpleAdapter(getContext(), list1,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
+                                        listView.setAdapter(adapter);
+                                    }
+
+                                }
+                                else {
 
                                     aCache.put("circle1", list1);
                                     SimpleAdapter adapter =new SimpleAdapter(getContext(), list1,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
                                     listView.setAdapter(adapter);
-//                                }
+                                }
 
                             }
                         }

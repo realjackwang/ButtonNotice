@@ -3,6 +3,7 @@ package com.button.notice.User;
 import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -59,6 +60,8 @@ public class Collection extends ListActivity {
                     String[] collection = StringUtil.ChangetoString(map.get("userCollection"));
 
 
+                        if(collection[0]!=""){
+
                     CommonRequest request1 = new CommonRequest();
                     request1.setTable("table_notice_info");
                     request1.setWhereEqualMoreTo("Id", collection);
@@ -93,6 +96,13 @@ public class Collection extends ListActivity {
 
                         }
                     });
+                        }
+                        else {
+                            ArrayList<HashMap<String, String>> list2 = null;
+                            ACache aCache = ACache.get(Collection.this);
+                            aCache.put("collection", list2);
+                            a.setAdapter(null);
+                        }
                 }
             }
             @Override

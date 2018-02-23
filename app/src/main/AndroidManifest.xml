@@ -81,7 +81,9 @@
         <activity android:name=".User.History" />
         <activity android:name=".Button.FirstLogin" />
         <activity android:name=".Discover.LostandfoundActivity" />
-        <activity android:name=".Discover.Lostandfound.LostandfoundNew"></activity>
+        <activity android:name=".Discover.Lostandfound.LostandfoundNew" />
+        <activity android:name=".User.Setting.Appinfo" />
+        <activity android:name=".User.Setting.Feedback"></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,10 @@
 package com.button.notice.Fragment;
 
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,13 +15,11 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.button.notice.JPush.JpushUtil;
 import com.button.notice.JPush.MyApplication;
-import com.button.notice.JPush.MyReceiver;
 import com.button.notice.JPush.RegisterService;
 import com.button.notice.R;
 
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +43,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
         test_a =this;
+
         startService(new Intent(MainActivity.this, RegisterService.class));//开启推送服务
 
 
