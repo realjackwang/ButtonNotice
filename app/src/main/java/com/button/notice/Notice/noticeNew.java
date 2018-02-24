@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -60,11 +62,13 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
     private String userId;
     private String newnoticedate;
     private String newnoticetime;
-    private Button datepicker;//点击选择日期钮
-    private Button timepicker;//点击选择时间钮
-    private Button quanzipicker,filepicker;
+    private FrameLayout datepicker;//点击选择日期钮
+    private FrameLayout timepicker;//点击选择时间钮
+    private FrameLayout quanzipicker;
+    private Button filepicker;
     private TextView tvProcessName;//用来展示选中日期的tv
     private TextView mText;//显示选择的时间
+    private TextView mcricleText; //显示圈子
 
     private AppCompatActivity mActivity;
     private final int EX_FILE_PICKER_RESULT = 0xfa01;
@@ -79,12 +83,13 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_new);
 
-        Button Back = findViewById(R.id.back);//一大坨findViewById
+        ImageView Back = findViewById(R.id.back);//一大坨findViewById
         Button Submit = findViewById(R.id.submit);
         datepicker = findViewById(R.id.datepicker);
         timepicker=findViewById(R.id.timepicker);
         quanzipicker=findViewById(R.id.circleChoose);
         filepicker=findViewById(R.id.fileChoose);
+        mcricleText = findViewById(R.id.circletext);
         Back.setOnClickListener(this);//集成一下很多按钮的点击事件
         Submit.setOnClickListener(this);
         timepicker.setOnClickListener(this);
@@ -167,58 +172,58 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    private void DatePicker() {
-        Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(noticeNew.this, 3, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                // TODO Auto-generated method stub
-                int mYear = year;
-                int mMonth = month;
-                int mDay = day;
-                //更新EditText控件日期 小于10加0
-                tvProcessName.setText(new StringBuilder()
-                        .append(mYear)
-                        .append("-")
-                        .append((mMonth + 1) < 10 ? 0 + (mMonth + 1) : (mMonth + 1))
-                        .append("-")
-                        .append((mDay < 10) ? 0 + mDay : mDay));
-            }
-        },
-//                AlertDialog.THEME_HOLO_LIGHT,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
-
-
-        //自动弹出键盘问题解决
-        datePickerDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        tvProcessName = findViewById(R.id.tvProcessName);
-        //设置时间范围
-        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
-        datePickerDialog.show();
-    }//拒绝面对里面的代码 实现选择时间用的
-
-    private void showTimePickerDialog() {
-        mCalendar = Calendar.getInstance();
-        TimePickerDialog dialog = new TimePickerDialog(noticeNew.this, 3, new TimePickerDialog.OnTimeSetListener() {
-
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                int mHour = hour;
-                int mMinute = minute;
-
-                mText.setText(new StringBuilder()
-                        .append((mHour ) < 10 ? ("0" + (mHour)) : (mHour ))
-                        .append(":")
-                        .append((mMinute ) < 10 ?( "0" + (mMinute)) : (mMinute)));
-            }
-        }, mCalendar.get(Calendar.HOUR), mCalendar.get(Calendar.MINUTE), true);
-        mText =findViewById(R.id.timeset);
-        dialog.show();
-
-    }
+//    private void DatePicker() {
+//        Calendar calendar = Calendar.getInstance();
+//        DatePickerDialog datePickerDialog = new DatePickerDialog(noticeNew.this, 3, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int day) {
+//                // TODO Auto-generated method stub
+//                int mYear = year;
+//                int mMonth = month;
+//                int mDay = day;
+//                //更新EditText控件日期 小于10加0
+//                tvProcessName.setText(new StringBuilder()
+//                        .append(mYear)
+//                        .append("-")
+//                        .append((mMonth + 1) < 10 ? 0 + (mMonth + 1) : (mMonth + 1))
+//                        .append("-")
+//                        .append((mDay < 10) ? 0 + mDay : mDay));
+//            }
+//        },
+////                AlertDialog.THEME_HOLO_LIGHT,
+//                calendar.get(Calendar.YEAR),
+//                calendar.get(Calendar.MONTH),
+//                calendar.get(Calendar.DAY_OF_MONTH));
+//
+//
+//        //自动弹出键盘问题解决
+//        datePickerDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+//
+//        tvProcessName = findViewById(R.id.tvProcessName);
+//        //设置时间范围
+//        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+//        datePickerDialog.show();
+//    }//拒绝面对里面的代码 实现选择时间用的
+//
+//    private void showTimePickerDialog() {
+//        mCalendar = Calendar.getInstance();
+//        TimePickerDialog dialog = new TimePickerDialog(noticeNew.this, 3, new TimePickerDialog.OnTimeSetListener() {
+//
+//            @Override
+//            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+//                int mHour = hour;
+//                int mMinute = minute;
+//
+//                mText.setText(new StringBuilder()
+//                        .append((mHour ) < 10 ? ("0" + (mHour)) : (mHour ))
+//                        .append(":")
+//                        .append((mMinute ) < 10 ?( "0" + (mMinute)) : (mMinute)));
+//            }
+//        }, mCalendar.get(Calendar.HOUR), mCalendar.get(Calendar.MINUTE), true);
+//        mText =findViewById(R.id.timeset);
+//        dialog.show();
+//
+//    }
 
     private  void Dataset()  {
 
@@ -342,7 +347,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         builder.setItems(quanzi, (dialog, which) -> {
 
             quanziids=quanziid[which];
-            Toast.makeText(getApplicationContext(), quanziid[which],Toast.LENGTH_LONG).show();
+            mcricleText.setText(quanzi[which]);
 
         });
 

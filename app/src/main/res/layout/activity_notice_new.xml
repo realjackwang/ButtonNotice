@@ -10,24 +10,31 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/blue"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
 
-    <Button
-    android:id="@+id/back"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="返回"
-    android:layout_gravity="left"
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left|center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/returns"/>
+
+
+
+
+
         />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-   android:textColor="@color/colorTitleText"
-
+        android:textColor="@color/colorTitleText"
+        android:textSize="16dp"
         android:text="新通知"
         android:layout_gravity="center"
         />
@@ -35,130 +42,264 @@
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/touming"
         android:text="提交"
+        android:textColor="@color/white"
         android:layout_gravity="right"
 
         />
 
 
     </FrameLayout>
-    <LinearLayout
+
+
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@drawable/gap"
-        android:orientation="vertical">
-        <EditText
-            android:id="@+id/NewNoticeTitle"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/touming"
-
-            android:hint="通知标题"
-            />
-        <EditText
-            android:hint="通知内容"
-            android:id="@+id/NewNoticeText"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/touming"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/datepicker"
-                android:text="日期选择"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:onClick="onClick1"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_for_button"/>
-
-            <Button
-                android:id="@+id/timepicker"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:text="时间选择"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_for_button"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
 
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="日期："
-                android:id="@+id/textView2" />
-            <TextView
-                android:id="@+id/tvProcessName"
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="通知标题"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/NewNoticeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:textColor="#666666"
+                    android:hint=""
+                    android:textSize="15dp"
+                    android:gravity="center_vertical|right"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="选择日期"
+                    android:layout_gravity="center"
+                    android:textSize="15dp"
+                    android:textColor="#000000"
+                    />
+
+
+                <FrameLayout
+                    android:id="@+id/datepicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/tvProcessName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="40dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:textColor="#666666"
+                        android:textSize="15dp"
+                        android:gravity="center_vertical|right"
+                        />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="13dp"
+                        android:src="@drawable/down"/>
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/textView2"/>
-        </RelativeLayout>
+                android:layout_height="50dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="textPersonName"
+                    android:textSize="15dp"
+                    android:textColor="@color/text_clo"
+                    android:gravity="center|left"
+                    android:text="选择时间" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="时间："
-            android:id="@+id/textView3" />
+                <FrameLayout
+                    android:id="@+id/timepicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/timeset"
+
+                    <TextView
+                        android:id="@+id/timeset"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="40dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:textColor="#666666"
+                        android:textSize="15dp"
+                        android:gravity="center_vertical|right"
+                        />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="13dp"
+                        android:src="@drawable/down"/>
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/textView3" />
-        </RelativeLayout>
+                android:layout_height="50dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="textPersonName"
+                    android:textSize="15dp"
+                    android:textColor="@color/text_clo"
+                    android:gravity="center|left"
+                    android:text="选择圈子" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <FrameLayout
+                    android:id="@+id/circleChoose"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/circleChoose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/bg_for_button"
-                android:text="选择圈子"
-                android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/circletext"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="40dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:textColor="#666666"
+                        android:textSize="15dp"
+                        android:gravity="center_vertical|right"
+                        />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="13dp"
+                        android:src="@drawable/down"/>
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:background="@drawable/bg_layout_shape"
+
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/NewNoticeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.58"
+                    android:ems="10"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="通知内容："
+                    android:textSize="15dp"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+
+
 
             <Button
                 android:id="@+id/fileChoose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
                 android:text="添加附件"
+                android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:background="@drawable/bg_for_button"/>
-        </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/file"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-            />
+                />
 
 
-    </LinearLayout>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
+
 
 
 

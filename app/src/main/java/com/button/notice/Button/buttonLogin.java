@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +50,7 @@ public class buttonLogin extends AppCompatActivity  {
 
     private EditText etAccount;
     private EditText etPassword;
-
+    String passmd=null;
     private Dialog mLoad;
 
     @SuppressLint("HandlerLeak")
@@ -81,13 +83,32 @@ public class buttonLogin extends AppCompatActivity  {
 //        JPushInterface.setDebugMode(true);
 //        JPushInterface.init(getApplicationContext());   //初始化推送服务
 
-
+        etAccount = (EditText) findViewById(R.id.UserId);
+        etPassword = (EditText) findViewById(R.id.UserKey);
 
 
         final SharedPreferences sp=this.getSharedPreferences("DODODO",Context.MODE_PRIVATE);
 
-        etAccount = (EditText) findViewById(R.id.UserId);
-        etPassword = (EditText) findViewById(R.id.UserKey);
+        if(!(sp.getString("account","")==null||sp.getString("account","").isEmpty())){
+            etAccount.setText(sp.getString("account",""));
+        }
+
+//
+//        if(!(sp.getString("Id","")==null||sp.getString("Id","").isEmpty())){
+//
+//
+//            SharedPreferences.Editor editor=sp.edit();
+//            editor.putBoolean("sign", true);
+//            editor.commit();
+//
+//
+//            Intent intent = new Intent(buttonLogin.this, MainActivity.class);
+//            intent.putExtra("autosignin", "true");
+//            startActivity(intent);
+//            finish();
+//        }
+
+
 
         final Button btnLogin = (Button) findViewById(R.id.login);
 
@@ -112,7 +133,7 @@ public class buttonLogin extends AppCompatActivity  {
                             request.setUserName(etAccount.getText().toString());
 
                             try {
-                                String passmd= MD5.md5(etPassword.getText().toString());
+                              passmd= MD5.md5(etPassword.getText().toString());
                                 request.setPassWord(passmd);
 
                             } catch (NoSuchAlgorithmException e) {
@@ -120,21 +141,24 @@ public class buttonLogin extends AppCompatActivity  {
                             }
                             mLoad = LoadUtils.createLoadingDialog(buttonLogin.this, "登录中...");
                             mHandler.sendEmptyMessageDelayed(1, 10000);
+
                             request.Login(new ResponseHandler() {
                                 @Override
                                 public void success(CommonResponse response) {
 
                                     SharedPreferences.Editor editor=sp.edit();
                                     editor.putString("Id",  response.getResMsg());
+                                    editor.putString("account",etAccount.getText().toString());
+                                    editor.putString("password", passmd);
+                                    editor.putBoolean("sign", true);
                                     editor.commit();
 
-                                    JPushInterface.setAlias(buttonLogin.this,1,response.getResMsg());
+                                    JPushInterface.setAlias(buttonLogin.this,1,response.getResMsg());   //设置推送的唯一识别码。这里是用户的Id
 
 
                                     CommonRequest request = new CommonRequest();
                                     request.setTable("table_user_info");
-                                    request.setList("");
-                                    request.setId(response.getResMsg());
+                                    request.setWhereEqualTo("userId",response.getResMsg());
                                     request.Query(new ResponseHandler() {
                                         @Override
                                         public void success(CommonResponse response) {
@@ -148,17 +172,24 @@ public class buttonLogin extends AppCompatActivity  {
                                               String name = map.get("userName");
                                                 aCache.put("name",name);
 
-                                                List array = new ArrayList();
 
-                                                for(int i=0;i<quanziid.length;i++)
-                                                array.add(quanziid[i]);
+                                                Set<String> tags =new LinkedHashSet<String>();
+                                                for (String sTagItme : quanziid) {
+                                                    if (!JpushUtil.isValidTagAndAlias(sTagItme)) {
 
-                                                Set tags = new HashSet(Arrays.asList(array));
-                                                JPushInterface.setTags(buttonLogin.this,1,tags);
+                                                    }
+                                                    tags.add(sTagItme);
+                                                }
+                                                if(tags.isEmpty()){
+                                                }
+                                                    else {
+                                                    Log.d("xxxx", tags.toString());
+                                                    JPushInterface.setTags(buttonLogin.this, 1, tags);   //设置推送的标签，这里的标签是圈子的Id
+
+                                                }
 
 
-
-                                              aCache.put("quanziidacache",quanziid);
+                                               aCache.put("quanziidacache",quanziid);
                                                 CommonRequest request = new CommonRequest();
                                                 request.setTable("table_community_info");
                                                 request.setWhereEqualMoreTo("Id",quanziid);

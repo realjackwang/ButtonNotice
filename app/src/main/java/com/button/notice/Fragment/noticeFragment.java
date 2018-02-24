@@ -1,7 +1,9 @@
 package com.button.notice.Fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -12,9 +14,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-
+import com.button.notice.Button.buttonLogin;
 import com.button.notice.Jellyrefresh.JellyRefreshLayout;
 import com.button.notice.Notice.noticeDetailActivity;
 import com.button.notice.Notice.noticeNew;
@@ -118,6 +121,55 @@ public class noticeFragment extends ListFragment  {
 
     return view;
 }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final SharedPreferences sp = getActivity().getSharedPreferences("DODODO", Context.MODE_PRIVATE);
+
+
+
+        if( sp.getBoolean("sign",true)) {
+
+            Intent intent = getActivity().getIntent();
+            String autosignin = intent.getStringExtra("autosignin");
+
+            if (!(autosignin == null || autosignin.isEmpty())) {
+
+                if (autosignin.equals("true")) {
+
+                    CommonRequest request = new CommonRequest();
+                    request.setUserName(sp.getString("account", ""));
+                    request.setPassWord(sp.getString("password", ""));
+                    request.Login(new ResponseHandler() {
+                        @Override
+                        public void success(CommonResponse response) {
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putBoolean("sign", false);
+                            editor.commit();
+                        }
+
+                        @Override
+                        public void fail(String failCode, String failMsg) {
+                            Toast.makeText(getActivity(), "登录失效请重新登录", Toast.LENGTH_SHORT).show();
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("Id", null);
+                            editor.commit();
+                            Intent intent = new Intent(getActivity(), buttonLogin.class);
+                            startActivity(intent);
+                            getActivity().finish();
+
+                        }
+                    });
+
+
+                }
+            }
+
+
+        }
+    }
 
     public static noticeFragment newInstance(String content) {
         Bundle args = new Bundle();
