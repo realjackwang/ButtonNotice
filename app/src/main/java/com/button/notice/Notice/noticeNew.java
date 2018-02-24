@@ -3,8 +3,10 @@ package com.button.notice.Notice;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import java.io.File;
@@ -25,8 +27,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.button.notice.Button.buttonLogin;
 import com.button.notice.Fragment.MainActivity;
 import com.button.notice.R;
+import com.button.notice.User.Settings;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
@@ -41,6 +45,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -77,7 +82,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
     private Calendar mCalendar;//这到底是个啥啊
     private Calendar calendar;
 
-    private String quanziids;
+    private String quanziids =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +95,11 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         quanzipicker=findViewById(R.id.circleChoose);
         filepicker=findViewById(R.id.fileChoose);
         mcricleText = findViewById(R.id.circletext);
+        EditText NewNoticeTitle = findViewById(R.id.NewNoticeTitle);
+        EditText NewNoticeText = findViewById(R.id.NewNoticeText);
+        TextView NewNoticeDate = findViewById(R.id.tvProcessName);
+        TextView NewNoticeTime = findViewById(R.id.timeset);
+
         Back.setOnClickListener(this);//集成一下很多按钮的点击事件
         Submit.setOnClickListener(this);
         timepicker.setOnClickListener(this);
@@ -97,6 +107,22 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         filepicker.setOnClickListener(this);
         quanzipicker.setOnClickListener(this);
         calendar = Calendar.getInstance();//我也不知道是用来干嘛的
+        ACache aCache =ACache.get(this);
+
+      HashMap<String,String> map=  (HashMap<String,String>)aCache.getAsObject("Drafts");
+        if(!(map==null||map.isEmpty())){
+            if(!(map.get("1")==null||map.get("1").isEmpty()))
+            NewNoticeTitle.setText(map.get("1"));
+            if(!(map.get("2")==null||map.get("2").isEmpty()))
+                NewNoticeText.setText(map.get("2"));
+            if(!(map.get("3")==null||map.get("3").isEmpty()))
+                NewNoticeDate.setText(map.get("3"));
+            if(!(map.get("4")==null||map.get("4").isEmpty()))
+                NewNoticeTime.setText(map.get("4"));
+
+        }
+
+
     }
 
     //点击事件的集合
@@ -107,44 +133,112 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
             //前两个真是太好欺负了！！！
             case R.id.back:
                 //返回按钮的监听事件
-                {finish();break;}
+
+                {
+                    EditText NewNoticeTitle = findViewById(R.id.NewNoticeTitle);
+                    EditText NewNoticeText = findViewById(R.id.NewNoticeText);
+                    TextView NewNoticeDate = findViewById(R.id.tvProcessName);
+                    TextView NewNoticeTime = findViewById(R.id.timeset);
+
+
+                    newnoticetitle= NewNoticeTitle.getText().toString();
+                    newnoticetext= NewNoticeText.getText().toString();
+                    newnoticedate=NewNoticeDate.getText().toString();
+                    newnoticetime=NewNoticeTime.getText().toString();
+
+
+
+
+                    if((newnoticetitle==null||newnoticetitle.isEmpty())&&(newnoticetext==null||newnoticetext.isEmpty()))
+                    finish();
+
+                    else{
+
+                        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                        // 添加按钮的单击事件
+
+                        // 设置显示信息
+                        // 单击事件
+                        builder.setTitle("是否保存至草稿箱");
+                        builder.setMessage("保存后下次发通知时可以继续编辑")
+                                .
+                                // 设置确定按钮
+                                        setPositiveButton("保存",
+                                        (dialog, which) -> {
+
+                                            HashMap<String,String> map = new HashMap<>();
+                                            map.put("1",newnoticetitle);
+                                            map.put("2",newnoticetext);
+                                            map.put("3",newnoticedate);
+                                            map.put("4",newnoticetime);
+                                            ACache aCache =ACache.get(this);
+                                            aCache.put("Drafts",map);
+                                            Toast.makeText(noticeNew.this,"保存成功",Toast.LENGTH_SHORT).show();
+                                            finish();
+
+                                        }   ).
+                                // 设置取消按钮
+                                        setNegativeButton("不保存",
+                                        (dialog, which) -> {
+                                            ACache aCache =ACache.get(this);
+                                            aCache.remove("Drafts");
+                                            finish();
+                                        });
+                        // 创建对话框
+                        android.support.v7.app.AlertDialog ad = builder.create();
+                        // 显示对话框
+                        ad.show();
+
+
+                    }
+
+
+                    break;}
             case R.id.submit://可以作为怎么往上传数据的例子 再问键键又该凶我了
                 {
                 //提交按钮的监听事件
-                CommonRequest request = new CommonRequest();
-                userId = request.getCurrentId(noticeNew.this);
-                EditText NewNoticeTitle = findViewById(R.id.NewNoticeTitle);
-                EditText NewNoticeText = findViewById(R.id.NewNoticeText);
-                TextView NewNoticeDate = findViewById(R.id.tvProcessName);
-                TextView NewNoticeTime = findViewById(R.id.timeset);
 
-                newnoticetitle= NewNoticeTitle.getText().toString();
-                newnoticetext= NewNoticeText.getText().toString();
-                newnoticedate=NewNoticeDate.getText().toString();
-                newnoticetime=NewNoticeTime.getText().toString();
 
-                request.setTable("table_notice_info");
-                request.setIspush(true);
-                request.addRequestParam("noticeTitle",newnoticetitle);
-                request.addRequestParam("noticeText",newnoticetext);
-                request.addRequestParam("noticeUser",userId);
-                request.addRequestParam("noticeDate",newnoticedate);
-                request.addRequestParam("noticeTime",newnoticetime);
-                request.addRequestParam("noticeCommunity",quanziids);
-                request.Create(request, new ResponseHandler() {
-
-                    @Override
-                    public void success(CommonResponse response) {
-
-                        Toast.makeText(noticeNew.this,"发送成功",Toast.LENGTH_SHORT).show();
-
+                    if(quanziids==null){
+                        Toast.makeText(noticeNew.this,"还没有选择圈子，请重试",Toast.LENGTH_SHORT).show();
                     }
 
-                    @Override
-                    public void fail(String failCode, String failMsg) {
-                        Toast.makeText(noticeNew.this,"发送失败",Toast.LENGTH_SHORT).show();
+                    else {
+                        CommonRequest request = new CommonRequest();
+                        userId = request.getCurrentId(noticeNew.this);
+                        EditText NewNoticeTitle = findViewById(R.id.NewNoticeTitle);
+                        EditText NewNoticeText = findViewById(R.id.NewNoticeText);
+                        TextView NewNoticeDate = findViewById(R.id.tvProcessName);
+                        TextView NewNoticeTime = findViewById(R.id.timeset);
+
+                        newnoticetitle = NewNoticeTitle.getText().toString();
+                        newnoticetext = NewNoticeText.getText().toString();
+                        newnoticedate = NewNoticeDate.getText().toString();
+                        newnoticetime = NewNoticeTime.getText().toString();
+
+                        request.setTable("table_notice_info");
+                        request.setIspush(true);
+                        request.addRequestParam("noticeTitle", newnoticetitle);
+                        request.addRequestParam("noticeText", newnoticetext);
+                        request.addRequestParam("noticeUser", userId);
+                        request.addRequestParam("noticeDate", newnoticedate);
+                        request.addRequestParam("noticeTime", newnoticetime);
+                        request.addRequestParam("noticeCommunity", quanziids);
+                        request.Create(request, new ResponseHandler() {
+
+                            @Override
+                            public void success(CommonResponse response) {
+
+                                Toast.makeText(noticeNew.this, "发送成功", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void fail(String failCode, String failMsg) {
+                                Toast.makeText(noticeNew.this, "发送失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
-                });
                 break;}
             case R.id.datepicker://选择日期钮
                 {
@@ -503,5 +597,65 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        EditText NewNoticeTitle = findViewById(R.id.NewNoticeTitle);
+        EditText NewNoticeText = findViewById(R.id.NewNoticeText);
+        TextView NewNoticeDate = findViewById(R.id.tvProcessName);
+        TextView NewNoticeTime = findViewById(R.id.timeset);
 
+
+        newnoticetitle= NewNoticeTitle.getText().toString();
+        newnoticetext= NewNoticeText.getText().toString();
+        newnoticedate=NewNoticeDate.getText().toString();
+        newnoticetime=NewNoticeTime.getText().toString();
+
+
+
+
+        if((newnoticetitle==null||newnoticetitle.isEmpty())&&(newnoticetext==null||newnoticetext.isEmpty()))
+            finish();
+
+        else{
+
+            final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+            // 添加按钮的单击事件
+
+            // 设置显示信息
+            // 单击事件
+            builder.setTitle("是否保存至草稿箱");
+            builder.setMessage("保存后下次发通知时可以继续编辑")
+                    .
+                    // 设置确定按钮
+                            setPositiveButton("保存",
+                            (dialog, which) -> {
+
+                                HashMap<String,String> map = new HashMap<>();
+                                map.put("1",newnoticetitle);
+                                map.put("2",newnoticetext);
+                                map.put("3",newnoticedate);
+                                map.put("4",newnoticetime);
+                                ACache aCache =ACache.get(this);
+                                aCache.put("Drafts",map);
+                                Toast.makeText(noticeNew.this,"保存成功",Toast.LENGTH_SHORT).show();
+                                finish();
+
+                            }   ).
+                    // 设置取消按钮
+                            setNegativeButton("不保存",
+                            (dialog, which) -> {
+                                ACache aCache =ACache.get(this);
+                                aCache.remove("Drafts");
+                                finish();
+                            });
+            // 创建对话框
+            android.support.v7.app.AlertDialog ad = builder.create();
+            // 显示对话框
+            ad.show();
+
+
+        }
+
+
+    }
 }

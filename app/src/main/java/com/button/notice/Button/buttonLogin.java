@@ -87,28 +87,46 @@ public class buttonLogin extends AppCompatActivity  {
         etPassword = (EditText) findViewById(R.id.UserKey);
 
 
+
+
         final SharedPreferences sp=this.getSharedPreferences("DODODO",Context.MODE_PRIVATE);
 
-        if(!(sp.getString("account","")==null||sp.getString("account","").isEmpty())){
-            etAccount.setText(sp.getString("account",""));
+
+
+        if( sp.getBoolean("Firstsignin",true)){      //判断是否为第一次登陆
+
+            SharedPreferences.Editor editor=sp.edit();
+            editor.putBoolean("Firstsignin", false);
+            editor.commit();
+
+            Intent intent = new Intent(buttonLogin.this, FirstLogin.class);
+            startActivity(intent);
+            finish();
+
         }
 
-//
-//        if(!(sp.getString("Id","")==null||sp.getString("Id","").isEmpty())){
-//
-//
-//            SharedPreferences.Editor editor=sp.edit();
-//            editor.putBoolean("sign", true);
-//            editor.commit();
-//
-//
-//            Intent intent = new Intent(buttonLogin.this, MainActivity.class);
-//            intent.putExtra("autosignin", "true");
-//            startActivity(intent);
-//            finish();
-//        }
+        else {
+
+            if (!(sp.getString("account", "") == null || sp.getString("account", "").isEmpty())) {
+                etAccount.setText(sp.getString("account", ""));
+            }
 
 
+            if (!(sp.getString("Id", "") == null || sp.getString("Id", "").isEmpty())) {
+
+
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean("sign", true);
+                editor.commit();
+
+
+                Intent intent = new Intent(buttonLogin.this, MainActivity.class);
+                intent.putExtra("autosignin", "true");
+                startActivity(intent);
+                finish();
+            }
+
+        }
 
         final Button btnLogin = (Button) findViewById(R.id.login);
 
@@ -213,30 +231,12 @@ public class buttonLogin extends AppCompatActivity  {
 
                                                             Toast.makeText(buttonLogin.this, "登录成功", Toast.LENGTH_SHORT).show();
 
-                                                            System.out.print("看这里看这里"+sp.getBoolean("Firstsignin",true));
-
-                                                         if( sp.getBoolean("Firstsignin",true)){      //判断是否为第一次登陆
-
-
-
-                                                             SharedPreferences.Editor editor=sp.edit();
-                                                             editor.putBoolean("Firstsignin", false);
-                                                             editor.commit();
-
-                                                             Intent intent = new Intent(buttonLogin.this, FirstLogin.class);
-                                                             startActivity(intent);
-                                                             finish();
-
-                                                            }
-
-                                                            else {
-
 
                                                              Intent intent = new Intent(buttonLogin.this, MainActivity.class);
                                                              startActivity(intent);
                                                              finish();
 
-                                                         }
+
                                                         }
                                                     }
 
@@ -280,15 +280,6 @@ public class buttonLogin extends AppCompatActivity  {
                 }
         });
 
-
-
-        Button bttest = (Button) findViewById(R.id.test); //测试用跳转
-
-        bttest.setOnClickListener((v -> {
-            Intent intent = new Intent(buttonLogin.this,MainActivity.class );
-            startActivity(intent);
-        })
-        );
 
     }
 

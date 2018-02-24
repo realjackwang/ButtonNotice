@@ -1,6 +1,7 @@
 package com.button.notice.User;
 
 import android.app.ListActivity;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,12 +20,13 @@ import java.util.HashMap;
 
 public class MyNotice extends ListActivity {
     private ListView a;
+    com.button.notice.util.ProgressBar b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_mynotice);
         a=findViewById(android.R.id.list);
-
+        b=findViewById(R.id.progressBar);
         noticeget();
         noticegeto();
 
@@ -61,6 +63,10 @@ public class MyNotice extends ListActivity {
                         aCache.put("mynotice", list);
                         SimpleAdapter adapter = new SimpleAdapter(MyNotice.this, list, R.layout.notice_listviewitem, new String[]{"noticeTitle", "noticeText", "noticeDate", "noticeTime"}, new int[]{R.id.title, R.id.info, R.id.date, R.id.time});
                         a.setAdapter(adapter);
+                        new Handler().postDelayed(() -> b.setVisibility(View.GONE), 1000);  //延时操作，使动画消失
+                    }
+                    else{
+                        new Handler().postDelayed(() -> b.setVisibility(View.GONE), 1000);  //延时操作，使动画消失
                     }
 
                 }
@@ -69,6 +75,7 @@ public class MyNotice extends ListActivity {
                         aCache.put("mynotice", list);
                         SimpleAdapter adapter = new SimpleAdapter(MyNotice.this, list, R.layout.notice_listviewitem, new String[]{"noticeTitle", "noticeText", "noticeDate", "noticeTime"}, new int[]{R.id.title, R.id.info, R.id.date, R.id.time});
                         a.setAdapter(adapter);
+                        new Handler().postDelayed(() -> b.setVisibility(View.GONE), 1000);  //延时操作，使动画消失
                     }
 
                 }

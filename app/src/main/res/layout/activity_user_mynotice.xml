@@ -43,6 +43,11 @@
 
     </FrameLayout>
 
+    <com.button.notice.util.ProgressBar
+        android:id="@+id/progressBar"
+        android:background="@color/touming"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
     <ListView
         android:id="@+id/android:list"
         android:layout_width="match_parent"
