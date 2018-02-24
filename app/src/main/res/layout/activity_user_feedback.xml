@@ -40,7 +40,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/sendback1"
+            android:id="@+id/feedback"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -70,7 +70,7 @@
             android:textSize="17dp" />
 
         <EditText
-            android:id="@+id/sendback2"
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"

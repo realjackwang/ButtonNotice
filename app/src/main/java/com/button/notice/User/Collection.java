@@ -86,6 +86,7 @@ public class Collection extends ListActivity {
                                     aCache.put("collection", list);
                                     SimpleAdapter adapter = new SimpleAdapter(Collection.this, list, R.layout.notice_listviewitem, new String[]{"noticeTitle", "noticeText", "noticeDate", "noticeTime"}, new int[]{R.id.title, R.id.info, R.id.date, R.id.time});
                                     a.setAdapter(adapter);
+
                                 }
 
                             }
