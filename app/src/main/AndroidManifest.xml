@@ -84,7 +84,8 @@
         <activity android:name=".Discover.Lostandfound.LostandfoundNew" />
         <activity android:name=".User.Setting.Appinfo" />
         <activity android:name=".User.Setting.Feedback" />
-        <activity android:name=".Notice.noticeDetialQAnew"></activity>
+        <activity android:name=".Notice.noticeDetialQAnew" />
+        <activity android:name=".Notice.noticeDetialQADetial"></activity>
     </application>
 
 </manifest>

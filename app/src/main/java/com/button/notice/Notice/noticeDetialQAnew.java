@@ -1,12 +1,25 @@
 package com.button.notice.Notice;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.button.notice.R;
+import com.button.notice.service.CommonRequest;
+import com.button.notice.service.CommonResponse;
+import com.button.notice.service.ResponseHandler;
 
 public class noticeDetialQAnew extends AppCompatActivity {
+
+    private String QAtitle ;
+    private String QAinfo ;
+    private String userId;
+    private CheckBox Hide;
+    private String hide="true";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +34,52 @@ public class noticeDetialQAnew extends AppCompatActivity {
         }));
         //*****************************//
 
+
+
+//是否匿名判断
+        Hide = findViewById(R.id.hide);
+        if(Hide.isChecked())
+        {
+            hide="true";
+            Toast.makeText(noticeDetialQAnew.this,"匿名发布",Toast.LENGTH_SHORT).show();
+        }
+        else {hide="false";
+            Toast.makeText(noticeDetialQAnew.this,"不匿名发布",Toast.LENGTH_SHORT).show();}
+
+
         //*****************************//
-        
-
+        //提交按钮点击监听
+        Button submit = (findViewById(R.id.save));
+        submit.setOnClickListener((view -> {
+            //获取用户输入的内容
+            EditText NewQATitle = findViewById(R.id.title);
+            EditText NewQAinfo = findViewById(R.id.text);
+            QAtitle= NewQATitle.getText().toString();
+            QAinfo =NewQAinfo.getText().toString();
+            //获取noticeDetailQA活动传来的父通知的id
+            Intent intent = getIntent();
+            String fatherId = intent.getStringExtra("fatherId");
+            //******************************************************
+            //上传数据
+            CommonRequest request = new CommonRequest();
+            request.setTable("table_question_info");
+            userId = request.getCurrentId(noticeDetialQAnew.this);
+            request.addRequestParam("questionTitle",QAtitle);
+            request.addRequestParam("questionInfo",QAinfo);
+            request.addRequestParam("questionNotice",fatherId);
+            request.addRequestParam("questionHide",hide);
+            request.Create(request, new ResponseHandler() {
+                @Override
+                public void success(CommonResponse response) {
+                    Toast.makeText(noticeDetialQAnew.this,"发送成功",Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void fail(String failCode, String failMsg) {
+                    Toast.makeText(noticeDetialQAnew.this,"发送失败",Toast.LENGTH_SHORT).show();
+                }
+            });
+            //******************************************************
+        }));
     }
-
-
 
 }
