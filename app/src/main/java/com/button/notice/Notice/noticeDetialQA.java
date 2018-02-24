@@ -25,7 +25,7 @@ public class noticeDetialQA extends AppCompatActivity {
         }));
 
         Button Quest = (findViewById(R.id.newQA));
-        back.setOnClickListener((view -> {
+        Quest.setOnClickListener((view -> {
             Intent intent = new Intent(noticeDetialQA.this,noticeDetialQAnew.class);
             startActivity(intent);
         }));

@@ -102,8 +102,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
             //前两个真是太好欺负了！！！
             case R.id.back:
                 //返回按钮的监听事件
-                {Intent intent = new Intent(noticeNew.this,MainActivity.class);
-                startActivity(intent);break;}
+                {finish();break;}
             case R.id.submit://可以作为怎么往上传数据的例子 再问键键又该凶我了
                 {
                 //提交按钮的监听事件
