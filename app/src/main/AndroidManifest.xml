@@ -84,7 +84,17 @@
         <activity android:name=".Discover.Lostandfound.LostandfoundNew" />
         <activity android:name=".User.Setting.Appinfo" />
         <activity android:name=".User.Setting.Feedback" />
-        <activity android:name=".Notice.noticeDetialQAnew"></activity>
+        <activity android:name=".Notice.noticeDetialQAnew" />
+        <activity android:name=".Discover.Activitys.ActivitysNew"></activity>
+
+
+        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        />
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
     </application>
 
 </manifest>

@@ -45,6 +45,10 @@ public class HttpPostTask extends AsyncTask<String, String, String> {
     }
     @Override
     protected String doInBackground(String... params) {
+
+        if(isCancelled())
+            return null;
+
         StringBuilder resultBuf = new StringBuilder();
         try {
              java.net.URL url =new URL(URL);

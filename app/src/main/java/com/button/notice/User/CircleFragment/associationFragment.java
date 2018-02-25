@@ -72,7 +72,7 @@ public class associationFragment extends ListFragment {
         request.Query(new ResponseHandler() {
             @Override
             public void success(CommonResponse response) {
-
+                if(isVisible()){
                 ArrayList<HashMap<String, String>> list = response.getDataList();
 
                 if(list.size()>0) {
@@ -88,44 +88,45 @@ public class associationFragment extends ListFragment {
                     request1.Query(new ResponseHandler() {
                         @Override
                         public void success(CommonResponse response) {
-                            if (response.getDataList().size() > 0) {
+                            if (isVisible()) {
+                                if (response.getDataList().size() > 0) {
 
-                                ArrayList<HashMap<String, String>> list = response.getDataList();
-                                ArrayList<HashMap<String, String>> list1 = new ArrayList<>();
-                                for(HashMap<String, String> map :list){
+                                    ArrayList<HashMap<String, String>> list = response.getDataList();
+                                    ArrayList<HashMap<String, String>> list1 = new ArrayList<>();
+                                    for (HashMap<String, String> map : list) {
 
-                                    if(map.get("communityType").equals("association")){
-                                        list1.add(map);
+                                        if (map.get("communityType").equals("association")) {
+                                            list1.add(map);
+                                        }
+
                                     }
 
-                                }
+                                    if (aCache.getAsObject("circle2") != null) {
 
-                                if (aCache.getAsObject("circle2") != null) {
+                                        if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle2")).size() != list1.size()) {
 
-                                    if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle2")).size() != list1.size()) {
+                                            aCache.put("circle2", list1);
+                                            SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.circle_listviewitem, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
+                                            listView.setAdapter(adapter);
+                                        }
+
+                                    } else {
 
                                         aCache.put("circle2", list1);
-                                        SimpleAdapter adapter =new SimpleAdapter(getContext(), list1,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
+                                        SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.circle_listviewitem, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
                                         listView.setAdapter(adapter);
                                     }
 
-                                } else {
-
-                                    aCache.put("circle2", list1);
-                                    SimpleAdapter adapter =new SimpleAdapter(getContext(), list1,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
-                                    listView.setAdapter(adapter);
                                 }
-
                             }
                         }
-
                         @Override
                         public void fail(String failCode, String failMsg) {
 
                         }
                     });
                 }
-            }
+            }}
             @Override
             public void fail(String failCode, String failMsg) {
 

@@ -53,6 +53,14 @@ public class CommonRequest {
      *
      */
     private boolean ispush;
+
+    /**
+     * 用于判断类型
+     */
+
+
+    private String type;
+
     /**
      * 条件查询参数
      **/
@@ -294,7 +302,15 @@ public class CommonRequest {
 
     /**
      * 单文件上传
-     * 传入URL 然后设置用户的ID（必不可少的环节，最好加判断Id是否为空，有可能会出现长时间登录失效的问题。）
+     * 传入URL 然后设置用户的ID，设置类型type（必不可少的环节，最好加判断Id是否为空，有可能会出现长时间登录失效的问题。）
+     *
+     * 类型 type 的值代表什么：
+     *
+     * 1,用户头像
+     * 2,活动海报
+     * 3,活动附件
+     * 4,通知附件
+     *
      * @param x
      * @param rHandler
      */
@@ -312,6 +328,7 @@ public class CommonRequest {
         try {
             param.put("file0", new File(x));
             param.put("Id", this.getId());
+            param.put("Type",this.getType());
             httpClient.post(Constant.URL_Upload, param,rHandler);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -501,4 +518,11 @@ public class CommonRequest {
     }
 
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

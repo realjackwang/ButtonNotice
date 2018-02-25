@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#F0F3F6"
+    android:background="#EEEEEE"
     android:layout_height="match_parent">
 
     <FrameLayout
@@ -20,6 +20,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
+
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
@@ -28,6 +29,16 @@
             android:textSize="20dp"
             android:textColor="@color/white"
             android:text="发现" />
+
+
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/more"/>
+
 
     </FrameLayout>
 
@@ -152,14 +163,91 @@
         android:layout_height="wrap_content"
         android:background="@color/white"/>
 
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EEEEEE"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:elevation="4dp"
+            android:layout_gravity="right"
+            android:textSize="15dp"
+            android:layout_marginRight="10dp"
+            android:text="查看全部活动"
+            />
+
+
+    </FrameLayout>
+
+
+
+
+        <FrameLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+
+
+
+
+
+
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:layout_marginRight="30dp"-->
+
+
+    <android.support.v4.view.ViewPager
+
+        android:id="@+id/viewpager"
+        android:largeHeap="true"
+        android:clipChildren="false"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_height="match_parent">
+
+
+
+
+
+
+    </android.support.v4.view.ViewPager>
+
+
+
+
+
+
+
+            <!-- 点点 -->
+            <LinearLayout
+                android:id="@+id/viewGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center|bottom"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+            </LinearLayout>
+
+
+
+        </FrameLayout>
+
+
 
     </LinearLayout>
 

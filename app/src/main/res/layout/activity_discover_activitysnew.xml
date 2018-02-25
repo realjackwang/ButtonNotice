@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:onClick="back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left|center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/returns"/>
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTitleText"
+            android:textSize="17dp"
+            android:text="新活动"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/more"
+            android:onClick="more"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+            android:text="发布"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"/>
+
+
+    </FrameLayout>
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="活动标题"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/activityTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:textColor="#666666"
+                    android:hint=""
+                    android:textSize="15dp"
+                    android:gravity="center_vertical|right"
+                    />
+            </LinearLayout>
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="textPersonName"
+                    android:textSize="15dp"
+                    android:textColor="@color/text_clo"
+                    android:gravity="center|left"
+                    android:text="选择时间" />
+
+                <FrameLayout
+                    android:id="@+id/timepicker"
+                    android:onClick="timepicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:id="@+id/timeset"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="40dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:textColor="#666666"
+                        android:textSize="15dp"
+                        android:gravity="center_vertical|right"
+                        />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="13dp"
+                        android:src="@drawable/down"/>
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="textPersonName"
+                    android:textSize="15dp"
+                    android:textColor="@color/text_clo"
+                    android:gravity="center|left"
+                    android:text="选择圈子" />
+
+                <FrameLayout
+                    android:onClick="circleChoose"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/circleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="40dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:textColor="#666666"
+                    android:textSize="15dp"
+                    android:gravity="center_vertical|right"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="13dp"
+                    android:src="@drawable/down"/>
+
+</FrameLayout>
+            </LinearLayout>
+
+
+
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_layout_shape"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="在线报名"
+                    android:layout_gravity="center|left"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@null"
+
+                    android:textColor="#666666"
+                    android:singleLine="true"
+                    android:hint="勾选后能报名者能够在线报名 "
+                    android:textSize="13dp"
+                    android:gravity="center_vertical|left"
+                    />
+
+
+                <CheckBox
+                    android:id="@+id/enter"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content" />
+
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/enterform"
+                android:onClick="enterform"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:elevation="-4dp"
+                android:background="@drawable/bg_layout_shape"
+              >
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="编辑报名表内容"
+                    android:layout_gravity="center|left"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/setting_arrow"/>
+
+
+
+
+            </FrameLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_layout_shape"
+
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/activityText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.58"
+                    android:ems="10"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="活动简介："
+                    android:textSize="15dp"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+
+
+            <FrameLayout
+                android:id="@+id/imageChoose"
+                android:onClick="imageChoose"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:elevation="-4dp"
+                android:background="@drawable/bg_layout_shape"
+                >
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="上传海报"
+                    android:layout_gravity="center|left"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@null"
+
+                    android:textColor="#666666"
+                    android:singleLine="true"
+                    android:hint="上传后将在发现页面优先显示 "
+                    android:textSize="13dp"
+                    android:gravity="center_vertical|left"
+                    />
+
+
+                <!--<com.button.notice.util.RoundProgressBar-->
+                    <!--android:id="@+id/imagebar"-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center|right"-->
+                    <!--android:max="100"-->
+                    <!--android:layout_marginRight="50dp"-->
+                    <!--/>-->
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/setting_arrow"/>
+
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:onClick="fileChoose"
+                android:id="@+id/fileChoose"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:elevation="-4dp"
+                android:background="@drawable/bg_layout_shape"
+                >
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="添加附件"
+                    android:layout_gravity="center|left"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/setting_arrow"/>
+
+
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+
+</LinearLayout>
