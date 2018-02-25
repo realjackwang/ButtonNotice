@@ -44,9 +44,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
+        <TextView
             android:id="@+id/title"
-            android:hint="  问题名称（选填）"
             android:textColorHint="@color/white"
             android:background="@color/lightGray"
             android:layout_marginLeft="50dp"
@@ -54,8 +53,7 @@
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <EditText
+        <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -63,16 +61,18 @@
             android:layout_marginRight="50dp"
             android:layout_marginTop="75dp"
             android:background="@color/lightGray"
-            android:hint="  在这里描述你的问题"
             android:textColorHint="@color/white" />
 
-        <CheckBox
-            android:id="@+id/hide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
+        <EditTextText
+            android:id="@+id/answerText"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:layout_marginLeft="50dp"
-            android:text="匿名" />
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="75dp"
+            android:background="@color/lightGray"
+            android:textColorHint="@color/white"
+            />
 
 
 

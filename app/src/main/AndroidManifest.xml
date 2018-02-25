@@ -85,6 +85,7 @@
         <activity android:name=".User.Setting.Appinfo" />
         <activity android:name=".User.Setting.Feedback" />
         <activity android:name=".Notice.noticeDetialQAnew" />
+<<<<<<< HEAD
         <activity android:name=".Discover.Activitys.ActivitysNew"></activity>
 
 
@@ -95,6 +96,9 @@
         <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
+=======
+        <activity android:name=".Notice.noticeDetialQADetial"></activity>
+>>>>>>> 7b20f8b3db91908a9ea556b82834766813f99597
     </application>
 
 </manifest>
