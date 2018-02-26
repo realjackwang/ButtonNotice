@@ -15,12 +15,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.button.notice.Discover.Activitys.ActivitysDetail;
 import com.button.notice.Discover.Activitys.ActivitysNew;
 import com.button.notice.Discover.LostandfoundActivity;
 import com.button.notice.R;
@@ -90,21 +92,65 @@ public class discoverFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),LostandfoundActivity.class );
                 startActivity(intent);
             }
-        });
+        });  //寻物
         wenjuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });  //问卷
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),ActivitysNew.class );
                 startActivity(intent);
             }
-        });
-
+        });  //发活动
+//
+//        viewPager.setOnTouchListener(new View.OnTouchListener() {
+//            int flage = 0 ;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()){
+//                    case MotionEvent.ACTION_DOWN:
+//                        flage = 0 ;
+//                        break ;
+//                    case MotionEvent.ACTION_MOVE:
+//                        flage = 1 ;
+//                        break ;
+//                    case  MotionEvent.ACTION_UP :
+//                        if (flage == 0) {
+//                            int item = viewPager.getCurrentItem();
+//                            if (item == 0) {
+//                                Intent intent = new Intent(sa, NoNetWork.class);
+//                                sa.startActivity(intent);
+//                            } else if (item == 1) {
+//                                Intent intent = new Intent(sa, NoNetWork.class);
+//                                sa.startActivity(intent);
+//                            } else if (item == 2) {
+//                                Intent intent = new Intent(sa, NoNetWork.class);
+//                                sa.startActivity(intent);
+//                            }else if (item == 3) {
+//                                Intent intent = new Intent(sa, NoNetWork.class);
+//                                sa.startActivity(intent);
+//                            }
+//                        }
+//                        break ;
+//
+//
+//                }
+//                return false;
+//            }
+//        });
+//        viewPager.setOnClickListener(new View.OnClickListener() {       //活动点击监听
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), ActivitysDetail.class);
+//                intent.putExtra("activitysId",imageid[viewPager.getCurrentItem()]);
+//                getActivity().startActivity(intent);
+//            }
+//        });
 
         return view;
 
@@ -133,12 +179,18 @@ public class discoverFragment extends Fragment {
                 else{
                     ACache aCache = ACache.get(getActivity());
                     imageid = StringUtil.ChangetoString(response.getResMsg());
-                    if(!aCache.getAsString("images").equals(response.getResMsg())) {
+                    if(aCache.getAsString("images")!=null&&!aCache.getAsString("images").equals("")) {
+                        if (!aCache.getAsString("images").equals(response.getResMsg())) {
+                            aCache.put("images", response.getResMsg());
+                            group.removeAllViews();
+                            imageload("0");
+                        }
+                    }
+                    else{
                         aCache.put("images", response.getResMsg());
                         group.removeAllViews();
                         imageload("0");
                     }
-
                     }
             }
 
@@ -188,6 +240,7 @@ public class discoverFragment extends Fragment {
 
 
         PagerAdapter adapter=new PagerAdapter(){
+
             @Override
             public int getCount() {
                 // TODO Auto-generated method stub
@@ -213,16 +266,16 @@ public class discoverFragment extends Fragment {
                     im.setPadding(100,10,100,10);
                     im.setCornerRadius((float)50);
                     im.mutateBackground(true);
-
-                    im.setScaleType(ImageView.ScaleType.FIT_XY);
+                    im.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 String imageUrl = URL_Files+"/activitys/"+imageid[position]+"/poster.jpg";
 
-                ImageSize mImageSize = new ImageSize(100, 200);
+
+
 
                 //显示图片的配置
                 DisplayImageOptions options = new DisplayImageOptions.Builder()
-                        .showImageOnLoading(R.drawable.dot_blues)
+                        .showImageOnLoading(R.drawable.loading)
                         .showImageOnFail(R.drawable.wrong)
                         .cacheInMemory(true)
                         .cacheOnDisk(true)
@@ -230,8 +283,16 @@ public class discoverFragment extends Fragment {
                         .build();
 
                 ImageLoader.getInstance().displayImage(imageUrl,im,options);
-
                 container.addView(im);
+
+                im.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), ActivitysDetail.class);
+                        intent.putExtra("activitysId",imageid[position]);
+                        getActivity().startActivity(intent);
+                    }
+                });
                 return im;
 
             }
@@ -294,65 +355,66 @@ public class discoverFragment extends Fragment {
 
     }
 
+//           用来监测fragment周期
 
-    @Override
-    public void onAttach(Context context) {
-        Log.d("TEXT","onAttach");
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d("TEXT","onCreate");
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d("TEXT","onActivityCreated");
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        Log.d("TEXT","onStart");
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        Log.d("TEXT","onResume");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.d("TEXT","onPause");
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Log.d("TEXT","onStop");
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.d("TEXT","onDestroyView");
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.d("TEXT","onDestroy");
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        Log.d("TEXT","onDetach");
-        super.onDetach();
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        Log.d("TEXT","onAttach");
+//        super.onAttach(context);
+//    }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        Log.d("TEXT","onCreate");
+//        super.onCreate(savedInstanceState);
+//    }
+//
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        Log.d("TEXT","onActivityCreated");
+//        super.onActivityCreated(savedInstanceState);
+//    }
+//
+//    @Override
+//    public void onStart() {
+//        Log.d("TEXT","onStart");
+//        super.onStart();
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        Log.d("TEXT","onResume");
+//        super.onResume();
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        Log.d("TEXT","onPause");
+//        super.onPause();
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        Log.d("TEXT","onStop");
+//        super.onStop();
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        Log.d("TEXT","onDestroyView");
+//        super.onDestroyView();
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        Log.d("TEXT","onDestroy");
+//        super.onDestroy();
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        Log.d("TEXT","onDetach");
+//        super.onDetach();
+//    }
 
 }

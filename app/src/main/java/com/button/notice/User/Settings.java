@@ -14,6 +14,7 @@ import com.button.notice.JPush.MyJPushMessageReceiver;
 import com.button.notice.R;
 import com.button.notice.User.Setting.Appinfo;
 import com.button.notice.User.Setting.Feedback;
+import com.button.notice.User.Setting.Support;
 import com.button.notice.util.ACache;
 
 import java.util.Set;
@@ -35,6 +36,9 @@ public class Settings extends AppCompatActivity  {
     }
     public void sendback(View view){
         startActivity(new Intent(Settings.this,Feedback.class));
+    }
+    public void support(View view){
+        startActivity(new Intent(Settings.this,Support.class));
     }
     public void tuichu(View view){
 

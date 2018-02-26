@@ -97,7 +97,9 @@
 
         <View style="@style/bg_line" />
 
-        <LinearLayout style="@style/mid_layout">
+        <LinearLayout
+            android:onClick="support"
+            style="@style/mid_layout">
 
             <TextView
                 style="@style/usertext"

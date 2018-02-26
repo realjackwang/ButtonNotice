@@ -59,7 +59,7 @@ import ru.bartwell.exfilepicker.data.ExFilePickerResult;
 public class ActivitysNew extends AppCompatActivity {
 
     CheckBox enter;
-    EditText title, info;
+    EditText title, info,mean,place;
     TextView cricle, time;
     FrameLayout enterform,xxx;
 //    ProgressBar filebar;
@@ -155,6 +155,8 @@ public class ActivitysNew extends AppCompatActivity {
         info = findViewById(R.id.activityText);
         enter = findViewById(R.id.enter);
         xxx =findViewById(R.id.imageChoose);
+        mean =findViewById(R.id.activityMean);
+        place =findViewById(R.id.activityPlace);
 //        imagebar = findViewById(R.id.imagebar);
 
 
@@ -179,6 +181,8 @@ public class ActivitysNew extends AppCompatActivity {
         if(URL!=null&&!URL.equals(""))
         request.addRequestParam("activityImage", "1");
         request.addRequestParam("activityFileurl", "");
+        request.addRequestParam("activityPlace", place.getText().toString());
+        request.addRequestParam("activityMean", mean.getText().toString());
         request.addRequestParam("activityUser",request.getCurrentId(this));
 
 
@@ -254,7 +258,7 @@ public class ActivitysNew extends AppCompatActivity {
             @Override
             public void onTimeSelect(Date date2, View v) {//选中事件回调
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 time.setText(sdf.format(date2));
             }
         })

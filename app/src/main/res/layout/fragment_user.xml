@@ -264,26 +264,15 @@
             <LinearLayout style="@style/wrap_layout">
 
 
-                <LinearLayout style="@style/bottom_layout"
-                android:id="@+id/user_drafts"
-                    >
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/user_drafts"
-                        />
-                    <TextView style="@style/usertext"
-                        android:text="  我的草稿" />
 
-                    <ImageView style="@style/img_arrow"/>
-                </LinearLayout>
 
-                <View style="@style/bg_line"/>
+
 
                 <LinearLayout
                     android:id="@+id/user_history"
 
                     style="@style/single_layout">
+
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"

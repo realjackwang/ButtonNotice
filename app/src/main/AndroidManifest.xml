@@ -77,7 +77,6 @@
         <activity android:name=".User.Circle" />
         <activity android:name=".User.Collection" />
         <activity android:name=".User.MyNotice" />
-        <activity android:name=".User.Drafts" />
         <activity android:name=".User.History" />
         <activity android:name=".Button.FirstLogin" />
         <activity android:name=".Discover.LostandfoundActivity" />
@@ -85,20 +84,10 @@
         <activity android:name=".User.Setting.Appinfo" />
         <activity android:name=".User.Setting.Feedback" />
         <activity android:name=".Notice.noticeDetialQAnew" />
-<<<<<<< HEAD
-        <activity android:name=".Discover.Activitys.ActivitysNew"></activity>
-
-
-        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        />
-
-        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
-=======
-        <activity android:name=".Notice.noticeDetialQADetial"></activity>
->>>>>>> 7b20f8b3db91908a9ea556b82834766813f99597
+        <activity android:name=".Discover.Activitys.ActivitysNew" />
+        <activity android:name=".Notice.noticeDetialQADetial" />
+        <activity android:name=".Discover.Activitys.ActivitysDetail" />
+        <activity android:name=".User.Setting.Support"></activity>
     </application>
 
 </manifest>

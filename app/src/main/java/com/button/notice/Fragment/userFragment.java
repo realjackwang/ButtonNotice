@@ -11,11 +11,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.button.notice.Notice.noticeNew;
 import com.button.notice.R;
 import com.button.notice.User.Circle;
 import com.button.notice.User.Collection;
-import com.button.notice.User.Drafts;
 import com.button.notice.User.History;
 import com.button.notice.User.Identification;
 import com.button.notice.User.MyNotice;
@@ -31,7 +29,7 @@ import com.button.notice.util.ACache;
 public class userFragment extends Fragment {
 
     TextView setting,username;
-    LinearLayout circle,collection,drafts,history,identification,mynotice;
+    LinearLayout circle,collection,history,identification,mynotice;
     FrameLayout userinfo;
 
 
@@ -42,7 +40,7 @@ public class userFragment extends Fragment {
         setting  = view.findViewById (R.id.settings);
         circle =  view.findViewById (R.id.user_circle);
         collection =  view.findViewById (R.id.user_collection);
-        drafts =  view.findViewById (R.id.user_drafts);
+
         history =  view.findViewById (R.id.user_history);
         identification =  view.findViewById (R.id.renzhen);
         mynotice =  view.findViewById (R.id.user_mynotice);
@@ -72,13 +70,7 @@ public class userFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        drafts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),Drafts.class );
-                startActivity(intent);
-            }
-        });
+
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
