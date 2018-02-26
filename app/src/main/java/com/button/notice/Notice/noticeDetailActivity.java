@@ -16,6 +16,7 @@ import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
+import com.button.notice.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ import static cn.jpush.android.api.JPushInterface$a.w;
 public class noticeDetailActivity extends AppCompatActivity {
 
     private int whetherCollect=0;
-     String author;
+
 
 
 
@@ -52,6 +53,9 @@ public class noticeDetailActivity extends AppCompatActivity {
 
 
 
+
+
+
         //**********************//
         //通知详情的内容
         TextView title = (findViewById(R.id.noticeTitle));
@@ -63,11 +67,11 @@ public class noticeDetailActivity extends AppCompatActivity {
         //**********************//
         //接收intent传来的notice的id的值
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        String noticeId = intent.getStringExtra("id");
         //查询数据库  获取点击的通知的内容
         CommonRequest request2 = new CommonRequest();
         request2.setTable("table_notice_info");
-        request2.setWhereEqualTo("Id", id);
+        request2.setWhereEqualTo("Id", noticeId);
         request2.Query(new ResponseHandler() {
             @Override
             public void success(CommonResponse response) {
@@ -92,66 +96,100 @@ public class noticeDetailActivity extends AppCompatActivity {
         });
         //**********************//
 
+
+        Button ifcollect1 = (findViewById(R.id.collect1));
+        Button ifcollect =(findViewById(R.id.collect));
+        CommonRequest request = new CommonRequest();
+        request.setTable("table_user_info");
+        String userId = request.getCurrentId(noticeDetailActivity.this);
+        request.setWhereEqualTo("userId",userId);
+        request.Query(new ResponseHandler() {
+            @Override
+            public void success(CommonResponse response) {
+                ArrayList<HashMap<String, String>> list = response.getDataList();
+                HashMap<String, String> map = list.get(0);
+                String collect = map.get("userCollection");
+                String ifCollect ="false";
+                StringUtil stringUtil = new StringUtil();
+                String[] currentCollection = stringUtil.ChangetoString(collect);
+                for(int i=0;i<currentCollection.length;i++){
+                    if (currentCollection[i].equals(noticeId)){
+                        ifCollect="true";
+                        break;
+                    }
+                }
+
+                if (ifCollect.equals("true")){
+                    ifcollect.setVisibility(View.GONE);
+                    ifcollect1.setVisibility(View.VISIBLE); }
+
+
+
+
+                else if (ifCollect.equals("false")){
+                    Button ifcollect =(findViewById(R.id.collect));
+                    ifcollect.setVisibility(View.VISIBLE);
+                    Button ifcollect1 = (findViewById(R.id.collect1));
+                    ifcollect1.setVisibility(View.GONE);
+                   }
+
+                ifcollect1.setOnClickListener((view -> {
+                    ifcollect1.setVisibility(View.GONE);
+                    ifcollect.setVisibility(View.VISIBLE);
+                    CommonRequest request = new CommonRequest();
+                    request.setTable("table_user_info");
+                    request.setList("userCollection");
+                    request.setText(noticeId);
+                    request.Connect(noticeDetailActivity.this);
+                    Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT).show();
+
+                }));
+
+                    ifcollect.setOnClickListener(view -> {
+                        ifcollect.setVisibility(View.GONE);
+                        ifcollect1.setVisibility(View.VISIBLE);
+                        CommonRequest request = new CommonRequest();
+                        request.setTable("table_user_info");
+                        request.setList("userCollection");
+                        request.setText(noticeId);
+                        request.Connect(noticeDetailActivity.this);
+                        Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_SHORT).show();
+
+                    });
+
+
+
+
+            }
+
+
+
+            @Override
+            public void fail(String failCode, String failMsg) {
+                Toast.makeText(noticeDetailActivity.this,"收藏失败，请重试",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
         //**********************//
         //问询按钮点击跳转页面
         query.setOnClickListener((view -> {
             //传父通知id
             Intent intent3 = new Intent();
-            intent3.putExtra("id", id);
+            intent3.putExtra("noticeId", noticeId);
             intent3.setClass(noticeDetailActivity.this, noticeDetialQA.class);
             noticeDetailActivity.this.startActivity(intent3);
-//查询数据库看通知的最初发送者并想把他通过noticeDetailQA传给noticeDetailQADetail
-        CommonRequest request1 = new CommonRequest();
-        request1.setTable("table_notice_info");
-        request1.setWhereEqualTo("Id", id);
-        request1.Query(new ResponseHandler() {
-            @Override
-            public void success(CommonResponse response) {
-                ArrayList<HashMap<String, String>> list = response.getDataList();
-                HashMap<String, String> map = list.get(0);
-                String Author = map.get("noticeUser");
-                Intent intent = new Intent();
-                intent.putExtra("author",Author);
-                intent.setClass(noticeDetailActivity.this,noticeDetialQA.class);
-                noticeDetailActivity.this.startActivity(intent);
 
-            }
-
-            @Override
-            public void fail(String failCode, String failMsg) {
-                Toast.makeText(noticeDetailActivity.this, "失败", Toast.LENGTH_SHORT).show();
-
-            }
-        }); }));
+         }));
 
         //**********************//
         //收藏
         collect.setOnClickListener((view -> {
 
-            if (whetherCollect==0) {
-                whetherCollect=1;
-
-                CommonRequest request = new CommonRequest();
-                request.setTable("table_user_info");
-                request.setList("userCollection");
-                request.setText(id);
-
-                request.Connect(noticeDetailActivity.this);
-                Toast.makeText(noticeDetailActivity.this, id + "，收藏成功", Toast.LENGTH_SHORT).show();
-            }
-            else if (whetherCollect==1){
-                whetherCollect=0;
 
 
-                CommonRequest request = new CommonRequest();
-                request.setTable("table_user_info");
-                request.setList("userCollection");
-                request.setText(id);
 
-                request.Connect(noticeDetailActivity.this);
-                Toast.makeText(noticeDetailActivity.this, id + "，收藏成功", Toast.LENGTH_SHORT).show();
-            }
-            //**********************//
 
         }));
 

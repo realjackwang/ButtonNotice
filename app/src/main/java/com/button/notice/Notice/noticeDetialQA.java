@@ -75,7 +75,7 @@ public class noticeDetialQA extends AppCompatActivity implements AdapterView.OnI
         Quest.setOnClickListener((view -> {
 //接收noticeDetailActivity传来的问题所属的通知的id
             Intent intent = getIntent();
-            String id = intent.getStringExtra("id");
+            String id = intent.getStringExtra("noticeId");
 
             //传父通知id给发布新提问的活动
             Intent intent2 = new Intent();

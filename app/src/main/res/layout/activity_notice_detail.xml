@@ -77,11 +77,19 @@
 
         <Button
             android:layout_marginLeft="50dp"
-
             android:id="@+id/collect"
         android:layout_width="45dp"
         android:layout_height="45dp"
             android:background="@drawable/btn_normal"
+            android:visibility="gone"
+            />
+        <Button
+            android:layout_marginLeft="50dp"
+            android:id="@+id/collect1"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/btn_pressed"
+            android:visibility="gone"
             />
 
         <Button
