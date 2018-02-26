@@ -87,7 +87,9 @@
         <activity android:name=".Discover.Activitys.ActivitysNew" />
         <activity android:name=".Notice.noticeDetialQADetial" />
         <activity android:name=".Discover.Activitys.ActivitysDetail" />
-        <activity android:name=".User.Setting.Support"></activity>
+        <activity android:name=".User.Setting.Support" />
+        <activity android:name=".Discover.Activitys.ActivitysEnter" />
+        <activity android:name=".Discover.Activitys.ActivitysEnroll"></activity>
     </application>
 
 </manifest>

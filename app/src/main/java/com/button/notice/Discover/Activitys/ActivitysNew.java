@@ -60,7 +60,7 @@ public class ActivitysNew extends AppCompatActivity {
 
     CheckBox enter;
     EditText title, info,mean,place;
-    TextView cricle, time;
+    TextView cricle, time,enterxi;
     FrameLayout enterform,xxx;
 //    ProgressBar filebar;
 //    RoundProgressBar imagebar;
@@ -157,13 +157,17 @@ public class ActivitysNew extends AppCompatActivity {
         xxx =findViewById(R.id.imageChoose);
         mean =findViewById(R.id.activityMean);
         place =findViewById(R.id.activityPlace);
+        enterxi =findViewById(R.id.enterxi);
 //        imagebar = findViewById(R.id.imagebar);
 
-
-
+        ACache aCache = ACache.get(this);
+        if(aCache.getAsString("enter")!=null){
+        enterxi.setVisibility(View.VISIBLE);}
+        else {
+            enterxi.setVisibility(View.GONE);
+        }
         enterform.setVisibility(View.GONE);
     }
-
 
     public void more(View view) {
 
@@ -190,7 +194,8 @@ public class ActivitysNew extends AppCompatActivity {
 
         if (enter.isChecked()) {
             request.addRequestParam("activityEnter", "1");
-            request.addRequestParam("activityEnterInfo", "");
+            ACache aCache = ACache.get(this);
+            request.addRequestParam("activityEnterInfo",aCache.getAsString("enter"));
         } else {
             request.addRequestParam("activityEnter", "0");
         }
@@ -207,6 +212,9 @@ public class ActivitysNew extends AppCompatActivity {
 
                else{
                    mLoad.dismiss();
+                   ACache aCache = ACache.get(ActivitysNew.this);
+                   aCache.remove("selected");
+                   aCache.remove("enter");
                    Toast.makeText(ActivitysNew.this, "活动发布成功", Toast.LENGTH_SHORT).show();
                    finish();
                }
@@ -217,6 +225,9 @@ public class ActivitysNew extends AppCompatActivity {
             public void fail(String failCode, String failMsg) {
                 mLoad.dismiss();
                 backs=true;
+                ACache aCache = ACache.get(ActivitysNew.this);
+                aCache.remove("selected");
+                aCache.remove("enter");
                 Toast.makeText(ActivitysNew.this, "活动发布失败，请稍后再试", Toast.LENGTH_SHORT).show();
             }
         });
@@ -321,7 +332,8 @@ public class ActivitysNew extends AppCompatActivity {
     }
 
     public void enterform(View view) {
-
+        Intent intent = new Intent(this, ActivitysEnter.class);
+        startActivity(intent);
     }
 
     public void imageChoose(View view) {
@@ -426,6 +438,9 @@ public class ActivitysNew extends AppCompatActivity {
            @Override
            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                mLoad.dismiss();
+               ACache aCache = ACache.get(ActivitysNew.this);
+               aCache.remove("selected");
+               aCache.remove("enter");
                Toast.makeText(ActivitysNew.this, "活动发布成功", Toast.LENGTH_SHORT).show();
                finish();
            }
@@ -434,6 +449,9 @@ public class ActivitysNew extends AppCompatActivity {
            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                mLoad.dismiss();
                backs=true;
+               ACache aCache = ACache.get(ActivitysNew.this);
+               aCache.remove("selected");
+               aCache.remove("enter");
                Toast.makeText(ActivitysNew.this, "活动发布成功，但海报上传失败" , Toast.LENGTH_LONG).show();
            }
 

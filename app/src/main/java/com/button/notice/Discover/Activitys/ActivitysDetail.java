@@ -1,5 +1,6 @@
 package com.button.notice.Discover.Activitys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,7 @@ public class ActivitysDetail extends AppCompatActivity {
     TextView mean,time,place,title,number,info,baoming,bubaoming;
     ProgressBar bar;
     LinearLayout baomingrenshu;
-
+    String enterinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +89,7 @@ public class ActivitysDetail extends AppCompatActivity {
             public void success(CommonResponse response) {
                 ArrayList<HashMap<String,String>> arrayList = response.getDataList();
                 HashMap<String,String> map  = arrayList.get(0);
-                time.setText(map.get("activityTime"));
+                time.setText(map.get("activityTime").substring(0,16));
                 place.setText(map.get("activityPlace"));
                 title.setText(map.get("activityTitle"));
                 info.setText(map.get("activityInfo"));
@@ -98,6 +99,7 @@ public class ActivitysDetail extends AppCompatActivity {
                     bubaoming.setVisibility(View.GONE);
                     baomingrenshu.setVisibility(View.VISIBLE);
                     baoming.setVisibility(View.VISIBLE);
+                    enterinfo=map.get("activityEnterInfo");
                 }
                 else{
                     baoming.setVisibility(View.GONE);
@@ -120,8 +122,14 @@ public class ActivitysDetail extends AppCompatActivity {
 
 
     public void baoming(View view){
+        Intent intent = new Intent(this, ActivitysEnroll.class);
+        intent.putExtra("ID",id);
+        intent.putExtra("info",enterinfo);
+        startActivity(intent);
         Toast.makeText(this, "暂不支持在线报名，请等待下个版本更新", Toast.LENGTH_SHORT).show();
     }
+
+
 
 
     public  void back(View view){

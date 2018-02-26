@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jack on 2017/12/7.
@@ -42,6 +43,24 @@ public class StringUtil {
     }
 
 
+
+    public static String listToString(List<String> list){
+        if(list==null){
+            return null;
+        }
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+        //第一个前面不拼接","
+        for(String string :list) {
+            if(first) {
+                first=false;
+            }else{
+                result.append(",");
+            }
+            result.append(string);
+        }
+        return result.toString();
+    }
 
 
     public static String getRealFilePath(final Context context, final Uri uri ) {
