@@ -81,11 +81,11 @@ public class noticeDetailActivity extends AppCompatActivity {
                 String CreateDate = map.get("noticeCreateTime");
                 String Author = map.get("noticeUser");
                 String Text = map.get("noticeText");
-
                 title.setText("标题：" + Title);
                 createTime.setText("发布日期：" + CreateDate);
                 author.setText("作者：" + Author);
                 text.setText("内容：" + Text);
+
             }
 
             @Override
@@ -95,7 +95,6 @@ public class noticeDetailActivity extends AppCompatActivity {
             }
         });
         //**********************//
-
 
         Button ifcollect1 = (findViewById(R.id.collect1));
         Button ifcollect =(findViewById(R.id.collect));
@@ -112,6 +111,7 @@ public class noticeDetailActivity extends AppCompatActivity {
                 String ifCollect ="false";
                 StringUtil stringUtil = new StringUtil();
                 String[] currentCollection = stringUtil.ChangetoString(collect);
+
                 for(int i=0;i<currentCollection.length;i++){
                     if (currentCollection[i].equals(noticeId)){
                         ifCollect="true";
@@ -123,9 +123,6 @@ public class noticeDetailActivity extends AppCompatActivity {
                     ifcollect.setVisibility(View.GONE);
                     ifcollect1.setVisibility(View.VISIBLE); }
 
-
-
-
                 else if (ifCollect.equals("false")){
                     Button ifcollect =(findViewById(R.id.collect));
                     ifcollect.setVisibility(View.VISIBLE);
@@ -133,36 +130,7 @@ public class noticeDetailActivity extends AppCompatActivity {
                     ifcollect1.setVisibility(View.GONE);
                    }
 
-                ifcollect1.setOnClickListener((view -> {
-                    ifcollect1.setVisibility(View.GONE);
-                    ifcollect.setVisibility(View.VISIBLE);
-                    CommonRequest request = new CommonRequest();
-                    request.setTable("table_user_info");
-                    request.setList("userCollection");
-                    request.setText(noticeId);
-                    request.Connect(noticeDetailActivity.this);
-                    Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT).show();
-
-                }));
-
-                    ifcollect.setOnClickListener(view -> {
-                        ifcollect.setVisibility(View.GONE);
-                        ifcollect1.setVisibility(View.VISIBLE);
-                        CommonRequest request = new CommonRequest();
-                        request.setTable("table_user_info");
-                        request.setList("userCollection");
-                        request.setText(noticeId);
-                        request.Connect(noticeDetailActivity.this);
-                        Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_SHORT).show();
-
-                    });
-
-
-
-
             }
-
-
 
             @Override
             public void fail(String failCode, String failMsg) {
@@ -170,6 +138,34 @@ public class noticeDetailActivity extends AppCompatActivity {
 
             }
         });
+
+
+        ifcollect1.setOnClickListener((view -> {
+            ifcollect1.setVisibility(View.GONE);
+            ifcollect.setVisibility(View.VISIBLE);
+            CommonRequest request1 = new CommonRequest();
+            request1.setTable("table_user_info");
+            request1.setList("userCollection");
+            request1.setText(noticeId);
+            request1.Connect(noticeDetailActivity.this);
+            Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT).show();
+
+        }));
+
+        ifcollect.setOnClickListener(view -> {
+            ifcollect.setVisibility(View.GONE);
+            ifcollect1.setVisibility(View.VISIBLE);
+            CommonRequest request5 = new CommonRequest();
+            request5.setTable("table_user_info");
+            request5.setList("userCollection");
+            request5.setText(noticeId);
+            request5.Connect(noticeDetailActivity.this);
+            Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_SHORT).show();
+
+        });
+
+
+
 
 
         //**********************//
@@ -195,6 +191,13 @@ public class noticeDetailActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
 
 }
 

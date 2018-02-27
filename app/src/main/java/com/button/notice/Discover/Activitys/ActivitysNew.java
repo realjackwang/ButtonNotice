@@ -428,7 +428,6 @@ public class ActivitysNew extends AppCompatActivity {
 
     }
 
-
     public void upload (String url,String Id){
 
         CommonRequest request = new CommonRequest();

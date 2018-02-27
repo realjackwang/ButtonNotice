@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.button.notice.util.ACache;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -269,6 +270,17 @@ public class CommonRequest {
     }
 
 
+    public void AddAll(String x,ResponseHandler rHandler){
+        CommonRequest request = new CommonRequest();
+        request.addRequestParam("ifadd",x);
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("List", this.getList());
+        request.addRequestParam("Id", this.getId());
+        request.addRequestParam("Community", this.getText());
+        new HttpPostTask(Constant.URL_Connect, request,rHandler).execute();
+    }
+
+
 
 
 
@@ -365,6 +377,21 @@ public class CommonRequest {
         client.post(Constant.URL_Upload, params,rHandler);
 
     }
+
+
+
+
+
+
+    public void CreateExecl(String x,String y,String z,Context c,ResponseHandler rHandler){
+        CommonRequest request = new CommonRequest();
+        request.addRequestParam("Id", getCurrentId(c));
+        request.addRequestParam("name", z);
+        request.addRequestParam("AId", y);
+        request.addRequestParam("info",x);
+        new HttpPostTask(Constant.URL_Excel, request,rHandler).execute();
+    }
+
 
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.button.notice">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,7 +23,8 @@
         android:label="纽扣通知"
         android:roundIcon="@mipmap/ic_tubiao"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:theme">
         <activity
             android:name=".Fragment.MainActivity"
             android:screenOrientation="portrait" />
@@ -89,7 +91,8 @@
         <activity android:name=".Discover.Activitys.ActivitysDetail" />
         <activity android:name=".User.Setting.Support" />
         <activity android:name=".Discover.Activitys.ActivitysEnter" />
-        <activity android:name=".Discover.Activitys.ActivitysEnroll"></activity>
+        <activity android:name=".Discover.Activitys.ActivitysEnroll" />
+        <activity android:name=".Discover.Activitys.ActivitysQuestion" />
     </application>
 
 </manifest>

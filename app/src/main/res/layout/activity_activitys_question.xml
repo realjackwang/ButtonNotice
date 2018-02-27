@@ -8,6 +8,8 @@
     android:baselineAligned="false"
     android:orientation="vertical">
 
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -35,9 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="18dp"
+            android:textSize="20dp"
+
             android:textColor="@color/white"
-            android:text="填写报名表" />
+            android:text="问答" />
+
 
 
 
@@ -48,13 +52,22 @@
             android:layout_height="28dp"
             android:layout_gravity="right|center"
             android:layout_marginRight="10dp"
-            android:text="发布"
+            android:text="提问"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="18dp"/>
 
-
     </FrameLayout>
+
+    <com.button.notice.util.ProgressBar
+        android:id="@+id/progressBar"
+        android:background="@color/touming"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/ll_addView"
@@ -63,4 +76,5 @@
         android:orientation="vertical" />
 
 
+</ScrollView>
 </LinearLayout>

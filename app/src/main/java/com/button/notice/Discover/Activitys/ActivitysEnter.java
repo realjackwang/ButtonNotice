@@ -44,8 +44,8 @@ public class ActivitysEnter extends AppCompatActivity {
         listView =findViewById(R.id.listview);
 
 
-        ACache aCache = ACache.get(this);
-        if(aCache.getAsString("enter")!=null){
+            ACache aCache = ACache.get(this);
+            if(aCache.getAsString("enter")!=null){
 
             String[] lists =StringUtil.ChangetoString( aCache.getAsString("enter"));
             for(int i=0;i<lists.length;i++)
@@ -95,7 +95,7 @@ public class ActivitysEnter extends AppCompatActivity {
 
     public void infopicker(View view){
 
-            final String[] items = {"姓名","年龄","名族","学院","专业","班级","学号","手机号","QQ","邮箱"};
+            final String[] items = {"姓名","年龄","民族","学院","专业","班级","学号","手机号","QQ","邮箱"};
 
             // 创建一个AlertDialog建造者
             AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(this);

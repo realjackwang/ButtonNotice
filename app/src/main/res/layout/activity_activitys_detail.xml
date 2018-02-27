@@ -290,6 +290,8 @@
             >
 
             <LinearLayout
+                android:id="@+id/wenda"
+                android:onClick="wenda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -346,6 +348,23 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 />
+
+            <TextView
+                android:id="@+id/yibaoming"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:elevation="1dp"
+                android:background="@drawable/shape_blue"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="10dp"
+                android:textSize="16dp"
+                android:text="已报名"
+                android:gravity="center"
+                android:textColor="@color/white"
+                />
+
 
 
 
