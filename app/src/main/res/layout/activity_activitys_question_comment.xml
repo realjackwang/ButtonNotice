@@ -40,7 +40,7 @@
             android:textSize="20dp"
 
             android:textColor="@color/white"
-            android:text="问答" />
+            android:text="提问详情" />
 
 
 
@@ -52,12 +52,14 @@
             android:layout_height="28dp"
             android:layout_gravity="right|center"
             android:layout_marginRight="10dp"
-            android:text="提问"
+            android:text="回答"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="18dp"/>
 
     </FrameLayout>
+
+
 
     <com.button.notice.util.ProgressBar
         android:id="@+id/progressBar"
@@ -65,17 +67,21 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-<ScrollView
-    android:id="@+id/all"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/ll_addView"
+    <ScrollView
+        android:id="@+id/all"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_addView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
 
-</ScrollView>
+    </ScrollView>
+
+
+
+
 </LinearLayout>

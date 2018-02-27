@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,34 +20,28 @@ import com.button.notice.util.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class ActivitysQuestion extends AppCompatActivity {
-    String Id;
+public class ActivitysQuestionComment extends AppCompatActivity {
     private LinearLayout addHotelNameView;
     ScrollView all;
     ProgressBar progressBar;
+
+
+
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activitys_question);
+        setContentView(R.layout.activity_activitys_question_comment);
         addHotelNameView = (LinearLayout) findViewById(R.id.ll_addView);
 
 
-        Intent intent =getIntent();
-        Id= intent.getStringExtra("ID");
+        Intent intent = getIntent();
+        id =  intent.getStringExtra("questionid");
         init();
         getinfo();
+        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
 
-
-    }
-
-
-    @Override
-    protected void onRestart() {
-        addHotelNameView.removeAllViews();
-        getinfo();
-        super.onRestart();
     }
 
 
@@ -58,25 +51,25 @@ public class ActivitysQuestion extends AppCompatActivity {
         all.setVisibility(View.GONE);
     }
 
+
     public void getinfo(){
+        addHotelNameView.removeAllViews();
         CommonRequest request = new CommonRequest();
         request.setTable("table_activity_comment");
-        request.setWhereEqualTo("commentActivity",Id);
+        request.setWhereEqualTo("Id",id);
         request.Query(new ResponseHandler() {
             @Override
             public void success(CommonResponse response) {
                 ArrayList<HashMap<String, String>> arrayList = response.getDataList();
-
                 if(arrayList!=null&&arrayList.size()>0) {
-                    for (int i = 0; i < arrayList.size(); i++) {
-                        HashMap<String, String> map = arrayList.get(i);
-                        addComment(map.get("commentInfo"),map.get("Id"));
+                        HashMap<String, String> map = arrayList.get(0);
+                        addComment(map.get("commentInfo"));
                         String[] comment = map.get("commentAnswer").split("@@@");
                         if(comment[0]!=null&&!comment[0].equals("")&&!comment[0].equals("null"))
-                        for (int j = 0, k=0;(j <comment.length)&&(k<2); j++,k++) {
-                            addCommentComment(comment[j],map.get("Id"));
-                        }
-                    }
+                            for (int j=0;(j <comment.length); j++) {
+                                addComment(comment[j]);
+                            }
+
                 }
 
                 progressBar.setVisibility(View.GONE);
@@ -92,65 +85,32 @@ public class ActivitysQuestion extends AppCompatActivity {
 
     }
 
-    private void addComment(String x,String y){
-        View commentview = View.inflate(this, R.layout.comment_list_item, null);
-        TextView commentname =  commentview.findViewById(R.id.commentname);
-        commentname.setText(x);
-        commentname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivitysQuestion.this, ActivitysQuestionComment.class);
-                intent.putExtra("questionid",y);
-                startActivity(intent);
-            }
-        });
-        addHotelNameView.addView(commentview);
-    }
-
-
-
-    private void addCommentComment(String x,String y){
-        View commentview = View.inflate(this, R.layout.comment_list_item_2, null);
-        TextView commentname =  commentview.findViewById(R.id.commentname);
-        commentname.setText(x);
-        commentname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivitysQuestion.this, ActivitysQuestionComment.class);
-                intent.putExtra("questionid",y);
-                startActivity(intent);
-            }
-        });
-        addHotelNameView.addView(commentview);
-    }
-
 
     public void more(View view){
 
-
-
         final EditText editText = new EditText(this);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
-        builder.setTitle("请填写问题内容：");
+        builder.setTitle("请填写回答内容：");
         builder.setView(editText);
-        builder.setPositiveButton("确定提问", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("确定回答", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
                 CommonRequest request = new CommonRequest();
                 request.setTable("table_activity_comment");
-                request.addRequestParam("commentActivity",Id);
-                request.addRequestParam("commentUser",request.getCurrentId(ActivitysQuestion.this));
-                request.addRequestParam("commentInfo",editText.getText().toString());
-                request.Create(request,new ResponseHandler() {
+                request.setId(id);
+                request.setList("commentAnswer");
+                request.setText(editText.getText().toString());
+                request.AddAll("2",new ResponseHandler() {
                     @Override
                     public void success(CommonResponse response) {
-                        Toast.makeText(ActivitysQuestion.this, "提问成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivitysQuestionComment.this, "回答成功", Toast.LENGTH_SHORT).show();
+                        getinfo();
                     }
 
                     @Override
                     public void fail(String failCode, String failMsg) {
-                        Toast.makeText(ActivitysQuestion.this, "提问失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivitysQuestionComment.this, "回答失败，请稍后再试", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -165,9 +125,14 @@ public class ActivitysQuestion extends AppCompatActivity {
         builder.create().show();
 
 
+    }
 
 
-
+    private void addComment(String x){
+        View commentview = View.inflate(this, R.layout.comment_list_item, null);
+        TextView commentname =  commentview.findViewById(R.id.commentname);
+        commentname.setText(x);
+        addHotelNameView.addView(commentview);
     }
 
 }
