@@ -9,19 +9,29 @@
     <LinearLayout
         android:id="@+id/rl_addHotel"
         android:layout_width="match_parent"
-        android:background="@drawable/shape_write"
+        android:background="@color/white"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#999999"
+            android:layout_marginLeft="60dp"
+            android:layout_gravity="top|right"/>
 
         <TextView
             android:id="@+id/commentname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="问题"
             android:textSize="18sp" />
+
 
 
 

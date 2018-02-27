@@ -16,6 +16,7 @@ import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
+import com.button.notice.util.ACache;
 import com.button.notice.util.ProgressBar;
 
 import java.util.ArrayList;
@@ -95,12 +96,15 @@ public class ActivitysQuestionComment extends AppCompatActivity {
         builder.setPositiveButton("确定回答", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                ACache aCache = ACache.get(ActivitysQuestionComment.this);
+
 
                 CommonRequest request = new CommonRequest();
                 request.setTable("table_activity_comment");
                 request.setId(id);
                 request.setList("commentAnswer");
-                request.setText(editText.getText().toString());
+
+                request.setText( aCache.getAsString("name")+":"+editText.getText().toString());
                 request.AddAll("2",new ResponseHandler() {
                     @Override
                     public void success(CommonResponse response) {
@@ -133,6 +137,10 @@ public class ActivitysQuestionComment extends AppCompatActivity {
         TextView commentname =  commentview.findViewById(R.id.commentname);
         commentname.setText(x);
         addHotelNameView.addView(commentview);
+    }
+
+    public void back(View view){
+        finish();
     }
 
 }
