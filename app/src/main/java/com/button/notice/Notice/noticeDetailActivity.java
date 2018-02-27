@@ -124,13 +124,12 @@ public class noticeDetailActivity extends AppCompatActivity {
                     ifcollect1.setVisibility(View.VISIBLE); }
 
                 else if (ifCollect.equals("false")){
-                    Button ifcollect =(findViewById(R.id.collect));
                     ifcollect.setVisibility(View.VISIBLE);
-                    Button ifcollect1 = (findViewById(R.id.collect1));
                     ifcollect1.setVisibility(View.GONE);
                    }
 
             }
+<<<<<<< HEAD
 
             @Override
             public void fail(String failCode, String failMsg) {
@@ -165,7 +164,38 @@ public class noticeDetailActivity extends AppCompatActivity {
         });
 
 
+=======
 
+            @Override
+            public void fail(String failCode, String failMsg) {
+                Toast.makeText(noticeDetailActivity.this,"收藏失败，请重试",Toast.LENGTH_SHORT).show();
+>>>>>>> 2c9920ee698f71ef0f3d1f76ae8460ff2866ff52
+
+
+        
+        ifcollect1.setOnClickListener((view -> {
+            ifcollect1.setVisibility(View.GONE);
+            ifcollect.setVisibility(View.VISIBLE);
+            CommonRequest request5 = new CommonRequest();
+            request5.setTable("table_user_info");
+            request5.setList("userCollection");
+            request5.setText(noticeId);
+            request5.Connect(noticeDetailActivity.this);
+            Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT).show();
+
+        }));
+
+        ifcollect.setOnClickListener(view -> {
+            ifcollect.setVisibility(View.GONE);
+            ifcollect1.setVisibility(View.VISIBLE);
+            CommonRequest request6 = new CommonRequest();
+            request6.setTable("table_user_info");
+            request6.setList("userCollection");
+            request6.setText(noticeId);
+            request6.Connect(noticeDetailActivity.this);
+            Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_SHORT).show();
+
+        });
 
 
         //**********************//
@@ -180,14 +210,6 @@ public class noticeDetailActivity extends AppCompatActivity {
          }));
 
         //**********************//
-        //收藏
-        collect.setOnClickListener((view -> {
-
-
-
-
-
-        }));
 
 
     }
