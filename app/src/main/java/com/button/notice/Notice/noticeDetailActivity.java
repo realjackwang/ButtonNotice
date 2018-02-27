@@ -40,7 +40,6 @@ public class noticeDetailActivity extends AppCompatActivity {
 
         Button back = findViewById(R.id.back);
         Button query = findViewById(R.id.query);
-        Button collect = findViewById(R.id.collect);
         Button read = findViewById(R.id.read);
 
         //**********************//
@@ -81,11 +80,11 @@ public class noticeDetailActivity extends AppCompatActivity {
                 String CreateDate = map.get("noticeCreateTime");
                 String Author = map.get("noticeUser");
                 String Text = map.get("noticeText");
+
                 title.setText("标题：" + Title);
                 createTime.setText("发布日期：" + CreateDate);
                 author.setText("作者：" + Author);
                 text.setText("内容：" + Text);
-
             }
 
             @Override
@@ -96,6 +95,8 @@ public class noticeDetailActivity extends AppCompatActivity {
         });
         //**********************//
 
+        //**********************//
+        //查询数据库获取收藏状态以正确显示按钮
         Button ifcollect1 = (findViewById(R.id.collect1));
         Button ifcollect =(findViewById(R.id.collect));
         CommonRequest request = new CommonRequest();
@@ -111,7 +112,6 @@ public class noticeDetailActivity extends AppCompatActivity {
                 String ifCollect ="false";
                 StringUtil stringUtil = new StringUtil();
                 String[] currentCollection = stringUtil.ChangetoString(collect);
-
                 for(int i=0;i<currentCollection.length;i++){
                     if (currentCollection[i].equals(noticeId)){
                         ifCollect="true";
@@ -123,56 +123,25 @@ public class noticeDetailActivity extends AppCompatActivity {
                     ifcollect.setVisibility(View.GONE);
                     ifcollect1.setVisibility(View.VISIBLE); }
 
+
+
+
                 else if (ifCollect.equals("false")){
                     ifcollect.setVisibility(View.VISIBLE);
                     ifcollect1.setVisibility(View.GONE);
-                   }
+                }
 
             }
-<<<<<<< HEAD
 
             @Override
             public void fail(String failCode, String failMsg) {
-                Toast.makeText(noticeDetailActivity.this,"收藏失败，请重试",Toast.LENGTH_SHORT).show();
+                Toast.makeText(noticeDetailActivity.this,"请刷新",Toast.LENGTH_SHORT).show();
 
             }
         });
 
-
-        ifcollect1.setOnClickListener((view -> {
-            ifcollect1.setVisibility(View.GONE);
-            ifcollect.setVisibility(View.VISIBLE);
-            CommonRequest request1 = new CommonRequest();
-            request1.setTable("table_user_info");
-            request1.setList("userCollection");
-            request1.setText(noticeId);
-            request1.Connect(noticeDetailActivity.this);
-            Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT).show();
-
-        }));
-
-        ifcollect.setOnClickListener(view -> {
-            ifcollect.setVisibility(View.GONE);
-            ifcollect1.setVisibility(View.VISIBLE);
-            CommonRequest request5 = new CommonRequest();
-            request5.setTable("table_user_info");
-            request5.setList("userCollection");
-            request5.setText(noticeId);
-            request5.Connect(noticeDetailActivity.this);
-            Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_SHORT).show();
-
-        });
-
-
-=======
-
-            @Override
-            public void fail(String failCode, String failMsg) {
-                Toast.makeText(noticeDetailActivity.this,"收藏失败，请重试",Toast.LENGTH_SHORT).show();
->>>>>>> 2c9920ee698f71ef0f3d1f76ae8460ff2866ff52
-
-
-        
+        //**********************//
+        //收藏按钮功能 向数据库写入或删除部分
         ifcollect1.setOnClickListener((view -> {
             ifcollect1.setVisibility(View.GONE);
             ifcollect.setVisibility(View.VISIBLE);
@@ -182,9 +151,7 @@ public class noticeDetailActivity extends AppCompatActivity {
             request5.setText(noticeId);
             request5.Connect(noticeDetailActivity.this);
             Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT).show();
-
         }));
-
         ifcollect.setOnClickListener(view -> {
             ifcollect.setVisibility(View.GONE);
             ifcollect1.setVisibility(View.VISIBLE);
@@ -196,6 +163,7 @@ public class noticeDetailActivity extends AppCompatActivity {
             Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_SHORT).show();
 
         });
+        //**********************//
 
 
         //**********************//
@@ -207,19 +175,11 @@ public class noticeDetailActivity extends AppCompatActivity {
             intent3.setClass(noticeDetailActivity.this, noticeDetialQA.class);
             noticeDetailActivity.this.startActivity(intent3);
 
-         }));
-
+        }));
         //**********************//
 
 
     }
-
-
-
-
-
-
-
 
 }
 
