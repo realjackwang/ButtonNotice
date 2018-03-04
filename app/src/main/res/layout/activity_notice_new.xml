@@ -25,10 +25,6 @@
             android:src="@drawable/returns"/>
 
 
-
-
-
-        />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -43,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/touming"
-        android:text="提交"
+        android:text="发布"
         android:textColor="@color/white"
         android:layout_gravity="right"
 
@@ -106,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="选择日期"
+                    android:text="通知事件日期"
                     android:layout_gravity="center"
                     android:textSize="15dp"
                     android:textColor="#000000"
@@ -160,7 +156,7 @@
                     android:textSize="15dp"
                     android:textColor="@color/text_clo"
                     android:gravity="center|left"
-                    android:text="选择时间" />
+                    android:text="通知事件时间" />
 
                 <FrameLayout
                     android:id="@+id/timepicker"
@@ -207,7 +203,7 @@
                     android:textSize="15dp"
                     android:textColor="@color/text_clo"
                     android:gravity="center|left"
-                    android:text="选择圈子" />
+                    android:text="发布圈子" />
 
                 <FrameLayout
                     android:id="@+id/circleChoose"
@@ -272,15 +268,20 @@
 
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_layout_shape">
 
-            <Button
-                android:id="@+id/fileChoose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="添加附件"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_for_button"/>
+                <Button
+                    android:id="@+id/fileChoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_for_button"
+                    android:gravity="center"
+                    android:text="添加附件"
+                    android:textColor="@color/white" />
 
 
             <TextView
@@ -289,7 +290,7 @@
                 android:layout_height="wrap_content"
 
                 />
-
+        </LinearLayout>
 
         </LinearLayout>
 

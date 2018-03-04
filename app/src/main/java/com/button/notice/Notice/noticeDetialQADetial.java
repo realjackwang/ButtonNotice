@@ -1,13 +1,22 @@
 package com.button.notice.Notice;
 
 import android.content.Intent;
+import android.service.quicksettings.Tile;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
+import com.button.notice.service.CommonResponse;
+import com.button.notice.service.ResponseHandler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class noticeDetialQADetial extends AppCompatActivity {
 
@@ -18,19 +27,83 @@ public class noticeDetialQADetial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_detial_qadetial);
 
-        //接收父通知的作者的id
-        Intent intent = getIntent();
-        String author = intent.getStringExtra("author");
+        TextView title = (findViewById(R.id.title));
+        TextView text= (findViewById(R.id.text));
+        TextView author =findViewById(R.id.Author);
 
-        if (userId==author){
-            Toast.makeText(noticeDetialQADetial.this,"你是通知的发送者",Toast.LENGTH_SHORT).show();
 
+        EditText anwser = findViewById(R.id.answerText);
+        Button submit = findViewById(R.id.submit);
+        anwser.setVisibility(View.GONE);
+        submit.setVisibility(View.GONE);
+
+
+        //获取noticeDetailQA传过来的父通知的作者和问题的id
+        Intent intent1 = getIntent();
+        String id = intent1.getStringExtra("QAid");
+        String Author = intent1.getStringExtra("author");
+        String fatherNoticeId = intent1.getStringExtra("fatherNoticeId");
+
+        CommonRequest request0 = new CommonRequest();
+        userId = request0.getCurrentId(noticeDetialQADetial.this);
+
+        if (userId.equals(Author)){
+            Toast.makeText(noticeDetialQADetial.this,"原通知作者，请编辑回答",Toast.LENGTH_SHORT).show();
+            anwser.setVisibility(View.VISIBLE);
+            submit.setVisibility(View.VISIBLE);
         }
 
+        CommonRequest request = new CommonRequest();
+        request.setTable("table_question_info");
+        request.setWhereEqualTo("Id",id);
+        request.Query(new ResponseHandler() {
+            @Override
+            public void success(CommonResponse response) {
+                ArrayList<HashMap<String, String>> list = response.getDataList();
+                HashMap<String, String> map = list.get(0);
+                String Title = map.get("questionTitle");
+                String Text = map.get("questionInfo");
+                String Author = map.get("questionUser");
+                String Hide =map.get("questionHide");
+                String Answer =map.get("questionAnswer");
+                if (Hide.equals("false"))
+                {
+                    author.setText("作者："+Author);
+                }
 
-        Intent intent1 = getIntent();
-        String id = intent.getStringExtra("QAid");
 
+                title.setText("问题:"+Title);
+                text.setText("回答："+Text);
+
+
+
+
+
+
+            }
+
+            @Override
+            public void fail(String failCode, String failMsg) {
+
+            }
+        });
+
+        submit.setOnClickListener((view -> {
+            String authorAnswer = anwser.getText().toString();
+            CommonRequest request1=new CommonRequest();
+            request1.setTable("table_question_info");
+            request1.addRequestParam("questionAnswer",authorAnswer);
+            request1.Create(request1, new ResponseHandler() {
+                @Override
+                public void success(CommonResponse response) {
+                    Toast.makeText(noticeDetialQADetial.this,"发送成功",Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void fail(String failCode, String failMsg) {
+                    Toast.makeText(noticeDetialQADetial.this,"发送失败",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }));
 
     }
 }

@@ -28,7 +28,7 @@ import static cn.jpush.android.api.JPushInterface$a.w;
 
 public class noticeDetailActivity extends AppCompatActivity {
 
-    private int whetherCollect=0;
+
 
 
 

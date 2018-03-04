@@ -22,7 +22,7 @@
 
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/QAtitle"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -32,7 +32,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/info"
+                android:id="@+id/QAinfo"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"

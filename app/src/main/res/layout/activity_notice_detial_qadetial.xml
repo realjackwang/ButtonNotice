@@ -21,6 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="返回"
+            android:textColor="@color/white"
+            android:background="@color/touming"
             android:layout_gravity="left"/>
         <TextView
             android:id="@+id/textView"
@@ -35,6 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发布"
+            android:textColor="@color/white"
+            android:background="@color/touming"
             android:layout_gravity="right"/>
 
 
@@ -47,12 +51,19 @@
         <TextView
             android:id="@+id/title"
             android:textColorHint="@color/white"
-            android:background="@color/lightGray"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp" />
+        <View
+
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#90909090"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            />
         <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
@@ -62,22 +73,42 @@
             android:layout_marginTop="75dp"
             android:background="@color/lightGray"
             android:textColorHint="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/Author"
+            android:layout_height="150dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="100dp"
+            android:background="@color/lightGray"
+            />
 
-        <EditTextText
+        <EditText
+
+            android:hint="输入回答"
             android:id="@+id/answerText"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="250dp"
+            android:gravity="center"
             android:background="@color/lightGray"
-            android:textColorHint="@color/white"
             />
 
 
+        <Button
+
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/answerText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="提交回答" />
+
 
     </RelativeLayout>
-
 
 
 

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class noticeDetialQA extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class noticeDetialQA extends AppCompatActivity  {
 
 
    private ListView QAList;
@@ -38,26 +38,28 @@ public class noticeDetialQA extends AppCompatActivity implements AdapterView.OnI
         }));
 
         //本地存储缓存的列表
+        QAList=findViewById(R.id.listView1);
+
         ACache aCache = ACache.get(noticeDetialQA.this);
-        ArrayList<HashMap<String,String>> arrayList =(ArrayList<HashMap<String,String>>) aCache.getAsObject("QALoad");
+        ArrayList<HashMap<String,String>> arrayList =(ArrayList<HashMap<String,String>>) aCache.getAsObject("qaList");
         if(arrayList!=null) {
             SimpleAdapter adapter = new SimpleAdapter(noticeDetialQA.this,
                     arrayList, R.layout.qa_list,
-                    new String[]{"QATitle", "QAInfo"},
-                    new int[]{R.id.title, R.id.info});
+                    new String[]{"questionTitle", "questionInfo"},
+                    new int[]{R.id.QAtitle, R.id.QAinfo});
             QAList.setAdapter(adapter);
 
         }
 
+
+        //加载列表
         CommonRequest request = new CommonRequest();
         request.setTable("table_question_info");
         request.Query(new ResponseHandler() {
             @Override
             public void success(CommonResponse response) {
                 ArrayList<HashMap<String, String>> arrayList1 = response.getDataList();
-                ACache aCache1 = ACache.get(noticeDetialQA.this);
-                aCache1.put("QALoad", arrayList1);
-                SimpleAdapter adapter =new SimpleAdapter(noticeDetialQA.this, arrayList1,R.layout.qa_list,new String[]{"QATitle", "QAInfo"},new int[]{R.id.title, R.id.info});
+                SimpleAdapter adapter =new SimpleAdapter(noticeDetialQA.this, arrayList1,R.layout.qa_list,new String[]{"questionTitle", "questionInfo"},new int[]{R.id.QAtitle, R.id.QAinfo});
                 QAList.setAdapter(adapter);
             }
 
@@ -67,44 +69,58 @@ public class noticeDetialQA extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-
-
-
-//新问题跳转按钮
+        //****************************************//
+        //新问题跳转按钮
         Button Quest = (findViewById(R.id.newQA));
         Quest.setOnClickListener((view -> {
-//接收noticeDetailActivity传来的问题所属的通知的id
+            //接收noticeDetailActivity传来的问题所属的通知的id
             Intent intent = getIntent();
             String id = intent.getStringExtra("noticeId");
 
             //传父通知id给发布新提问的活动
             Intent intent2 = new Intent();
-            intent2.putExtra("fatherId", id);
+            intent2.putExtra("noticeId", id);
             intent2.setClass(noticeDetialQA.this, noticeDetialQAnew.class);
             noticeDetialQA.this.startActivity(intent2);
+
         }));
+        QAList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                HashMap<String,String> map=(HashMap<String,String>) QAList.getItemAtPosition(i);
+                String QAid=map.get("Id");//获取点的那个item的id
 
+                //查询父通知的发送者的id
+                CommonRequest request1 = new  CommonRequest();
+                request1.setTable("table_notice_info");
+                Intent intent = getIntent();
+                String fatherNoticeId = intent.getStringExtra("noticeId");
+                request1.setWhereEqualTo("Id",fatherNoticeId);
+                request1.Query(new ResponseHandler() {
+                    @Override
+                    public void success(CommonResponse response) {
+                        ArrayList<HashMap<String, String>> list = response.getDataList();
+                        HashMap<String, String> map = list.get(0);
+                        String Author = map.get("noticeUser");
+                        //把通知的发送者id和问题的ID和通知的ID传给qaDetail
+                        Intent intent2 = new Intent();
+                        intent2.putExtra("author", Author);
+                        intent2.putExtra("QAid",QAid);
+                        intent2.putExtra("fatherNoticeId",fatherNoticeId);
+                        intent2.setClass(noticeDetialQA.this, noticeDetialQADetial.class);
+                        noticeDetialQA.this.startActivity(intent2);
+                    }
 
+                    @Override
+                    public void fail(String failCode, String failMsg) {
 
+                    }
+                });
+
+            }
+        });
 
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        HashMap<String,String> map=(HashMap<String,String>) QAList.getItemAtPosition(position);
-        String Text=map.get("Id");//获取点的那个item的id
 
-        //接收noticeDetailActivity发来的父通知的作者的id
-        Intent intent3 = getIntent();
-        String Author = intent3.getStringExtra("author");
-
-        Intent intent = new Intent();
-        intent.putExtra("QAid", Text);
-        intent.putExtra("author",Author);
-        intent.setClass(noticeDetialQA.this, noticeDetialQADetial.class);
-        noticeDetialQA.this.startActivity(intent);
-
-
-    }
 }

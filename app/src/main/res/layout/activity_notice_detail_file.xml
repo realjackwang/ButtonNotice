@@ -21,8 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="返回"
+            android:background="@color/touming"
+            android:textColor="@color/white"
             android:layout_gravity="left"/>
         <TextView
+            android:text="选择文件"
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,6 +33,8 @@
             android:layout_gravity="center"
             />
         <Button
+            android:textColor="@color/white"
+            android:background="@color/touming"
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
