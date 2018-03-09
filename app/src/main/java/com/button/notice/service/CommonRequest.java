@@ -95,7 +95,7 @@ public class CommonRequest {
     }
 
     /**
-     * 设置请求代码，即接口号，在本例中暂时未用到
+     * 设置请求代码，即接口号
      */
     public void setRequestCode(String requestCode) {
         this.requestCode = requestCode;
@@ -184,6 +184,7 @@ public class CommonRequest {
     public void Create(CommonRequest request, ResponseHandler rHandler) {  //创建
 
         request.addRequestParam("Table", this.getTable());
+        request.setRequestCode(this.isIspush()+"");
         request.addRequestParam("ispush",this.isIspush()+"");
         new HttpPostTask(Constant.URL_Create, request, rHandler).execute();
 
@@ -294,7 +295,6 @@ public class CommonRequest {
         request.addRequestParam("Community", this.getText());
         new HttpPostTask(Constant.URL_Connect, request).execute();
     }
-
 
 
     /**
