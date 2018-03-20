@@ -200,7 +200,9 @@ public class ActivitysEnroll extends AppCompatActivity {
             addHotelNameView.addView(hotelEvaluateView);
     }
 
-
+public void back(View view){
+        finish();
+}
 
 
 }

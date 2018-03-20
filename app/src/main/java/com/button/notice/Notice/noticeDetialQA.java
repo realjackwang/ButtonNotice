@@ -29,6 +29,9 @@ public class noticeDetialQA extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //接收noticeDetailActivity传来的问题所属的通知的id
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("noticeId");
         setContentView(R.layout.activity_notice_detial_q);
 
         //假装自己是只ios的返回按钮
@@ -55,6 +58,7 @@ public class noticeDetialQA extends AppCompatActivity  {
         //加载列表
         CommonRequest request = new CommonRequest();
         request.setTable("table_question_info");
+        request.setWhereEqualTo("questionNotice",id);
         request.Query(new ResponseHandler() {
             @Override
             public void success(CommonResponse response) {
@@ -73,9 +77,7 @@ public class noticeDetialQA extends AppCompatActivity  {
         //新问题跳转按钮
         Button Quest = (findViewById(R.id.newQA));
         Quest.setOnClickListener((view -> {
-            //接收noticeDetailActivity传来的问题所属的通知的id
-            Intent intent = getIntent();
-            String id = intent.getStringExtra("noticeId");
+
 
             //传父通知id给发布新提问的活动
             Intent intent2 = new Intent();

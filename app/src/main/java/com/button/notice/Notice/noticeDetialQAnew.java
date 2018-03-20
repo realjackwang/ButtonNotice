@@ -29,7 +29,7 @@ public class noticeDetialQAnew extends AppCompatActivity {
 
         //*****************************//
         //返回按钮
-        Button back = (findViewById(R.id.back));
+        Button back = (findViewById(R.id.back1));
         back.setOnClickListener((view -> {
             finish();
         }));
@@ -75,7 +75,6 @@ public class noticeDetialQAnew extends AppCompatActivity {
             userId = request.getCurrentId(noticeDetialQAnew.this);
             request.addRequestParam("questionTitle",QAtitle);
             request.addRequestParam("questionInfo",QAinfo);
-            request.addRequestParam("activityUser","");
             request.addRequestParam("questionNotice",fatherNoticeId);
             request.addRequestParam("questionHide",hide);
             request.addRequestParam("questionUser",userId);

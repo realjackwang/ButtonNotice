@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SplittableRandom;
 
+import static cn.jpush.android.api.JPushInterface$a.m;
 import static cn.jpush.android.api.JPushInterface$a.v;
 import static cn.jpush.android.api.JPushInterface$a.w;
 
@@ -41,6 +42,7 @@ public class noticeDetailActivity extends AppCompatActivity {
         Button back = findViewById(R.id.back);
         Button query = findViewById(R.id.query);
         Button read = findViewById(R.id.read);
+        TextView ddline =findViewById(R.id.Ddline);
 
         //**********************//
         // 返回按钮点击事件
@@ -77,14 +79,17 @@ public class noticeDetailActivity extends AppCompatActivity {
                 ArrayList<HashMap<String, String>> list = response.getDataList();
                 HashMap<String, String> map = list.get(0);
                 String Title = map.get("noticeTitle");
-                String CreateDate = map.get("noticeCreateTime");
+                String CreateDate = map.get("createTime").substring(5,map.get("createTime").length()-2);
+
                 String Author = map.get("noticeUser");
                 String Text = map.get("noticeText");
+                String Ddline =(map.get("noticeDate")+" "+ map.get("noticeTime")).substring(0,map.get("createTime").length()-5);
 
-                title.setText("标题：" + Title);
-                createTime.setText("发布日期：" + CreateDate);
+                title.setText( Title);
+                createTime.setText( CreateDate);
+                ddline.setText("事件截止时间："+Ddline);
                 author.setText("作者：" + Author);
-                text.setText("内容：" + Text);
+                text.setText(Text);
             }
 
             @Override
