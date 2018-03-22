@@ -286,8 +286,27 @@ public class CommonRequest {
      *          使用前用setTable ，setList ，setId 设置表中的指定一格。
      * @param rHandler 回调
      */
-    public void AddAll(String x,ResponseHandler rHandler){
+    public void Connect(String x,ResponseHandler rHandler){
         CommonRequest request = new CommonRequest();
+        request.setRequestCode("Connect");//Connect
+        request.addRequestParam("ifadd",x);
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("List", this.getList());
+        request.addRequestParam("Id", this.getId());
+        request.addRequestParam("Text", this.getText());
+        new HttpPostTask(Constant.URL_Connect, request,rHandler).execute();
+    }
+
+    /**
+     *
+     * @param x 传入“1”为退出圈子功能，传入“2”为删除评论功能，传入“3”为用户表的普通取消连接功能，传入“4”为其他表的普通取消连接功能。
+     *          使用前用setTable ，setList ，setId 设置表中的指定一格。
+     * @param rHandler 回调
+     */
+
+    public void Disconnect(String x,ResponseHandler rHandler){
+        CommonRequest request = new CommonRequest();
+        request.setRequestCode("Disconnect");//Disconnect
         request.addRequestParam("ifadd",x);
         request.addRequestParam("Table", this.getTable());
         request.addRequestParam("List", this.getList());
@@ -299,16 +318,15 @@ public class CommonRequest {
 
 
 
-
-    public void Connect(Context c){
-        CommonRequest request = new CommonRequest();
-        request.addRequestParam("ifadd","0");
-        request.addRequestParam("Table", this.getTable());
-        request.addRequestParam("List", this.getList());
-        request.addRequestParam("Id", getCurrentId(c));
-        request.addRequestParam("Community", this.getText());
-        new HttpPostTask(Constant.URL_Connect, request).execute();
-    }
+//    public void Connect(Context c){
+//        CommonRequest request = new CommonRequest();
+//        request.addRequestParam("ifadd","0");
+//        request.addRequestParam("Table", this.getTable());
+//        request.addRequestParam("List", this.getList());
+//        request.addRequestParam("Id", getCurrentId(c));
+//        request.addRequestParam("Community", this.getText());
+//        new HttpPostTask(Constant.URL_Connect, request).execute();
+//    }
 
 
 

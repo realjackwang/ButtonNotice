@@ -105,7 +105,7 @@ public class ActivitysQuestionComment extends AppCompatActivity {
                 request.setList("commentAnswer");
 
                 request.setText( aCache.getAsString("name")+":"+editText.getText().toString());
-                request.AddAll("2",new ResponseHandler() {
+                request.Connect("2",new ResponseHandler() {
                     @Override
                     public void success(CommonResponse response) {
                         Toast.makeText(ActivitysQuestionComment.this, "回答成功", Toast.LENGTH_SHORT).show();

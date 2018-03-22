@@ -90,7 +90,7 @@ public class ActivitysEnroll extends AppCompatActivity {
                 request1.setList("activityEnterPerson");
                 request1.setId(ID);
                 request1.setText(request1.getCurrentId(ActivitysEnroll.this));
-                request1.AddAll("1",new ResponseHandler() {
+                request1.Connect("1",new ResponseHandler() {
                     @Override
                     public void success(CommonResponse response) {
 
@@ -108,7 +108,7 @@ public class ActivitysEnroll extends AppCompatActivity {
                         request1.setList("activityEnterPerson");
                         request1.setId(ID);
                         request1.setText(request1.getCurrentId(ActivitysEnroll.this));
-                        request1.AddAll("1",new ResponseHandler() {
+                        request1.Connect("1",new ResponseHandler() {
                             @Override
                             public void success(CommonResponse response) {
                                 Toast.makeText(ActivitysEnroll.this, "报名表提交成功", Toast.LENGTH_SHORT).show();
