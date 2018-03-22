@@ -1,17 +1,29 @@
 package com.button.notice.User;
 
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.button.notice.Discover.Activitys.ActivitysEnroll;
 import com.button.notice.R;
+import com.button.notice.service.CommonRequest;
+import com.button.notice.service.CommonResponse;
+import com.button.notice.service.Constant;
+import com.button.notice.service.ResponseHandler;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import java.io.File;
+
+import cz.msebera.android.httpclient.Header;
 
 public class History extends AppCompatActivity {
 
@@ -42,5 +54,22 @@ public class History extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    public  void  back(View v){
+        CommonRequest request = new CommonRequest();
+        request.Download(Constant.FILE_FILES,Environment.getExternalStorageDirectory()+"/Button", new ResponseHandler() {
+            @Override
+            public void success(CommonResponse response) {
+                Toast.makeText(History.this, "cg", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void fail(String failCode, String failMsg) {
+                Toast.makeText(History.this, "sb", Toast.LENGTH_SHORT).show();
+            }
+        } );
     }
 }

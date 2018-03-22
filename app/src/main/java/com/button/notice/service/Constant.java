@@ -15,7 +15,10 @@ public class Constant {
     public static String URL_Connect = URL + "ConnectServlet";
     public static String URL_Upload =URL +"UploadServlet";
     public static String URL_Excel =URL +"ExcelServlet";
+    public static String URL_Download =URL +"DownloadServlet";
     public static String URL_Files ="http://191737tw35.51mypc.cn/upload/";
+
+    public static String FILE_FILES =" G:\\upload\\activitys\\1\\files\\";
 
     public static int HANDLER_HTTP_RECEIVE_FAIL =0;
     public static int HANDLER_HTTP_SEND_FAIL =0;

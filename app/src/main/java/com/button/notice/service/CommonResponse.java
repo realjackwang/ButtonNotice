@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Jack on 2017/12/7.
@@ -35,6 +36,11 @@ public class CommonResponse {
     private HashMap<String, String> propertyMap;
 
     /**
+     *
+     */
+    private List<String> resList;
+
+    /**
      * 列表类信息
      */
     private ArrayList<HashMap<String, String>> mapList;
@@ -49,6 +55,7 @@ public class CommonResponse {
         // 日志输出原始应答报文
         // LogUtil.logResponse(responseString);
 
+        resList =new ArrayList<>();
         propertyMap = new HashMap<>();
         mapList = new ArrayList<>();
 
@@ -59,15 +66,22 @@ public class CommonResponse {
             以下名称"resCode"、"resMsg"、"property"、"list"
             和请求体中提到的字段名称一样，都是和服务器程序开发者约定好的字段名字，在本文接下来的服务端代码会说到
          */
-            resCode = root.getString("resCode");
+            resCode = root.getString("resCode");  //可以直接获取String int boolean类型的数据
             resMsg = root.optString("resMsg");
 
-            JSONObject property = root.optJSONObject("property");
+            JSONArray reslist =root.optJSONArray("resList");
+            if(reslist !=null){
+            for(int i =0;i<reslist.length();i++){
+                resList.add((String)reslist.get(i));
+            }
+            }
+
+            JSONObject property = root.optJSONObject("property");   //获取Map数组
             if (property != null) {
                 parseProperty(property, propertyMap);
             }
 
-            JSONArray list = root.optJSONArray("list");
+            JSONArray list = root.optJSONArray("list");  //遍历获取arraylist
             if (list != null) {
                 parseList(list);
             }
@@ -126,6 +140,9 @@ public class CommonResponse {
         return mapList;
     }
 
+    public List<String> getResList(){
+        return  resList;
+    }
 
 
 }

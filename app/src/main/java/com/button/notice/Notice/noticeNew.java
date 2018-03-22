@@ -556,6 +556,7 @@ public class noticeNew extends AppCompatActivity implements View.OnClickListener
 
                         CommonRequest request = new CommonRequest();
                         request.setId(request.getCurrentId(noticeNew.this));
+                        request.setType("3");
                         if(request.getCurrentId(noticeNew.this).isEmpty()){
                             Toast.makeText(getApplicationContext(), "登录失效，请重新登录",Toast.LENGTH_LONG).show();
                         }

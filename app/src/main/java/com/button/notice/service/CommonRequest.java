@@ -2,6 +2,7 @@ package com.button.notice.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.util.Log;
 
 import com.button.notice.util.ACache;
@@ -13,9 +14,18 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
+
+import droidninja.filepicker.utils.FileUtils;
+
+import static com.button.notice.service.Constant.URL_Download;
 
 /**
  * Created by Jack on 2017/12/7.
@@ -270,14 +280,19 @@ public class CommonRequest {
         new HttpPostTask(Constant.URL_Connect, request).execute();
     }
 
-
+    /**
+     *
+     * @param x 传入“0”为收藏功能，传入“1”为加入圈子功能，传入“2”为评论功能，传入“3”为用户表的普通连接功能，传入“4”为其他表的普通连接功能。
+     *          使用前用setTable ，setList ，setId 设置表中的指定一格。
+     * @param rHandler 回调
+     */
     public void AddAll(String x,ResponseHandler rHandler){
         CommonRequest request = new CommonRequest();
         request.addRequestParam("ifadd",x);
         request.addRequestParam("Table", this.getTable());
         request.addRequestParam("List", this.getList());
         request.addRequestParam("Id", this.getId());
-        request.addRequestParam("Community", this.getText());
+        request.addRequestParam("Text", this.getText());
         new HttpPostTask(Constant.URL_Connect, request,rHandler).execute();
     }
 
@@ -291,24 +306,24 @@ public class CommonRequest {
         request.addRequestParam("Table", this.getTable());
         request.addRequestParam("List", this.getList());
         request.addRequestParam("Id", getCurrentId(c));
-        Log.d("asdasdsadasd",getCurrentId(c));
         request.addRequestParam("Community", this.getText());
         new HttpPostTask(Constant.URL_Connect, request).execute();
     }
 
 
+
+
+
+
+
     /**
      * 下载前，设置文件在云服务器中的URL，然后写下面的句子，逗号前面是你要下载的地方，逗号后面不用管，那个Envionment什么的是获取SD卡目录。后面我随便设置的文件夹。
      *   File file=new File(Environment.getExternalStorageDirectory()+"/ServiceTest",path.substring(path.lastIndexOf("/")+1));
-      * @param x
      * @param rHandler
      */
 
-    public void Download(String x,FileAsyncHttpResponseHandler rHandler){
-
-        //下载之后存放的路径 获取SD卡的路径
-        AsyncHttpClient client=new AsyncHttpClient();
-        client.get(x, rHandler);
+    public void Download(String path,String file,ResponseHandler rHandler){
+        new HttpPostTaskDown(path,file, rHandler).execute();
 
     }
 
