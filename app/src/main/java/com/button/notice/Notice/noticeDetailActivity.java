@@ -217,9 +217,19 @@ public class noticeDetailActivity extends AppCompatActivity {
             request6.setTable("table_user_info");
             request6.setList("userRead");
             request6.setText(noticeId);
-            request6.Connect(noticeDetailActivity.this);
-            Toast toast2=Toast.makeText(noticeDetailActivity.this, noticeId + "，取消已读成功", Toast.LENGTH_LONG);
-            myToast.showMyToast(toast2, 1*1000);
+            request6.AddAll("3", new ResponseHandler() {
+                @Override
+                public void success(CommonResponse response) {
+                    Toast toast2=Toast.makeText(noticeDetailActivity.this, noticeId + "，取消已读成功", Toast.LENGTH_LONG);
+                    myToast.showMyToast(toast2, 1*1000);
+                }
+
+                @Override
+                public void fail(String failCode, String failMsg) {
+
+                }
+            });
+
         }));
         ifread.setOnClickListener(view -> {
             ifread.setVisibility(View.GONE);
