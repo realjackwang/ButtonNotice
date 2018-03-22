@@ -19,14 +19,15 @@
             android:layout_gravity="center|top"
 
             />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="竞赛与活动"
+            android:layout_gravity="center|top"
             android:layout_marginTop="210dp"
+            android:text="多彩活动"
             android:textColor="@color/white"
             android:textSize="15dp"
-            android:layout_gravity="center|top"
 
             />
 
@@ -34,11 +35,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="   快捷报名、组队，及时获取最新消息 。"
+            android:layout_gravity="center|top"
             android:layout_marginTop="250dp"
+            android:text="   一键报名，大学别样丰富多彩"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:layout_gravity="center|top"
 
             />
 

@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -85,6 +86,8 @@ public class buttonLogin extends AppCompatActivity  {
 
         etAccount = (EditText) findViewById(R.id.UserId);
         etPassword = (EditText) findViewById(R.id.UserKey);
+        etAccount.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+        etPassword.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 
 
 

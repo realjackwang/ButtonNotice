@@ -34,11 +34,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="    没有聊天功能，使通知传达更高效。"
+            android:layout_gravity="center|top"
             android:layout_marginTop="250dp"
+            android:text="    便捷群组，通知传达更准确。"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:layout_gravity="center|top"
 
             />
 
