@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,7 +20,6 @@ import com.button.notice.util.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ActivitysQuestion extends AppCompatActivity {
     String Id;
@@ -93,7 +91,7 @@ public class ActivitysQuestion extends AppCompatActivity {
     }
 
     private void addComment(String x,String y){
-        View commentview = View.inflate(this, R.layout.comment_list_item, null);
+        View commentview = View.inflate(this, R.layout.list_item_comment, null);
         TextView commentname =  commentview.findViewById(R.id.commentname);
         commentname.setText(x);
         commentname.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +108,7 @@ public class ActivitysQuestion extends AppCompatActivity {
 
 
     private void addCommentComment(String x,String y){
-        View commentview = View.inflate(this, R.layout.comment_list_item_2, null);
+        View commentview = View.inflate(this, R.layout.list_item_comment_2, null);
         TextView commentname =  commentview.findViewById(R.id.commentname);
         commentname.setText(x);
         commentname.setOnClickListener(new View.OnClickListener() {

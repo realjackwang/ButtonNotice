@@ -16,7 +16,6 @@ import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
 import com.button.notice.util.ACache;
-import com.button.notice.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +48,7 @@ public class LostFragment extends ListFragment {
         ACache aCache = ACache.get(getActivity());
         ArrayList<HashMap<String, String>> list =  (ArrayList<HashMap<String,String>>) aCache.getAsObject("lost");
         if(list!=null){
-            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"lostType", "lostInfo"},new int[]{R.id.title, R.id.info});
+            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"lostType", "lostInfo"},new int[]{R.id.title, R.id.info});
             listView.setAdapter(adapter);
         }
 
@@ -73,14 +72,14 @@ public class LostFragment extends ListFragment {
                         if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("lost")).size() != list.size()) {
 
                             aCache.put("lost", list);
-                            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"lostType", "lostInfo"},new int[]{R.id.title, R.id.info});
+                            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"lostType", "lostInfo"},new int[]{R.id.title, R.id.info});
                             listView.setAdapter(adapter);
                                     }
                                 }
                                 else {
 
                                     aCache.put("lost", list);
-                                    SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"lostType", "lostInfo"},new int[]{R.id.title, R.id.info});
+                                    SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"lostType", "lostInfo"},new int[]{R.id.title, R.id.info});
                                     listView.setAdapter(adapter);
                                 }
 

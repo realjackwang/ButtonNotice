@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.button.notice.Fragment.noticeFragment;
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
@@ -58,7 +57,7 @@ public class associationFragment extends ListFragment {
         ACache aCache = ACache.get(getActivity());
         ArrayList<HashMap<String, String>> list =  (ArrayList<HashMap<String,String>>) aCache.getAsObject("circle2");
         if(list!=null){
-            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
+            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
             listView.setAdapter(adapter);
         }
 
@@ -106,14 +105,14 @@ public class associationFragment extends ListFragment {
                                         if (((ArrayList<HashMap<String, String>>) aCache.getAsObject("circle2")).size() != list1.size()) {
 
                                             aCache.put("circle2", list1);
-                                            SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.circle_listviewitem, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
+                                            SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.list_item_circle, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
                                             listView.setAdapter(adapter);
                                         }
 
                                     } else {
 
                                         aCache.put("circle2", list1);
-                                        SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.circle_listviewitem, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
+                                        SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.list_item_circle, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
                                         listView.setAdapter(adapter);
                                     }
 

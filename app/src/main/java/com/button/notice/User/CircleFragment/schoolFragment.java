@@ -55,7 +55,7 @@ public class schoolFragment extends ListFragment {
         ACache aCache = ACache.get(getActivity());
         ArrayList<HashMap<String, String>> list =  (ArrayList<HashMap<String,String>>) aCache.getAsObject("circle1");
         if(list!=null){
-            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
+            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"communityName", "communityInfo"},new int[]{R.id.title, R.id.info});
             listView.setAdapter(adapter);
         }
 
@@ -106,14 +106,14 @@ public class schoolFragment extends ListFragment {
 
 
                                             aCache.put("circle1", list1);
-                                            SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.circle_listviewitem, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
+                                            SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.list_item_circle, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
                                             listView.setAdapter(adapter);
                                         }
 
                                     } else {
 
                                         aCache.put("circle1", list1);
-                                        SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.circle_listviewitem, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
+                                        SimpleAdapter adapter = new SimpleAdapter(getContext(), list1, R.layout.list_item_circle, new String[]{"communityName", "communityInfo"}, new int[]{R.id.title, R.id.info});
                                         listView.setAdapter(adapter);
                                     }
 

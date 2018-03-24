@@ -133,7 +133,7 @@ public class ActivitysQuestionComment extends AppCompatActivity {
 
 
     private void addComment(String x){
-        View commentview = View.inflate(this, R.layout.comment_list_item, null);
+        View commentview = View.inflate(this, R.layout.list_item_comment, null);
         TextView commentname =  commentview.findViewById(R.id.commentname);
         commentname.setText(x);
         addHotelNameView.addView(commentview);

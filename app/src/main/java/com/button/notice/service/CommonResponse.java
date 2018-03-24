@@ -132,6 +132,11 @@ public class CommonResponse {
         return resMsg;
     }
 
+    public  void setResMsg(String ResMsg){
+        this.resMsg = ResMsg;
+
+    }
+
     public HashMap<String, String> getPropertyMap() {
         return propertyMap;
     }

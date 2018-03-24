@@ -3,6 +3,10 @@ package com.button.notice.JPush;
 import android.app.Application;
 import android.content.Context;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -19,7 +23,8 @@ public class MyApplication extends Application {
     	 Logger.d(TAG, "[MyApplication] onCreate");
          super.onCreate();
         MyApplication.context = getApplicationContext();
-
+        Context context = getApplicationContext();
+        initImageLoader(context);
 //        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
 //         JPushInterface.init(this);     		// 初始化 JPush
 
@@ -29,4 +34,15 @@ public class MyApplication extends Application {
         return MyApplication.context;
     }
 
+    public static void initImageLoader(Context context) {
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                context).threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .writeDebugLogs()
+                .build();
+
+        ImageLoader.getInstance().init(config);
+    }
 }

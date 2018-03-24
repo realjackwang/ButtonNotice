@@ -93,7 +93,28 @@
         <activity android:name=".Discover.Activitys.ActivitysEnter" />
         <activity android:name=".Discover.Activitys.ActivitysEnroll" />
         <activity android:name=".Discover.Activitys.ActivitysQuestion" />
-        <activity android:name=".Discover.Activitys.ActivitysQuestionComment"></activity>
+        <activity android:name=".User.MyActivitys.ActivityDetail" />
+        <activity android:name=".Discover.Activitys.ActivitysQuestionComment" />
+        <activity android:name=".User.MyActivitys.EnrollDetail"></activity>
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.button.notice.fileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
+
+
+
     </application>
+
+
+
 
 </manifest>

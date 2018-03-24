@@ -318,15 +318,15 @@ public class CommonRequest {
 
 
 
-//    public void Connect(Context c){
-//        CommonRequest request = new CommonRequest();
-//        request.addRequestParam("ifadd","0");
-//        request.addRequestParam("Table", this.getTable());
-//        request.addRequestParam("List", this.getList());
-//        request.addRequestParam("Id", getCurrentId(c));
-//        request.addRequestParam("Community", this.getText());
-//        new HttpPostTask(Constant.URL_Connect, request).execute();
-//    }
+    public void Connect(Context c){
+        CommonRequest request = new CommonRequest();
+        request.addRequestParam("ifadd","0");
+        request.addRequestParam("Table", this.getTable());
+        request.addRequestParam("List", this.getList());
+        request.addRequestParam("Id", getCurrentId(c));
+        request.addRequestParam("Community", this.getText());
+        new HttpPostTask(Constant.URL_Connect, request).execute();
+    }
 
 
 
@@ -340,10 +340,52 @@ public class CommonRequest {
      * @param rHandler
      */
 
-    public void Download(String path,String file,ResponseHandler rHandler){
-        new HttpPostTaskDown(path,file, rHandler).execute();
+    /**
+    CommonRequest request = new CommonRequest();
+    String path =Constant.URL_Database+"报名表.doc";
+    File file=new File(Environment.getExternalStorageDirectory()+"/ServiceTest",path.substring(path.lastIndexOf("/")+1));
+                request.Download(path, new FileAsyncHttpResponseHandler(file) {
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+            Toast.makeText(this, "文件下载失败"+statusCode,Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, File file) {
+
+            Toast.makeText(this, "文件下载成功"+file.getPath(),Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            // TODO Auto-generated method stub
+            super.onProgress(bytesWritten, totalSize);
+            int count = (int) ((bytesWritten * 1.0 / totalSize) * 100);
+            // 下载进度显示
+            bar.setProgress(count);
+
+        }
+
+
+    });
+
+    **/
+
+    public void Download(String x,FileAsyncHttpResponseHandler rHandler){
+
+        //下载之后存放的路径 获取SD卡的路径
+        AsyncHttpClient client=new AsyncHttpClient();
+        client.get(x, rHandler);
 
     }
+
+
+    public void Download(String path,String file,ResponseHandler rHandler){
+        new HttpPostTaskDown(path,file,rHandler).execute();
+
+    }
+
+
 
     /**
      * 单文件上传

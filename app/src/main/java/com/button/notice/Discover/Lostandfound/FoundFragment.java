@@ -16,7 +16,6 @@ import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
 import com.button.notice.util.ACache;
-import com.button.notice.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +47,7 @@ public class FoundFragment extends ListFragment {
         ACache aCache = ACache.get(getActivity());
         ArrayList<HashMap<String, String>> list =  (ArrayList<HashMap<String,String>>) aCache.getAsObject("found");
         if(list!=null){
-            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"foundType", "foundInfo"},new int[]{R.id.title, R.id.info});
+            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"foundType", "foundInfo"},new int[]{R.id.title, R.id.info});
             listView.setAdapter(adapter);
         }
 
@@ -76,7 +75,7 @@ public class FoundFragment extends ListFragment {
 //
 //
 //                            aCache.put("found", list);
-//                            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"foundType", "foundInfo"},new int[]{R.id.title, R.id.info});
+//                            SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"foundType", "foundInfo"},new int[]{R.id.title, R.id.info});
 //                            listView.setAdapter(adapter);
 //                                    }
 //
@@ -84,7 +83,7 @@ public class FoundFragment extends ListFragment {
 //                                else {
 
                     aCache.put("found", list);
-                    SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.circle_listviewitem,new String[]{"foundType", "foundInfo"},new int[]{R.id.title, R.id.info});
+                    SimpleAdapter adapter =new SimpleAdapter(getContext(), list,R.layout.list_item_circle,new String[]{"foundType", "foundInfo"},new int[]{R.id.title, R.id.info});
                     listView.setAdapter(adapter);
 //                                }
 

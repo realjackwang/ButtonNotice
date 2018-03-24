@@ -9,12 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.button.notice.R;
-import com.button.notice.User.UserInfo;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
 import com.button.notice.service.ResponseHandler;
@@ -146,7 +144,7 @@ public class ActivitysEnroll extends AppCompatActivity {
     //添加ViewItem
     private void addViewItem(int i) {
 
-            View hotelEvaluateView = View.inflate(this, R.layout.enroll_list_item, null);
+            View hotelEvaluateView = View.inflate(this, R.layout.list_item_enroll, null);
             TextView btn_add =  hotelEvaluateView.findViewById(R.id.enrollname);
             EditText editText = hotelEvaluateView.findViewById(R.id.enrollinfo);
 

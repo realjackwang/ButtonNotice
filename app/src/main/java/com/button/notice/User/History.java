@@ -59,17 +59,17 @@ public class History extends AppCompatActivity {
 
 
     public  void  back(View v){
-        CommonRequest request = new CommonRequest();
-        request.Download(Constant.FILE_FILES,Environment.getExternalStorageDirectory()+"/Button/", new ResponseHandler() {
-            @Override
-            public void success(CommonResponse response) {
-                Toast.makeText(History.this, "cg", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void fail(String failCode, String failMsg) {
-                Toast.makeText(History.this, "sb", Toast.LENGTH_SHORT).show();
-            }
-        } );
+//        CommonRequest request = new CommonRequest();
+//        request.Download(Constant.FILE_FILES,Environment.getExternalStorageDirectory()+"/Button/", new ResponseHandler() {
+//            @Override
+//            public void success(CommonResponse response) {
+//                Toast.makeText(History.this, "cg", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void fail(String failCode, String failMsg) {
+//                Toast.makeText(History.this, "sb", Toast.LENGTH_SHORT).show();
+//            }
+//        } );
     }
 }

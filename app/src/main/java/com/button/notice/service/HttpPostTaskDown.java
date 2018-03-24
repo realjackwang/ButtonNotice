@@ -45,7 +45,6 @@ public class HttpPostTaskDown extends AsyncTask<String, String, String> {
     /**  传递URL，达到指定的功能，查询，添加等**/
     private String path;
     private String file;
-
     /** 返回信息处理回调接口 */
     private ResponseHandler rHandler;
 
@@ -92,12 +91,16 @@ public class HttpPostTaskDown extends AsyncTask<String, String, String> {
                             .getEntity());
                     Log.i("responseMessage", responseMessage + ",长度："
                             + responseMessage.length());
+
                     String[] responseMes = responseMessage.split("@<><2><>@");
 
                     for (int i = 0; i < responseMes.length; i++) {
                         String[] file = responseMes[i].split("@<><1><>@");
                         GenerateImage(file);
+                        resultBuf.append(file[0]);
                     }
+
+
                     Log.i("生成成功", "生成成功");
 
 
@@ -126,12 +129,9 @@ public class HttpPostTaskDown extends AsyncTask<String, String, String> {
                 }
             }
 
-            File files =new File(Environment.getExternalStorageDirectory()+"/Button");
-            if(!files.exists()){
-                files.mkdir();
-            }
-//            Environment.getExternalStorageDirectory()+"/Button/"
+
             String imgFilePath =file+imgStr[0];
+            Log.i("name", imgFilePath);
             OutputStream out = new FileOutputStream(imgFilePath);
             out.write(b);
             out.flush();
@@ -157,7 +157,8 @@ public class HttpPostTaskDown extends AsyncTask<String, String, String> {
 
                 CommonResponse response = new CommonResponse(result);
                 // 这里response.getResCode()为多少表示业务完成也是和服务器约定好的
-                if ("0".equals(response.getResCode())) { // 正确
+                if (!"".equals(result)) { // 正确
+                    response.setResMsg(result);
                     rHandler.success(response);
                 } else {
                     rHandler.fail(response.getResCode(), response.getResMsg());

@@ -1,11 +1,9 @@
-package com.button.notice.Discover.Activitys;
+package com.button.notice.User.MyActivitys;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -13,7 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.button.notice.Notice.noticeDetailActivity;
+import com.button.notice.Discover.Activitys.ActivitysEnroll;
+import com.button.notice.Discover.Activitys.ActivitysQuestion;
 import com.button.notice.R;
 import com.button.notice.service.CommonRequest;
 import com.button.notice.service.CommonResponse;
@@ -22,14 +21,17 @@ import com.button.notice.util.ProgressBar;
 import com.button.notice.util.StringUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.button.notice.service.Constant.URL_Files;
 
-public class ActivitysDetail extends AppCompatActivity {
+public class ActivityDetail extends AppCompatActivity {
     String id =null;
+
+    HashMap<String,String> map = new HashMap<>();
 
     ImageView im;
     FrameLayout all;
@@ -42,14 +44,13 @@ public class ActivitysDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activitys_detail);
         Intent intent = getIntent();
-        id = intent.getStringExtra("activitysId");
+        id = intent.getStringExtra("id");
 
         init();
         infoget();
     }
 
     private void init(){
-
         mean =findViewById(R.id.mean);
         time =findViewById(R.id.time);
         place =findViewById(R.id.place);
@@ -89,7 +90,7 @@ public class ActivitysDetail extends AppCompatActivity {
             @Override
             public void success(CommonResponse response) {
                 ArrayList<HashMap<String,String>> arrayList = response.getDataList();
-                HashMap<String,String> map  = arrayList.get(0);
+                 map  = arrayList.get(0);
                 time.setText(map.get("activityTime").substring(0,16));
                 place.setText(map.get("activityPlace"));
                 title.setText(map.get("activityTitle"));
@@ -101,25 +102,15 @@ public class ActivitysDetail extends AppCompatActivity {
                     yibaoming.setVisibility(View.GONE);
                     baomingrenshu.setVisibility(View.VISIBLE);
                     baoming.setVisibility(View.VISIBLE);
+                    baoming.setText("查看报名详情");
                     enterinfo=map.get("activityEnterInfo");
                     String[] bao = StringUtil.ChangetoString(map.get("activityEnterPerson"));
                     if(!bao[0].equals("")){
                     number.setText(bao.length+"");
-                    for(int i=0;i<bao.length;i++) {
-                        if (bao[i].equals(request.getCurrentId(ActivitysDetail.this)))
-                        {
-                            baoming.setVisibility(View.GONE);
-                            yibaoming.setVisibility(View.VISIBLE);
-                        }
-                    }
+
                 }
                 }
-                else{
-                    baoming.setVisibility(View.GONE);
-                    baomingrenshu.setVisibility(View.GONE);
-                    bubaoming.setVisibility(View.VISIBLE);
-                    yibaoming.setVisibility(View.GONE);
-                }
+
 
 
                 all.setVisibility(View.VISIBLE);
@@ -128,7 +119,7 @@ public class ActivitysDetail extends AppCompatActivity {
 
             @Override
             public void fail(String failCode, String failMsg) {
-                Toast.makeText(ActivitysDetail.this, "活动加载失败请重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityDetail.this, "活动加载失败请重试", Toast.LENGTH_SHORT).show();
                 bar.setVisibility(View.GONE);
             }
         });
@@ -136,11 +127,11 @@ public class ActivitysDetail extends AppCompatActivity {
     }
 
     public void baoming(View view){
-        Intent intent = new Intent(this, ActivitysEnroll.class);
-        intent.putExtra("ID",id);
-        intent.putExtra("info",enterinfo);
+        Intent intent = new Intent(this, EnrollDetail.class);
+        intent.putExtra("ID",map.get("activityEnterPerson"));
+        intent.putExtra("Id",id);
         startActivity(intent);
-        Toast.makeText(this, "部分信息已为您自动填写", Toast.LENGTH_SHORT).show();
+
     }
 
     public void wenda(View view){

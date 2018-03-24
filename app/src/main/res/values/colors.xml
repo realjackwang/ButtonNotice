@@ -20,9 +20,14 @@
     <color name="blue">#03a9f4</color>
     <color name="grey">#607D8B</color>
     <color name="orange">#F57C00</color>
+    <color name="red">#ff0000</color>
+
+
     <color name="touming">#00000000</color>
     <color name="background">#f9f9f9</color>
     <color name="lightGray">#bdbdbd</color>
+    <color name="lightwhite">#e7f2ff</color>
+
 
 
 

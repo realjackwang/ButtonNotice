@@ -53,7 +53,7 @@ public class noticeSearch extends ListActivity implements TextView.OnEditorActio
                 @Override
                 public void success(CommonResponse response) {
                     ArrayList<HashMap<String, String>> arrayList1 = response.getDataList();
-                    SimpleAdapter adapter =new SimpleAdapter(noticeSearch.this, arrayList1,R.layout.circle_listviewitem,new String[]{"noticeTitle","noticeText",},new int[]{R.id.title,R.id.info});
+                    SimpleAdapter adapter =new SimpleAdapter(noticeSearch.this, arrayList1,R.layout.list_item_circle,new String[]{"noticeTitle","noticeText",},new int[]{R.id.title,R.id.info});
                     setListAdapter(adapter);
                 }
 

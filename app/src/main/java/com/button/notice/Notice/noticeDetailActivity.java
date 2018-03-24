@@ -217,7 +217,7 @@ public class noticeDetailActivity extends AppCompatActivity {
             request6.setTable("table_user_info");
             request6.setList("userRead");
             request6.setText(noticeId);
-            request6.AddAll("3", new ResponseHandler() {
+            request6.Connect("3", new ResponseHandler() {
                 @Override
                 public void success(CommonResponse response) {
                     Toast toast2=Toast.makeText(noticeDetailActivity.this, noticeId + "，取消已读成功", Toast.LENGTH_LONG);
