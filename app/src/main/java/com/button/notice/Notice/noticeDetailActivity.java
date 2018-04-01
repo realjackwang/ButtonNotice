@@ -25,6 +25,7 @@ import java.util.SplittableRandom;
 
 import static android.widget.Toast.makeText;
 import static cn.jpush.android.api.JPushInterface$a.m;
+import static cn.jpush.android.api.JPushInterface$a.u;
 import static cn.jpush.android.api.JPushInterface$a.v;
 import static cn.jpush.android.api.JPushInterface$a.w;
 
@@ -146,6 +147,7 @@ public class noticeDetailActivity extends AppCompatActivity {
         CommonRequest requestRead = new CommonRequest();
         requestRead.setTable("table_user_info");
         requestRead.setWhereEqualTo("userId",userId);
+        //Toast.makeText(noticeDetailActivity.this,"查询了",Toast.LENGTH_SHORT).show();
         requestRead.Query(new ResponseHandler() {
             @Override
             public void success(CommonResponse response) {
@@ -166,7 +168,7 @@ public class noticeDetailActivity extends AppCompatActivity {
                     ifread.setVisibility(View.GONE);
                     ifread1.setVisibility(View.VISIBLE); }
 
-                else if (ifread.equals("false")){
+                else if (ifRead.equals("false")){
                     ifread.setVisibility(View.VISIBLE);
                     ifread1.setVisibility(View.GONE);
                 }
@@ -183,41 +185,67 @@ public class noticeDetailActivity extends AppCompatActivity {
 
         //**********************//
         //收藏按钮功能 向数据库写入或删除部分
+        //删除
         ifcollect1.setOnClickListener((view -> {
             ifcollect1.setVisibility(View.GONE);
             ifcollect.setVisibility(View.VISIBLE);
             CommonRequest request5 = new CommonRequest();
             request5.setTable("table_user_info");
             request5.setList("userCollection");
+            request5.setId(userId);
             request5.setText(noticeId);
-            request5.Connect(noticeDetailActivity.this);
-            Toast toast1=Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT);
-            myToast.showMyToast(toast1, 1*1000);
+            request5.Connect("0", new ResponseHandler() {
+                @Override
+                public void success(CommonResponse response) {
+                    Toast toast1=Toast.makeText(noticeDetailActivity.this, noticeId + "，取消收藏成功", Toast.LENGTH_SHORT);
+                    myToast.showMyToast(toast1, 1*1000);
+                }
+
+                @Override
+                public void fail(String failCode, String failMsg) {
+
+                }
+            });
+
         }));
+        //写入
         ifcollect.setOnClickListener(view -> {
             ifcollect.setVisibility(View.GONE);
             ifcollect1.setVisibility(View.VISIBLE);
             CommonRequest request6 = new CommonRequest();
             request6.setTable("table_user_info");
             request6.setList("userCollection");
+            request6.setId(userId);
             request6.setText(noticeId);
-            request6.Connect(noticeDetailActivity.this);
-            Toast toast=Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_LONG);
-            myToast.showMyToast(toast, 1*1000);
+            request6.Connect("0", new ResponseHandler() {
+                @Override
+                public void success(CommonResponse response) {
+                    Toast toast=Toast.makeText(noticeDetailActivity.this, noticeId + "，收藏成功", Toast.LENGTH_LONG);
+                    myToast.showMyToast(toast, 1*1000);
+                }
+
+                @Override
+                public void fail(String failCode, String failMsg) {
+
+                }
+            });
+
 
         });
         //**********************//
 
         //**********************//
         //已读按钮功能 向数据库写入或删除部分
+        //删除
         ifread1.setOnClickListener((view -> {
             ifread1.setVisibility(View.GONE);
             ifread.setVisibility(View.VISIBLE);
             CommonRequest request6 = new CommonRequest();
             request6.setTable("table_user_info");
             request6.setList("userRead");
+            request6.setId(userId);
             request6.setText(noticeId);
-            request6.Connect("3", new ResponseHandler() {
+            request6.Disconnect("3", new ResponseHandler() {
                 @Override
                 public void success(CommonResponse response) {
                     Toast toast2=Toast.makeText(noticeDetailActivity.this, noticeId + "，取消已读成功", Toast.LENGTH_LONG);
@@ -231,16 +259,28 @@ public class noticeDetailActivity extends AppCompatActivity {
             });
 
         }));
+        //写入
         ifread.setOnClickListener(view -> {
             ifread.setVisibility(View.GONE);
             ifread1.setVisibility(View.VISIBLE);
             CommonRequest request7 = new CommonRequest();
             request7.setTable("table_user_info");
             request7.setList("userRead");
+            request7.setId(userId);
             request7.setText(noticeId);
-            request7.Connect(noticeDetailActivity.this);
-            Toast toast1=Toast.makeText(noticeDetailActivity.this, noticeId + "，已读本条通知，将反馈给发布者", Toast.LENGTH_LONG);
-            myToast.showMyToast(toast1, 1*1000);
+            request7.Connect("3", new ResponseHandler() {
+                @Override
+                public void success(CommonResponse response) {
+                    Toast toast1=Toast.makeText(noticeDetailActivity.this, noticeId + "，已读本条通知，将反馈给发布者", Toast.LENGTH_LONG);
+                    myToast.showMyToast(toast1, 1*1000);
+                }
+
+                @Override
+                public void fail(String failCode, String failMsg) {
+
+                }
+            });
+
 
         });
         //**********************//
