@@ -95,26 +95,19 @@
         <activity android:name=".Discover.Activitys.ActivitysQuestion" />
         <activity android:name=".User.MyActivitys.ActivityDetail" />
         <activity android:name=".Discover.Activitys.ActivitysQuestionComment" />
-        <activity android:name=".User.MyActivitys.EnrollDetail"></activity>
-
+        <activity android:name=".User.MyActivitys.EnrollDetail" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.button.notice.fileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
 
-
-
-
-
+        <activity android:name=".Discover.Lostandfound.LostandfoundDetail"></activity>
     </application>
-
-
-
 
 </manifest>

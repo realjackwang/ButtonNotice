@@ -48,7 +48,7 @@ public class ActivitysDetail extends AppCompatActivity {
         infoget();
     }
 
-    private void init(){
+      private void init(){
 
         mean =findViewById(R.id.mean);
         time =findViewById(R.id.time);

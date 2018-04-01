@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.button.notice.Discover.Lostandfound.LostandfoundDetail;
 import com.button.notice.R;
 import com.button.notice.User.MyActivitys.ActivityDetail;
 import com.button.notice.service.CommonRequest;
@@ -57,7 +58,7 @@ public class LostandFoundFragment extends ListFragment {
         ACache aCache = ACache.get(getActivity());
         ArrayList<HashMap<String, String>> list =  (ArrayList<HashMap<String,String>>) aCache.getAsObject("mylostandfound");
         if(list!=null){
-            SimpleAdapter adapter = new SimpleAdapter(getActivity(), list1, R.layout.list_item_xunwu, new String[]{"foundType", "foundName", "foundDate", "foundState","lost"}, new int[]{R.id.title, R.id.info, R.id.date, R.id.state,R.id.lost});
+            SimpleAdapter adapter = new SimpleAdapter(getActivity(), list, R.layout.list_item_xunwu, new String[]{"foundType", "foundName", "foundDate", "foundState","lost"}, new int[]{R.id.title, R.id.info, R.id.date, R.id.state,R.id.lost});
             a.setAdapter(adapter);
         }
     }
@@ -155,7 +156,7 @@ public class LostandFoundFragment extends ListFragment {
         String Text=map.get("Id");
         Intent intent = new Intent();
         intent.putExtra("id", Text);
-        intent.setClass(getActivity(), ActivityDetail.class);
+        intent.setClass(getActivity(), LostandfoundDetail.class);
         getActivity().startActivity(intent);
         // TODO Auto-generated method stub
         super.onListItemClick(l, v, position, id);
