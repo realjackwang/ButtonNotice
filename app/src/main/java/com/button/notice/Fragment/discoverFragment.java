@@ -68,7 +68,7 @@ public class discoverFragment extends Fragment {
         viewPager =view.findViewById(R.id.viewpager);
         xunwu = view.findViewById(R.id.xunwu);
         wenjuan = view.findViewById(R.id.wenjuan);
-        group = (ViewGroup)view.findViewById(R.id.viewGroup);
+        group = view.findViewById(R.id.viewGroup);
         more = view.findViewById(R.id.more);
 
 
