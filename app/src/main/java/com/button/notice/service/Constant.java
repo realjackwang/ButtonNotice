@@ -5,7 +5,7 @@ package com.button.notice.service;
  */
 
 public class Constant {
-    public static String URL = "http://button.iok.la:43047/ServletTest/"; // IP地址请改为你自己的IP
+    public static String URL = "http://button.iok.la:37757/ServletTest/"; // IP地址请改为你自己的IP
     public static String URL_Register = URL + "RegisterServlet" ;
     public static String URL_Login = URL + "LoginServlet" ;
     public static String URL_Create = URL + "CreateServlet" ;
@@ -16,12 +16,11 @@ public class Constant {
     public static String URL_Upload =URL +"UploadServlet";
     public static String URL_Excel =URL +"ExcelServlet";
     public static String URL_Download =URL +"DownloadServlet";
-    public static String URL_Files ="http://button.iok.la:43047/upload/";
+    public static String URL_Files ="http://button.iok.la:37757/upload/";
 
     public static String FILE_FILES =" G:\\upload\\activitys\\1\\files\\";
 
     public static int HANDLER_HTTP_RECEIVE_FAIL =0;
     public static int HANDLER_HTTP_SEND_FAIL =0;
-
 
 }

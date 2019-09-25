@@ -19,6 +19,7 @@ import com.button.notice.R;
 
 public class LoadUtils {
 
+
     public static Dialog createLoadingDialog(Context context, String msg) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.utils_loading, null);// 得到加载view
